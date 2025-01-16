@@ -4,10 +4,23 @@ using DevSkill.Inventory.Web;
 using DevSkill.Inventory.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
+#region Bootstrap Serilog
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(configuration)
+    .CreateBootstrapLogger();
+
+#endregion
 
 try
 {
+    Log.Information("Application Starting Up...");
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
@@ -23,6 +36,13 @@ try
         builder.RegisterModule(new WebModule());
     });
     #endregion
+
+    #region Serilog Configuration 
+    builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+        loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration));
+
+    #endregion
+
 
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
         .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -61,7 +81,9 @@ try
 }
 catch (Exception ex)
 {
+    Log.Fatal(ex, "Application start-up failed");
 }
 finally
 {
+    Log.CloseAndFlush();
 }

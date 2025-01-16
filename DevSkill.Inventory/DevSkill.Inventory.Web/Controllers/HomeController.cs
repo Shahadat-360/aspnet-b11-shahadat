@@ -15,11 +15,13 @@ namespace DevSkill.Inventory.Web.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Home page visited");
             return View();
         }
 
         public IActionResult Privacy()
         {
+            _logger.LogInformation("Privacy page visited");
             return View();
         }
 
