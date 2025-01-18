@@ -69,6 +69,15 @@ try
 
     app.MapStaticAssets();
 
+    #region Area route configuration
+
+    app.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}")
+        .WithStaticAssets();
+
+    #endregion
+
     app.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}")
