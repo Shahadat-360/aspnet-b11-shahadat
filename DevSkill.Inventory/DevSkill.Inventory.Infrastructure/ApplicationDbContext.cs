@@ -14,6 +14,7 @@ namespace DevSkill.Inventory.Infrastructure
         private readonly string _connectionString;
         private readonly string _migrationAssembly;
         public DbSet<Product> Products { get; set; }
+        public DbSet<Log> Logs { get; set; }
         public ApplicationDbContext(string connectionString, string migrationAssembly)
         {
             _connectionString = connectionString;
