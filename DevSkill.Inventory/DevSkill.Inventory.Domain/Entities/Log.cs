@@ -1,4 +1,4 @@
-﻿namespace DevSkill.Inventory.Web.Models
+﻿namespace DevSkill.Inventory.Domain.Entities
 {
     public class Log
     {

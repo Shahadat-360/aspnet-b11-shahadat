@@ -1,10 +1,12 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Web;
 using DevSkill.Inventory.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Reflection;
 
 #region Bootstrap Serilog
 var configuration = new ConfigurationBuilder()
@@ -25,15 +27,13 @@ try
 
     // Add services to the container.
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-    builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseSqlServer(connectionString));
-    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    var migrationAssembly = Assembly.GetExecutingAssembly();
 
     #region Autoface Configuration 
     builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
     builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
     {
-        builder.RegisterModule(new WebModule());
+        builder.RegisterModule(new WebModule(connectionString,migrationAssembly?.FullName));
     });
     #endregion
 
@@ -43,9 +43,28 @@ try
 
     #endregion
 
+    #region MediatR Configuration
+    var mediatRAssembly = Assembly.Load("DevSkill.Inventory.Application");
+    builder.Services.AddMediatR(cfg =>
+    {
+        cfg.RegisterServicesFromAssembly(mediatRAssembly);
+    });
+    #endregion
+
+    #region WebHost Configuration
+    //builder.WebHost.UseUrls("http://*:80");
+    #endregion
+
+    #region AutoMapper Configuration
+    builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+    #endregion
+
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString,x=>x.MigrationsAssembly(migrationAssembly)));
+    builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
     builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>();
     builder.Services.AddControllersWithViews();
 
     var app = builder.Build();

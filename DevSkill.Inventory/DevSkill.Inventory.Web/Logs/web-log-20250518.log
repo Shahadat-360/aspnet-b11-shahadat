@@ -1,0 +1,211 @@
+2025-05-18 20:56:19.283 +06:00 [INF] Application Starting Up...
+2025-05-18 20:56:22.455 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-05-18 20:57:04.112 +06:00 [INF] Application Starting Up...
+2025-05-18 20:57:04.838 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-05-18 20:58:04.030 +06:00 [INF] Application Starting Up...
+2025-05-18 20:58:08.190 +06:00 [INF] Home page visited
+2025-05-18 20:58:08.414 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The partial view '_LoginPartial' was not found. The following locations were searched:
+/Views/Home/_LoginPartial.cshtml
+/Views/Shared/_LoginPartial.cshtml
+/Pages/Shared/_LoginPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.<RunAsync>g__Awaited|0_0(Task task, TagHelperExecutionContext executionContext, Int32 i, Int32 count)
+   at AspNetCoreGeneratedDocument.Views_Shared__Layout.<ExecuteAsync>b__28_1()
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.SetOutputContentAsync()
+   at AspNetCoreGeneratedDocument.Views_Shared__Layout.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderLayoutAsync(ViewContext context, ViewBufferTextWriter bodyWriter)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-05-18 20:59:53.593 +06:00 [INF] Application Starting Up...
+2025-05-18 20:59:56.451 +06:00 [INF] Home page visited
+2025-05-18 21:00:10.920 +06:00 [ERR] There was a problem in getting authors
+Microsoft.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'GetProducts'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 25
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 19
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\ProductsController.cs:line 148
+ClientConnectionId:98170367-de53-475e-86c4-389278accf28
+Error Number:2812,State:62,Class:16
+2025-05-18 21:03:05.369 +06:00 [ERR] There was a problem in getting authors
+Microsoft.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'GetProducts'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 25
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 19
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\ProductsController.cs:line 148
+ClientConnectionId:98170367-de53-475e-86c4-389278accf28
+Error Number:2812,State:62,Class:16
+2025-05-18 21:03:09.224 +06:00 [ERR] There was a problem in getting authors
+Microsoft.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'GetProducts'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 25
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 19
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\ProductsController.cs:line 148
+ClientConnectionId:98170367-de53-475e-86c4-389278accf28
+Error Number:2812,State:62,Class:16
+2025-05-18 21:03:20.706 +06:00 [ERR] There was a problem in getting authors
+Microsoft.Data.SqlClient.SqlException (0x80131904): Could not find stored procedure 'GetProducts'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 25
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 19
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\ProductsController.cs:line 148
+ClientConnectionId:98170367-de53-475e-86c4-389278accf28
+Error Number:2812,State:62,Class:16
+2025-05-18 21:10:46.519 +06:00 [INF] Application Starting Up...
+2025-05-18 21:10:49.827 +06:00 [INF] Home page visited
+2025-05-18 21:33:14.908 +06:00 [ERR] There was a problem in getting authors
+System.ArgumentNullException: Value cannot be null. (Parameter 'request')
+   at MediatR.Mediator.Send[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model)
+2025-05-18 21:33:31.742 +06:00 [ERR] There was a problem in getting authors
+System.ArgumentNullException: Value cannot be null. (Parameter 'request')
+   at MediatR.Mediator.Send[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model)
+2025-05-18 21:47:14.993 +06:00 [INF] Application Starting Up...
+2025-05-18 21:47:17.815 +06:00 [INF] Home page visited
+2025-05-18 21:50:29.944 +06:00 [INF] Application Starting Up...
+2025-05-18 21:50:32.132 +06:00 [INF] Home page visited
+2025-05-18 21:54:02.005 +06:00 [INF] Application Starting Up...
+2025-05-18 21:54:04.352 +06:00 [INF] Home page visited
+2025-05-18 21:54:07.651 +06:00 [INF] Home page visited
+2025-05-18 21:54:29.087 +06:00 [INF] Home page visited
+2025-05-18 21:54:35.006 +06:00 [INF] Home page visited
+2025-05-18 22:02:26.721 +06:00 [INF] Application Starting Up...
+2025-05-18 22:02:28.623 +06:00 [INF] Home page visited
+2025-05-18 22:04:36.986 +06:00 [INF] Application Starting Up...
+2025-05-18 22:04:37.433 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-05-18 22:09:14.713 +06:00 [INF] Application Starting Up...
+2025-05-18 22:09:15.162 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-05-18 22:09:54.355 +06:00 [INF] Application Starting Up...
+2025-05-18 22:09:57.210 +06:00 [INF] Home page visited
+2025-05-18 22:10:49.036 +06:00 [ERR] There was a problem in getting Products
+System.ArgumentNullException: Value cannot be null. (Parameter 'request')
+   at MediatR.Mediator.Send[TResponse](IRequest`1 request, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model) in D:\GiveATry\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\ProductsController.cs:line 148
+2025-05-18 22:16:32.168 +06:00 [INF] Application Starting Up...
+2025-05-18 22:16:34.467 +06:00 [INF] Home page visited
+2025-05-18 22:21:26.125 +06:00 [INF] Application Starting Up...
+2025-05-18 22:21:28.530 +06:00 [INF] Home page visited
+2025-05-18 22:50:45.117 +06:00 [INF] Application Starting Up...
+2025-05-18 22:50:48.506 +06:00 [INF] Home page visited
+2025-05-18 23:15:14.220 +06:00 [INF] Application Starting Up...
+2025-05-18 23:15:14.644 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\GiveATry\Another\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-05-18 23:17:22.398 +06:00 [INF] Application Starting Up...
+2025-05-18 23:17:22.826 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\GiveATry\Another\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-05-18 23:17:42.607 +06:00 [INF] Application Starting Up...
+2025-05-18 23:17:43.029 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\GiveATry\Another\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-05-18 23:18:18.889 +06:00 [INF] Application Starting Up...
+2025-05-18 23:18:20.747 +06:00 [INF] Home page visited
