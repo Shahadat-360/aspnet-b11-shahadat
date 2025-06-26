@@ -1,4 +1,17 @@
-﻿<!doctype html>
+﻿<!-- begin::Active Menu Helper -->
+@functions{
+    public string IsActive(string controller,string? area= null)
+    {
+        string? currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+        string? currentArea = ViewContext.RouteData.Values["area"]?.ToString();
+
+        return (currentController == controller &&
+                currentArea == area) ? "active" : "";
+    }
+}
+<!-- end::Active Menu Helper -->
+
+<!doctype html>
 <html lang="en">
 <!--begin::Head-->
 <head>
@@ -256,34 +269,21 @@
                         data-lte-toggle="treeview"
                         role="menu"
                         data-accordion="false">
-                        <li class="nav-item menu-open">
-                            <a href="#" class="nav-link active">
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Dashboard" asp-area="admin"
+                               class="nav-link @IsActive("Dashboard", "admin")">
                                 <i class="nav-icon bi bi-speedometer"></i>
                                 <p>
                                     Dashboard
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="./index.html" class="nav-link active">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v1</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v2</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="./index3.html" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
-                                        <p>Dashboard v3</p>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Customer" asp-area="admin"
+                               class="nav-link @IsActive("Customer", "admin")">
+                                <i class="nav-icon bi bi-palette"></i>
+                                <p>Customer</p>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="./generate/theme.html" class="nav-link">
@@ -291,7 +291,7 @@
                                 <p>Theme Generate</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        @* <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-box-seam-fill"></i>
                                 <p>
@@ -667,7 +667,7 @@
                                 <i class="nav-icon bi bi-circle text-info"></i>
                                 <p>Informational</p>
                             </a>
-                        </li>
+                        </li> *@
                     </ul>
                     <!--end::Sidebar Menu-->
                 </nav>
