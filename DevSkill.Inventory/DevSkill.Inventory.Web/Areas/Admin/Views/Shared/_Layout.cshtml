@@ -271,7 +271,7 @@
                         data-accordion="false">
                         <li class="nav-item">
                             <a asp-action="Index" asp-controller="Dashboard" asp-area="admin"
-                               class="nav-link @IsActive("Dashboard", "admin")">
+                               class="nav-link @IsActive("Dashboard", "Admin")">
                                 <i class="nav-icon bi bi-speedometer"></i>
                                 <p>
                                     Dashboard
@@ -279,16 +279,38 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-action="Index" asp-controller="Customer" asp-area="admin"
-                               class="nav-link @IsActive("Customer", "admin")">
-                                <i class="nav-icon bi bi-palette"></i>
-                                <p>Customer</p>
+                            <a asp-action="Index" asp-controller="Users" asp-area="admin"
+                               class="nav-link @IsActive("Users", "Admin")">
+                                <i class="nav-icon bi bi-people-fill"></i>
+                                <p>Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./generate/theme.html" class="nav-link">
-                                <i class="nav-icon bi bi-palette"></i>
-                                <p>Theme Generate</p>
+                            <a asp-action="Index" asp-controller="Customers" asp-area="admin"
+                               class="nav-link @IsActive("Customers", "Admin")">
+                                <i class="nav-icon bi bi-person"></i>
+                                <p>Customers</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Products" asp-area="admin"
+                               class="nav-link @IsActive("Products", "Admin")">
+                                <i class="nav-icon bi bi-basket2"></i>
+                                <p>Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Sales" asp-area="admin"
+                               class="nav-link @IsActive("Sales", "Admin")">
+                                <i class="nav-icon bi bi-bag-check-fill"></i>
+                                <p>Sales</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="BalanceTransfers" asp-area="admin"
+                               class="nav-link @IsActive("BalanceTransfers", "Admin")">
+                                <i class="nav-icon bi bi-currency-exchange"></i>
+                                <p>Balance Transfers</p>
                             </a>
                         </li>
                         @* <li class="nav-item">
