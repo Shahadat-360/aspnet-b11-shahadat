@@ -1,0 +1,59 @@
+﻿@using DevSkill.Inventory.Domain.Enums  
+@model dynamic
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
+    <div class="modal-dialog modal-lg">  
+        <div class="modal-content">  
+            <div class="modal-header">  
+                <h5 class="modal-title" id="staticBackdropLabel">New Customer Information</h5>  
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>  
+            </div>  
+            <form id="CustomerModalForm" method="post" asp-antiforgery="true" >
+                <div class="modal-body">  
+                    <div class="row g-3">  
+                        <div class="col-md-6">  
+                            <label for="CustomerName" class="form-label">Customer Name</label>  
+                            <input type="text" class="form-control" name="CustomerName" value="@Model?.CustomerName" required>  
+                        </div>  
+                        <div class="col-md-6">  
+                            <label for="CompanyName" class="form-label">Company Name</label>  
+                            <input type="text" class="form-control" name="CompanyName" value="@Model?.CompanyName">  
+                        </div>  
+                        <div class="col-md-6">  
+                            <label for="Mobile" class="form-label">Mobile Number</label>  
+                            <input type="tel" class="form-control" name="Mobile" value="@Model?.Mobile" required>  
+                        </div>  
+                        <div class="col-md-6">  
+                            <label for="Address" class="form-label">Address</label>  
+                            <input type="text" class="form-control" name="Address" value="@Model?.Address">  
+                        </div>  
+                        <div class="col-md-6">  
+                            <label for="Email" class="form-label">Email</label>  
+                            <input type="email" class="form-control" name="Email" value="@Model?.Email" required>  
+                        </div>  
+                        <div class="col-md-6">  
+                            <label for="OpeningBalance" class="form-label">Opening Balance</label>  
+                            <input type="number" class="form-control" name="OpeningBalance" value="@Model?.OpeningBalance" required>  
+                        </div>  
+                        <div class="col-md-6">  
+                            <label for="Status" class="form-label">Status</label>  
+                            <select name="Status" class="form-select pe-5">
+                                @foreach (Status status in Enum.GetValues<Status>())
+                                {
+                                    <option value="@((int)status)" selected="@(Model?.Status == status)">
+                                        @status.ToString()
+                                    </option>
+                                }
+                            </select>
+                        </div>  
+                    </div>  
+                </div>  
+
+                <div class="modal-footer">  
+                    <button type="submit" class="btn btn-primary me-2">Submit</button>  
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>  
+                </div>  
+            </form>  
+        </div>  
+    </div>  
+</div>

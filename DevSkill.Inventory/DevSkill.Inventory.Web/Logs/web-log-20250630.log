@@ -1,0 +1,318 @@
+2025-06-30 00:04:59.832 +06:00 [INF] Application Starting Up...
+2025-06-30 00:05:03.664 +06:00 [INF] Home page visited
+2025-06-30 00:05:03.664 +06:00 [INF] Dashboard page visited
+2025-06-30 00:06:33.800 +06:00 [ERR] The view 'Add' was not found. Searched locations: ["/Areas/Admin/Views/Customers/Add.cshtml","/Areas/Admin/Views/Shared/Add.cshtml","/Views/Shared/Add.cshtml","/Pages/Shared/Add.cshtml"]
+2025-06-30 00:06:33.806 +06:00 [ERR] The view 'Add' was not found. Searched locations: ["/Areas/Admin/Views/Customers/Add.cshtml","/Areas/Admin/Views/Shared/Add.cshtml","/Views/Shared/Add.cshtml","/Pages/Shared/Add.cshtml"]
+2025-06-30 00:06:36.328 +06:00 [ERR] The view 'Add' was not found. Searched locations: ["/Areas/Admin/Views/Customers/Add.cshtml","/Areas/Admin/Views/Shared/Add.cshtml","/Views/Shared/Add.cshtml","/Pages/Shared/Add.cshtml"]
+2025-06-30 00:06:36.370 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view 'Add' was not found. The following locations were searched:
+/Areas/Admin/Views/Customers/Add.cshtml
+/Areas/Admin/Views/Shared/Add.cshtml
+/Views/Shared/Add.cshtml
+/Pages/Shared/Add.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 00:06:36.370 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view 'Add' was not found. The following locations were searched:
+/Areas/Admin/Views/Customers/Add.cshtml
+/Areas/Admin/Views/Shared/Add.cshtml
+/Views/Shared/Add.cshtml
+/Pages/Shared/Add.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 00:06:36.370 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view 'Add' was not found. The following locations were searched:
+/Areas/Admin/Views/Customers/Add.cshtml
+/Areas/Admin/Views/Shared/Add.cshtml
+/Views/Shared/Add.cshtml
+/Pages/Shared/Add.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 00:09:21.930 +06:00 [INF] Application Starting Up...
+2025-06-30 00:09:23.363 +06:00 [INF] Home page visited
+2025-06-30 00:09:23.903 +06:00 [INF] Dashboard page visited
+2025-06-30 00:12:30.751 +06:00 [INF] Application Starting Up...
+2025-06-30 00:12:32.881 +06:00 [INF] Home page visited
+2025-06-30 02:11:59.759 +06:00 [INF] Application Starting Up...
+2025-06-30 02:12:01.615 +06:00 [INF] Dashboard page visited
+2025-06-30 02:12:01.615 +06:00 [INF] Home page visited
+2025-06-30 02:27:19.369 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.Runtime.CompilerServices.HotReloadException: Attempted to invoke a deleted method implementation. This can happen when a method is deleted or its name or signature is changed while the application is running.
+   at DevSkill.Inventory.Application.Features.Customers.Commands.CustomerAddCommand.get_CurrentBalance()
+   at Microsoft.Extensions.Internal.PropertyHelper.CallNullSafePropertyGetter[TDeclaringType,TValue](Func`2 getter, Object target)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor.VisitChildren(IValidationStrategy strategy)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor.VisitComplexType(IValidationStrategy defaultStrategy)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor.VisitImplementation(ModelMetadata& metadata, String& key, Object model)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.Validation.ValidationVisitor.Visit(ModelMetadata metadata, String key, Object model)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ObjectModelValidator.Validate(ActionContext actionContext, ValidationStateDictionary validationState, String prefix, Object model, ModelMetadata metadata, Object container)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.EnforceBindRequiredAndValidate(ObjectModelValidator baseObjectValidator, ActionContext actionContext, ParameterDescriptor parameter, ModelMetadata metadata, ModelBindingContext modelBindingContext, ModelBindingResult modelBindingResult, Object container)
+   at Microsoft.AspNetCore.Mvc.ModelBinding.ParameterBinder.BindModelAsync(ActionContext actionContext, IModelBinder modelBinder, IValueProvider valueProvider, ParameterDescriptor parameter, ModelMetadata metadata, Object value, Object container)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerBinderDelegateProvider.<>c__DisplayClass0_0.<<CreateBinderDelegate>g__Bind|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 02:33:21.613 +06:00 [INF] Application Starting Up...
+2025-06-30 02:33:22.888 +06:00 [INF] Home page visited
+2025-06-30 02:33:25.837 +06:00 [INF] Home page visited
+2025-06-30 02:33:27.965 +06:00 [INF] Dashboard page visited
+2025-06-30 02:36:46.901 +06:00 [INF] Application Starting Up...
+2025-06-30 02:36:48.118 +06:00 [INF] Home page visited
+2025-06-30 02:36:51.332 +06:00 [INF] Home page visited
+2025-06-30 02:36:53.831 +06:00 [INF] Dashboard page visited
+2025-06-30 02:40:19.891 +06:00 [INF] Application Starting Up...
+2025-06-30 02:40:21.233 +06:00 [INF] Home page visited
+2025-06-30 02:40:25.643 +06:00 [INF] Dashboard page visited
+2025-06-30 02:51:05.515 +06:00 [INF] Application Starting Up...
+2025-06-30 02:51:06.728 +06:00 [INF] Home page visited
+2025-06-30 02:51:10.008 +06:00 [INF] Dashboard page visited
+2025-06-30 02:53:40.264 +06:00 [INF] Application Starting Up...
+2025-06-30 02:53:41.534 +06:00 [INF] Home page visited
+2025-06-30 02:53:44.245 +06:00 [INF] Dashboard page visited
+2025-06-30 03:16:22.785 +06:00 [INF] Application Starting Up...
+2025-06-30 03:16:24.074 +06:00 [INF] Home page visited
+2025-06-30 03:16:27.248 +06:00 [INF] Home page visited
+2025-06-30 03:16:30.174 +06:00 [INF] Dashboard page visited
+2025-06-30 03:17:00.926 +06:00 [ERR] Error To Adding Customer
+System.InvalidOperationException: Unable to track an entity of type 'Customer' because its primary key property 'Id' is null.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NullableKeyIdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityStateAsync(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey, Nullable`1 fallbackState, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintActionAsync(EntityEntryGraphNode`1 node, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode`1 node, Func`3 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraphAsync(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.AddAsync(TEntity entity, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Infrastructure.Repositories.Repository`2.AddAsync(TEntity entity) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Repositories\Repository.cs:line 29
+   at DevSkill.Inventory.Application.Features.Customers.Commands.CustomerAddCommandHandler.Handle(CustomerAddCommand request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Customers\Commands\CustomerAddCommandHandler.cs:line 21
+   at MediatR.Wrappers.RequestHandlerWrapperImpl`1.<>c__DisplayClass1_0.<<Handle>g__Handler|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.CustomersController.Add(CustomerAddCommand customerAddCommand) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\CustomersController.cs:line 37
+2025-06-30 03:17:00.961 +06:00 [WRN] Unable to configure Browser Link script injection on the response. 
+2025-06-30 03:17:00.961 +06:00 [WRN] Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2025-06-30 03:17:58.653 +06:00 [ERR] Error To Adding Customer
+System.InvalidOperationException: Unable to track an entity of type 'Customer' because its primary key property 'Id' is null.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NullableKeyIdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityStateAsync(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey, Nullable`1 fallbackState, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintActionAsync(EntityEntryGraphNode`1 node, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode`1 node, Func`3 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraphAsync(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.AddAsync(TEntity entity, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Infrastructure.Repositories.Repository`2.AddAsync(TEntity entity) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Repositories\Repository.cs:line 29
+   at DevSkill.Inventory.Application.Features.Customers.Commands.CustomerAddCommandHandler.Handle(CustomerAddCommand request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Customers\Commands\CustomerAddCommandHandler.cs:line 21
+   at MediatR.Wrappers.RequestHandlerWrapperImpl`1.<>c__DisplayClass1_0.<<Handle>g__Handler|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.CustomersController.Add(CustomerAddCommand customerAddCommand)
+2025-06-30 03:17:58.655 +06:00 [WRN] Unable to configure Browser Link script injection on the response. 
+2025-06-30 03:17:58.655 +06:00 [WRN] Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2025-06-30 03:18:55.816 +06:00 [INF] Application Starting Up...
+2025-06-30 03:18:57.163 +06:00 [INF] Dashboard page visited
+2025-06-30 03:18:57.163 +06:00 [INF] Home page visited
+2025-06-30 03:19:07.221 +06:00 [ERR] Error To Adding Customer
+System.InvalidOperationException: Unable to track an entity of type 'Customer' because its primary key property 'Id' is null.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NullableKeyIdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityStateAsync(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey, Nullable`1 fallbackState, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintActionAsync(EntityEntryGraphNode`1 node, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode`1 node, Func`3 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraphAsync(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.AddAsync(TEntity entity, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Infrastructure.Repositories.Repository`2.AddAsync(TEntity entity) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Repositories\Repository.cs:line 29
+   at DevSkill.Inventory.Application.Features.Customers.Commands.CustomerAddCommandHandler.Handle(CustomerAddCommand request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Customers\Commands\CustomerAddCommandHandler.cs:line 21
+   at MediatR.Wrappers.RequestHandlerWrapperImpl`1.<>c__DisplayClass1_0.<<Handle>g__Handler|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.CustomersController.Add(CustomerAddCommand customerAddCommand) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\CustomersController.cs:line 37
+2025-06-30 03:19:07.243 +06:00 [ERR] The view 'Add' was not found. Searched locations: ["/Areas/Admin/Views/Customers/Add.cshtml","/Areas/Admin/Views/Shared/Add.cshtml","/Views/Shared/Add.cshtml","/Pages/Shared/Add.cshtml"]
+2025-06-30 03:19:07.251 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view 'Add' was not found. The following locations were searched:
+/Areas/Admin/Views/Customers/Add.cshtml
+/Areas/Admin/Views/Shared/Add.cshtml
+/Views/Shared/Add.cshtml
+/Pages/Shared/Add.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-06-30 03:20:32.802 +06:00 [ERR] Error To Adding Customer
+System.InvalidOperationException: Unable to track an entity of type 'Customer' because its primary key property 'Id' is null.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NullableKeyIdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityStateAsync(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey, Nullable`1 fallbackState, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintActionAsync(EntityEntryGraphNode`1 node, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode`1 node, Func`3 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraphAsync(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.AddAsync(TEntity entity, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Infrastructure.Repositories.Repository`2.AddAsync(TEntity entity) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Repositories\Repository.cs:line 29
+   at DevSkill.Inventory.Application.Features.Customers.Commands.CustomerAddCommandHandler.Handle(CustomerAddCommand request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Customers\Commands\CustomerAddCommandHandler.cs:line 21
+   at MediatR.Wrappers.RequestHandlerWrapperImpl`1.<>c__DisplayClass1_0.<<Handle>g__Handler|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.CustomersController.Add(CustomerAddCommand customerAddCommand)
+2025-06-30 03:20:45.859 +06:00 [ERR] Error To Adding Customer
+System.InvalidOperationException: Unable to track an entity of type 'Customer' because its primary key property 'Id' is null.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NullableKeyIdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityStateAsync(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey, Nullable`1 fallbackState, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintActionAsync(EntityEntryGraphNode`1 node, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode`1 node, Func`3 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraphAsync(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.AddAsync(TEntity entity, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Infrastructure.Repositories.Repository`2.AddAsync(TEntity entity) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Repositories\Repository.cs:line 29
+   at DevSkill.Inventory.Application.Features.Customers.Commands.CustomerAddCommandHandler.Handle(CustomerAddCommand request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Customers\Commands\CustomerAddCommandHandler.cs:line 21
+   at MediatR.Wrappers.RequestHandlerWrapperImpl`1.<>c__DisplayClass1_0.<<Handle>g__Handler|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.CustomersController.Add(CustomerAddCommand customerAddCommand)
+2025-06-30 03:20:45.869 +06:00 [WRN] Unable to configure Browser Link script injection on the response. 
+2025-06-30 03:20:45.869 +06:00 [WRN] Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2025-06-30 03:32:12.254 +06:00 [INF] Application Starting Up...
+2025-06-30 03:32:13.487 +06:00 [INF] Home page visited
+2025-06-30 03:32:16.328 +06:00 [INF] Home page visited
+2025-06-30 03:32:18.664 +06:00 [INF] Dashboard page visited
+2025-06-30 03:32:45.585 +06:00 [ERR] Error To Adding Customer
+System.InvalidOperationException: Unable to track an entity of type 'Customer' because its primary key property 'Id' is null.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NullableKeyIdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityStateAsync(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey, Nullable`1 fallbackState, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintActionAsync(EntityEntryGraphNode`1 node, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode`1 node, Func`3 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraphAsync(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.AddAsync(TEntity entity, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Infrastructure.Repositories.Repository`2.AddAsync(TEntity entity) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Repositories\Repository.cs:line 29
+   at DevSkill.Inventory.Application.Features.Customers.Commands.CustomerAddCommandHandler.Handle(CustomerAddCommand request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Customers\Commands\CustomerAddCommandHandler.cs:line 21
+   at MediatR.Wrappers.RequestHandlerWrapperImpl`1.<>c__DisplayClass1_0.<<Handle>g__Handler|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.CustomersController.Add(CustomerAddCommand customerAddCommand) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\CustomersController.cs:line 37
+2025-06-30 03:32:45.605 +06:00 [WRN] Unable to configure Browser Link script injection on the response. 
+2025-06-30 03:32:45.605 +06:00 [WRN] Unable to configure browser refresh script injection on the response. Consider manually adding '<script src="/_framework/aspnetcore-browser-refresh.js"></script>' to the body of the page.
+2025-06-30 03:35:21.815 +06:00 [ERR] Error To Adding Customer
+System.InvalidOperationException: Unable to track an entity of type 'Customer' because its primary key property 'Id' is null.
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.NullableKeyIdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityStateAsync(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey, Nullable`1 fallbackState, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintActionAsync(EntityEntryGraphNode`1 node, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraphAsync[TState](EntityEntryGraphNode`1 node, Func`3 handleNode, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraphAsync(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.AddAsync(TEntity entity, CancellationToken cancellationToken)
+   at DevSkill.Inventory.Infrastructure.Repositories.Repository`2.AddAsync(TEntity entity) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Repositories\Repository.cs:line 29
+   at DevSkill.Inventory.Application.Features.Customers.Commands.CustomerAddCommandHandler.Handle(CustomerAddCommand request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Customers\Commands\CustomerAddCommandHandler.cs:line 21
+   at MediatR.Wrappers.RequestHandlerWrapperImpl`1.<>c__DisplayClass1_0.<<Handle>g__Handler|0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.CustomersController.Add(CustomerAddCommand customerAddCommand)
+2025-06-30 11:27:08.242 +06:00 [INF] Application Starting Up...
+2025-06-30 11:27:10.155 +06:00 [INF] Home page visited
+2025-06-30 11:27:14.671 +06:00 [INF] Dashboard page visited
+2025-06-30 11:29:50.347 +06:00 [INF] Application Starting Up...
+2025-06-30 11:29:50.935 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-06-30 11:33:07.359 +06:00 [INF] Application Starting Up...
+2025-06-30 11:33:07.780 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-06-30 11:33:54.690 +06:00 [INF] Application Starting Up...
+2025-06-30 11:33:55.086 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-06-30 11:34:01.381 +06:00 [INF] Application Starting Up...
+2025-06-30 11:34:02.628 +06:00 [INF] Home page visited
+2025-06-30 11:34:05.233 +06:00 [INF] Dashboard page visited
+2025-06-30 11:38:29.888 +06:00 [INF] Application Starting Up...
+2025-06-30 11:38:31.180 +06:00 [INF] Home page visited
+2025-06-30 11:38:33.941 +06:00 [INF] Dashboard page visited
+2025-06-30 11:41:09.117 +06:00 [INF] Application Starting Up...
+2025-06-30 11:41:10.312 +06:00 [INF] Home page visited
+2025-06-30 11:41:13.428 +06:00 [INF] Dashboard page visited
