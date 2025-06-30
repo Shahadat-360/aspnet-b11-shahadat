@@ -12,6 +12,10 @@ namespace DevSkill.Inventory.Domain
     public interface IApplicationUnitOfWork:IUnitOfWork
     {
         public IProductRepository ProductRepository { get; }
+        public ICustomerRepository CustomerRepository { get; }
+
+        Task<(IList<Customer> customers, int total, int totalDisplay)> GetPagedCustomers
+            (int pageIndex, int pageSize, string? order, CustomerSearchDto? searchItem);
         Task<(IList<Product> products, int total, int totalDisplay)> GetPagedProducts
             (int pageIndex, int pageSize, string? order, ProductSearchDto? searchItem);
     }

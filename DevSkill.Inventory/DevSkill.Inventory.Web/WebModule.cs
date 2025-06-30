@@ -26,6 +26,10 @@ namespace DevSkill.Inventory.Web
                 .InstancePerLifetimeScope();
             builder.RegisterType<ProductRepository>().As<IProductRepository>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<CustomerRepository>().As<ICustomerRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<IdGenerator>().As<IIdGenerator>()
+                .InstancePerLifetimeScope();
             base.Load(builder);
         }
     }
