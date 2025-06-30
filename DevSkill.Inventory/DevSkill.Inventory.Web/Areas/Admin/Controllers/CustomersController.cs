@@ -1,4 +1,5 @@
-﻿using DevSkill.Inventory.Application.Features.Customers.Commands;
+﻿using AutoMapper;
+using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Queries;
 using DevSkill.Inventory.Domain.Enums;
 using DevSkill.Inventory.Infrastructure;
@@ -12,10 +13,12 @@ using System.Web;
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class CustomersController(ILogger<CustomersController> logger,IMediator mediator) : Controller
+    public class CustomersController(ILogger<CustomersController> logger,IMediator mediator,
+        IMapper mapper) : Controller
     {
         private readonly ILogger<CustomersController> _logger = logger;
         private readonly IMediator _mediator = mediator;
+        private readonly IMapper _mapper = mapper;
         public IActionResult Index()
         {
             return View();
@@ -24,10 +27,11 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         public IActionResult Add()
         {
             var model = new CustomerAddCommand();
-            return PartialView("_CustomerAddModalPartial", model);
+            return PartialView("_CustomerModalPartial", model);
         }
+
         [HttpPost,ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(CustomerAddCommand customerAddCommand)
+        public async Task<IActionResult> AddAsync(CustomerAddCommand customerAddCommand)
         {
             try
             {
@@ -60,6 +64,74 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     Type = ResponseType.Danger
                 });
                 _logger.LogError(ex, "Error To Adding Customer");
+            }
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> Update(string id)
+        {
+            var customer = await _mediator.Send(new CustomerGetByIdQuery { Id = id });
+            var model = _mapper.Map<CustomerUpdateCommand>(customer);
+            return PartialView("_CustomerModalPartial", model);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateAsync(CustomerUpdateCommand customerUpdateCommand)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _mediator.Send(customerUpdateCommand);
+                    TempData.Put("ResponseMessage", new ResponseModel()
+                    {
+                        Message = "Customer updated successfully",
+                        Type = ResponseType.Success
+                    });
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData.Put("ResponseMessage", new ResponseModel()
+                    {
+                        Message = "There are validation errors. Please correct them and try again.",
+                        Type = ResponseType.Danger
+                    });
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData.Put("ResponseMessage", new ResponseModel()
+                {
+                    Message = "Error To Updating Customer",
+                    Type = ResponseType.Danger
+                });
+                _logger.LogError(ex, "Error To Updating Customer");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string Id)
+        {
+            try
+            {
+                await _mediator.Send(new CustomerDeleteCommand { Id = Id });
+                TempData.Put("ResponseMessage", new ResponseModel()
+                {
+                    Message = "Customer deleted successfully",
+                    Type = ResponseType.Success
+                });
+            }
+            catch(Exception ex)
+            {
+                TempData.Put("ResponseMessage", new ResponseModel()
+                {
+                    Message = "Error To Deleting Customer",
+                    Type = ResponseType.Danger
+                });
+                _logger.LogError(ex, "Error To Deleting Customer");
             }
             return RedirectToAction("Index");
         }

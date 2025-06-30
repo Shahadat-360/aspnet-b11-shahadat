@@ -14,7 +14,7 @@ namespace DevSkill.Inventory.Application.Features.Customers.Queries
         private readonly IApplicationUnitOfWork _applicationUnitOfWork = applicationUnitOfWork;
         public async Task<(IList<Customer> customers, int total, int totalDisplay)> Handle(CustomersByQuery request, CancellationToken cancellationToken)
         {
-            string? order = request.FormatSortExpression("ID","Id","CustomerName", "CompanyName","Email", "Mobile", "Address", "CurrentBalance","Status");
+            string? order = request.FormatSortExpression("ID","Id","CustomerName", "CompanyName", "Mobile", "Address", "Email",  "CurrentBalance","Status");
             return await _applicationUnitOfWork.GetPagedCustomers(request.PageIndex, request.PageSize, order, request.SearchItem);
         }
     }

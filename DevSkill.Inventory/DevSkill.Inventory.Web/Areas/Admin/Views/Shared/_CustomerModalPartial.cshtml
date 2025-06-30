@@ -1,5 +1,8 @@
 ﻿@using DevSkill.Inventory.Domain.Enums  
 @model dynamic
+@{
+    Layout = null;
+}
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">  
     <div class="modal-dialog modal-lg">  
@@ -10,7 +13,12 @@
             </div>  
             <form id="CustomerModalForm" method="post" asp-antiforgery="true" >
                 <div class="modal-body">  
-                    <div class="row g-3">  
+                    <div class="row g-3"> 
+                        @if (Model?.GetType().GetProperty("Id") != null)
+                        {
+                            <input type="hidden" name="Id" value="@Model.Id" />
+                        }
+                        <input type="hidden" name="CurrentBalance" value="@Model?.CurrentBalance" />
                         <div class="col-md-6">  
                             <label for="CustomerName" class="form-label">Customer Name</label>  
                             <input type="text" class="form-control" name="CustomerName" value="@Model?.CustomerName" required>  
@@ -50,7 +58,7 @@
                 </div>  
 
                 <div class="modal-footer">  
-                    <button type="submit" class="btn btn-primary me-2">Submit</button>  
+                    <button type="submit" class="btn btn-primary me-2" id="CustomerActionButton">Submit</button>  
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>  
                 </div>  
             </form>  

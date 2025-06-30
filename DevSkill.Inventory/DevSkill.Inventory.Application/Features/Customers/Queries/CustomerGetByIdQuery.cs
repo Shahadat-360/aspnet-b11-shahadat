@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.Customers.Queries
 {
-    public class CustomerGetByIdQuery
+    public class CustomerGetByIdQuery:IRequest<Customer>
     {
+        public string Id { get; set; }
     }
 }
