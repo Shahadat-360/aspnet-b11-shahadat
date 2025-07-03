@@ -62,10 +62,10 @@ namespace DevSkill.Inventory.Infrastructure
                     {"Category",string.IsNullOrEmpty(searchItem?.Category)?null:searchItem.Category },
                     {"MaxPurchasePrice",searchItem?.MaxPurchasePrice },
                     {"MinPurchasePrice",searchItem?.MinPurchasePrice },
-                    {"MaxMRP",searchItem?.MinPurchasePrice },
-                    {"MinMRP",searchItem?.MinPurchasePrice },
-                    {"MaxWholesalePrice",searchItem?.MinPurchasePrice },
-                    {"MinWholesalePrice",searchItem?.MinPurchasePrice }
+                    {"MaxMRP",searchItem?.MaxMRP },
+                    {"MinMRP",searchItem?.MinMRP },
+                    {"MaxWholesalePrice",searchItem?.MaxWholesalePrice },
+                    {"MinWholesalePrice",searchItem?.MinWholesalePrice }
                 },
                 new Dictionary<string, Type>
                 {
