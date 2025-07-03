@@ -47,20 +47,25 @@ namespace DevSkill.Inventory.Infrastructure
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
 
-        public async Task<(IList<Product> products, int total, int totalDisplay)> 
+        public async Task<(IList<ProductWithCategoryDto> products, int total, int totalDisplay)> 
             GetPagedProducts(int pageIndex, int pageSize, string? order, ProductSearchDto? searchItem)
         {
             var storedProcedureName = "GetProducts";
-            var result = await _sqlUtility.QueryWithStoredProcedureAsync<Product>(storedProcedureName,
+            var result = await _sqlUtility.QueryWithStoredProcedureAsync<ProductWithCategoryDto>(storedProcedureName,
                 new Dictionary<string, object>
                 {
                     {"PageIndex",pageIndex },
                     {"PageSize",pageSize },
                     {"OrderBy",order },
+                    {"Id",string.IsNullOrEmpty(searchItem?.Id) ? null : searchItem.Id },
                     {"Name",string.IsNullOrEmpty(searchItem?.Name) ? null : searchItem.Name },
-                    {"CategoryId",searchItem?.CategoryId },
-                    {"MinPrice",searchItem?.MinPrice },
-                    {"MaxPrice",searchItem?.MaxPrice }
+                    {"Category",string.IsNullOrEmpty(searchItem?.Category)?null:searchItem.Category },
+                    {"MaxPurchasePrice",searchItem?.MaxPurchasePrice },
+                    {"MinPurchasePrice",searchItem?.MinPurchasePrice },
+                    {"MaxMRP",searchItem?.MinPurchasePrice },
+                    {"MinMRP",searchItem?.MinPurchasePrice },
+                    {"MaxWholesalePrice",searchItem?.MinPurchasePrice },
+                    {"MinWholesalePrice",searchItem?.MinPurchasePrice }
                 },
                 new Dictionary<string, Type>
                 {
