@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Domain.Entities
 {
-    public class Category:IEntity<Guid>
+    public class Unit:IEntity<Guid>
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
