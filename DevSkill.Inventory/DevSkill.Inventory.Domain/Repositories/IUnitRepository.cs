@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Domain.Repositories
 {
-    public interface IProductRepository:IRepository<Product,string>
+    public interface IUnitRepository : IRepository<Unit, Guid>
     {
-        Task<Product> GetProductWithNavigationAsync(string Id);
-        Task<PaginatedResult<Product>> SearchProductWithPaginationAsync(string term, int page, int pageSize);
+        Task<PaginatedResult<Unit>> SearchUnitWithPaginationAsync(string term, int page, int pageSize);
     }
 }

@@ -1,4 +1,5 @@
-﻿using DevSkill.Inventory.Domain.Entities;
+﻿using DevSkill.Inventory.Domain.Dtos;
+using DevSkill.Inventory.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,10 @@ namespace DevSkill.Inventory.Domain.Repositories
         Task<TEntity> GetByIdAsync(TKey id);
         int GetCount(Expression<Func<TEntity, bool>> filter=null);
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
+        Task<PaginatedResult<TEntity>> SearchWithPaginationAsync(
+        Expression<Func<TEntity, bool>> filter,
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+        int page = 1, int pageSize = 5);
         void Remove(Expression<Func<TEntity, bool>> filter);
         void Remove(TEntity entity);
         void Remove(TKey id);
