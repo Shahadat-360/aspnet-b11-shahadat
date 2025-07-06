@@ -1,8 +1,10 @@
 ﻿using Autofac;
+using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Repositories;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Infrastructure.Repositories;
+using DevSkill.Inventory.Infrastructure.Services;
 using DevSkill.Inventory.Web.Data;
 
 namespace DevSkill.Inventory.Web
@@ -28,7 +30,13 @@ namespace DevSkill.Inventory.Web
                 .InstancePerLifetimeScope();
             builder.RegisterType<CustomerRepository>().As<ICustomerRepository>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<CategoryRepository>().As<ICategoryRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<UnitRepository>().As<IUnitRepository>()
+                .InstancePerLifetimeScope();
             builder.RegisterType<IdGenerator>().As<IIdGenerator>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<ImageService>().As<IImageService>()
                 .InstancePerLifetimeScope();
             base.Load(builder);
         }

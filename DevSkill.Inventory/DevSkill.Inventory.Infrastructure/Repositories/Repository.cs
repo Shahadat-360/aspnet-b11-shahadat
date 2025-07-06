@@ -1,14 +1,15 @@
-﻿using DevSkill.Inventory.Domain.Entities;
+﻿using DevSkill.Inventory.Domain.Dtos;
+using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using System.Linq.Dynamic.Core;
 namespace DevSkill.Inventory.Infrastructure.Repositories
 {
     public abstract class Repository<TEntity, TKey>
@@ -503,6 +504,32 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
             return orderBy is not null
                 ? await orderBy(query).Select(selector!).ToListAsync(cancellationToken)
                 : await query.Select(selector!).ToListAsync(cancellationToken);
+        }
+
+    public virtual async Task<PaginatedResult<TEntity>> SearchWithPaginationAsync(
+        Expression<Func<TEntity, bool>> filter,
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy,
+        int page = 1,int pageSize = 5)
+        {
+            var query = _dbSet.AsQueryable();
+            if (filter != null)
+                query = query.Where(filter);
+
+            var totalCount = await query.CountAsync();
+            query = orderBy != null ? orderBy(query) : query;
+
+            var items = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PaginatedResult<TEntity>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                Page = page,
+                PageSize = pageSize
+            };
         }
 
         public async Task<TResult> SingleOrDefaultAsync<TResult>(Expression<Func<TEntity, TResult>>? selector,

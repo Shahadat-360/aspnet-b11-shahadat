@@ -1,0 +1,248 @@
+2025-07-03 02:34:43.758 +06:00 [INF] Application Starting Up...
+2025-07-03 02:34:47.881 +06:00 [INF] Home page visited
+2025-07-03 02:34:47.881 +06:00 [INF] Home page visited
+2025-07-03 02:35:19.551 +06:00 [INF] Dashboard page visited
+2025-07-03 02:35:23.776 +06:00 [ERR] There was a problem in getting Products
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Price'.
+select * from Products p where 1 = 1  AND p.Name LIKE '%' + @xName + '%' Order by Price asc OFFSET @PageSize * (@PageIndex - 1) 
+	ROWS FETCH NEXT @PageSize ROWS ONLY
+select @TotalDisplay = count(*) from Products p where 1 = 1  AND p.Name LIKE '%' + @xName + '%'
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 54
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 19
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\ProductsController.cs:line 148
+ClientConnectionId:21a0da6a-8bd2-446b-a883-a1d6d6aca173
+Error Number:207,State:1,Class:16
+2025-07-03 02:37:01.454 +06:00 [ERR] There was a problem in getting Products
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Price'.
+select * from Products p where 1 = 1  AND p.Name LIKE '%' + @xName + '%' Order by Price asc OFFSET @PageSize * (@PageIndex - 1) 
+	ROWS FETCH NEXT @PageSize ROWS ONLY
+select @TotalDisplay = count(*) from Products p where 1 = 1  AND p.Name LIKE '%' + @xName + '%'
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 54
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 19
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\ProductsController.cs:line 148
+ClientConnectionId:21a0da6a-8bd2-446b-a883-a1d6d6aca173
+Error Number:207,State:1,Class:16
+2025-07-03 02:37:48.326 +06:00 [ERR] There was a problem in getting Products
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Price'.
+select * from Products p where 1 = 1  AND p.Name LIKE '%' + @xName + '%' Order by Price asc OFFSET @PageSize * (@PageIndex - 1) 
+	ROWS FETCH NEXT @PageSize ROWS ONLY
+select @TotalDisplay = count(*) from Products p where 1 = 1  AND p.Name LIKE '%' + @xName + '%'
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 54
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 19
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Areas\Admin\Controllers\ProductsController.cs:line 148
+ClientConnectionId:21a0da6a-8bd2-446b-a883-a1d6d6aca173
+Error Number:207,State:1,Class:16
+2025-07-03 14:48:20.728 +06:00 [INF] Application Starting Up...
+2025-07-03 14:48:24.573 +06:00 [INF] Home page visited
+2025-07-03 14:48:43.215 +06:00 [INF] Dashboard page visited
+2025-07-03 14:52:47.545 +06:00 [INF] Application Starting Up...
+2025-07-03 14:52:49.511 +06:00 [INF] Home page visited
+2025-07-03 14:52:50.090 +06:00 [INF] Dashboard page visited
+2025-07-03 17:04:21.588 +06:00 [INF] Application Starting Up...
+2025-07-03 17:04:23.949 +06:00 [INF] Dashboard page visited
+2025-07-03 17:04:23.949 +06:00 [INF] Home page visited
+2025-07-03 17:13:19.781 +06:00 [ERR] There was a problem in getting Products
+System.InvalidOperationException: Invalid attempt to read when no data is present.
+   at Microsoft.Data.SqlClient.SqlDataReader.CheckDataIsReady(Int32 columnIndex, Boolean allowPartiallyReadColumn, Boolean permitAsync, String methodName)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryReadColumn(Int32 i, Boolean setTimeout, Boolean allowPartiallyReadColumn, Boolean forStreaming)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetValueInternal(Int32 i)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetValue(Int32 i)
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 249
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 54
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 19
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model)
+2025-07-03 18:04:24.459 +06:00 [INF] Application Starting Up...
+2025-07-03 18:04:26.638 +06:00 [INF] Dashboard page visited
+2025-07-03 18:04:26.638 +06:00 [INF] Home page visited
+2025-07-03 20:10:07.816 +06:00 [INF] Application Starting Up...
+2025-07-03 20:10:11.175 +06:00 [INF] Home page visited
+2025-07-03 20:10:14.186 +06:00 [INF] Home page visited
+2025-07-03 20:10:16.618 +06:00 [INF] Dashboard page visited
+2025-07-03 20:11:22.930 +06:00 [ERR] There was a problem in getting Products
+Microsoft.Data.SqlClient.SqlException (0x80131904): Procedure or function 'GetProducts' expects parameter '@OrderBy', which was not supplied.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 54
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 20
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model)
+ClientConnectionId:f9f02b20-f689-437f-b2a7-e1fcb7b809e8
+Error Number:201,State:4,Class:16
+2025-07-03 20:21:46.543 +06:00 [ERR] There was a problem in getting Products
+Microsoft.Data.SqlClient.SqlException (0x80131904): Procedure or function 'GetProducts' expects parameter '@OrderBy', which was not supplied.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 54
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 20
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model)
+ClientConnectionId:89f797be-794f-4d16-9796-87b1d898d70d
+Error Number:201,State:4,Class:16
+2025-07-03 20:21:55.259 +06:00 [ERR] There was a problem in getting Products
+Microsoft.Data.SqlClient.SqlException (0x80131904): Procedure or function 'GetProducts' expects parameter '@OrderBy', which was not supplied.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 54
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 20
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model)
+ClientConnectionId:89f797be-794f-4d16-9796-87b1d898d70d
+Error Number:201,State:4,Class:16
+2025-07-03 20:22:28.936 +06:00 [ERR] There was a problem in getting Products
+Microsoft.Data.SqlClient.SqlException (0x80131904): Procedure or function 'GetProducts' expects parameter '@OrderBy', which was not supplied.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 54
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 20
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model)
+ClientConnectionId:89f797be-794f-4d16-9796-87b1d898d70d
+Error Number:201,State:4,Class:16
+2025-07-03 20:24:35.089 +06:00 [INF] Application Starting Up...
+2025-07-03 20:24:37.116 +06:00 [INF] Home page visited
+2025-07-03 20:24:40.189 +06:00 [INF] Dashboard page visited
+2025-07-03 20:34:56.931 +06:00 [INF] Application Starting Up...
+2025-07-03 20:34:59.014 +06:00 [INF] Home page visited
+2025-07-03 20:34:59.780 +06:00 [INF] Dashboard page visited
+2025-07-03 20:43:33.392 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.MethodAccessException: Attempt by method 'AspNetCoreGeneratedDocument.Areas_Admin_Views_Products_Index#2.ExecuteAsync()' to access method 'AspNetCoreGeneratedDocument.Areas_Admin_Views_Products_Index+<ExecuteAsync>d__15..ctor()' failed.
+   at AspNetCoreGeneratedDocument.Areas_Admin_Views_Products_Index#2.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-03 20:43:36.657 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.MethodAccessException: Attempt by method 'AspNetCoreGeneratedDocument.Areas_Admin_Views_Products_Index#2.ExecuteAsync()' to access method 'AspNetCoreGeneratedDocument.Areas_Admin_Views_Products_Index+<ExecuteAsync>d__15..ctor()' failed.
+   at AspNetCoreGeneratedDocument.Areas_Admin_Views_Products_Index#2.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-03 20:43:55.773 +06:00 [INF] Application Starting Up...
+2025-07-03 20:43:57.214 +06:00 [INF] Home page visited
+2025-07-03 20:44:05.571 +06:00 [INF] Dashboard page visited
+2025-07-03 20:52:40.256 +06:00 [INF] Application Starting Up...
+2025-07-03 20:52:42.213 +06:00 [INF] Home page visited
+2025-07-03 20:52:43.036 +06:00 [INF] Dashboard page visited
+2025-07-03 21:00:08.696 +06:00 [INF] Application Starting Up...
+2025-07-03 21:00:10.771 +06:00 [INF] Dashboard page visited
+2025-07-03 21:00:10.771 +06:00 [INF] Home page visited
+2025-07-03 21:07:27.911 +06:00 [INF] Application Starting Up...
+2025-07-03 21:07:30.013 +06:00 [INF] Home page visited
+2025-07-03 21:07:30.013 +06:00 [INF] Dashboard page visited
+2025-07-03 21:10:27.714 +06:00 [INF] Application Starting Up...
+2025-07-03 21:10:29.393 +06:00 [INF] Dashboard page visited
+2025-07-03 21:10:29.393 +06:00 [INF] Home page visited
+2025-07-03 21:14:51.493 +06:00 [INF] Application Starting Up...
+2025-07-03 21:14:53.495 +06:00 [INF] Home page visited
+2025-07-03 21:14:53.495 +06:00 [INF] Dashboard page visited
+2025-07-03 21:34:35.135 +06:00 [INF] Application Starting Up...
+2025-07-03 21:34:37.169 +06:00 [INF] Dashboard page visited
+2025-07-03 21:34:37.169 +06:00 [INF] Home page visited
+2025-07-03 21:36:44.135 +06:00 [INF] Application Starting Up...
+2025-07-03 21:36:45.596 +06:00 [INF] Home page visited
+2025-07-03 21:36:45.596 +06:00 [INF] Dashboard page visited
+2025-07-03 23:50:27.921 +06:00 [INF] Application Starting Up...
+2025-07-03 23:50:29.523 +06:00 [INF] Home page visited
+2025-07-03 23:50:29.523 +06:00 [INF] Dashboard page visited
+2025-07-03 23:52:26.365 +06:00 [INF] Application Starting Up...
+2025-07-03 23:52:27.617 +06:00 [INF] Home page visited
+2025-07-03 23:52:28.153 +06:00 [INF] Dashboard page visited

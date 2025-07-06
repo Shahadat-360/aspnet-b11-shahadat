@@ -14,6 +14,8 @@ namespace DevSkill.Inventory.Infrastructure
         private readonly string _connectionString;
         private readonly string _migrationAssembly;
         public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Unit> Units { get; set; }
         public DbSet<Log> Logs { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<IdTracker> IdTrackers { get; set; }
@@ -46,11 +48,41 @@ namespace DevSkill.Inventory.Infrastructure
 
             modelBuilder.Entity<Product>(entity =>
             {
-                entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).HasColumnType("nvarchar(450)").IsRequired();
+                entity.Property(e => e.PurchasePrice).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.MRP).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.WholesalePrice).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.Stock).HasColumnType("int").IsRequired();
+                entity.Property(e => e.LowStock).HasColumnType("int").IsRequired();
+                entity.Property(e => e.DamageStock).HasColumnType("int").IsRequired();
+                entity.Property(e => e.ImageUrl).HasColumnType("nvarchar(450)").IsRequired(false);
+                entity.Property(e => e.CategoryId).IsRequired();
+                entity.Property(e => e.UnitId).IsRequired();
+
                 entity.HasOne(e => e.Category)
                     .WithMany(e => e.Products)
                     .HasForeignKey(e => e.CategoryId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Unit)
+                    .WithMany(e=>e.Products)
+                    .HasForeignKey(e => e.UnitId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).HasColumnType("nvarchar(50)").IsRequired();
+                entity.Property(e => e.Status).IsRequired();
+            });
+
+            modelBuilder.Entity<Unit>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).HasColumnType("nvarchar(50)").IsRequired();
+                entity.Property(e => e.Status).IsRequired();
             });
 
             modelBuilder.Entity<Customer>(entity =>

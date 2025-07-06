@@ -11,10 +11,10 @@ namespace DevSkill.Inventory.Application.Features.Products.Queries
 {
     public class ProductGetByIdQueryHandler(IApplicationUnitOfWork applicationUnitOfWork):IRequestHandler<ProductGetByIdQuery,Product>
     {
-        private readonly IApplicationUnitOfWork _applicationUnitOfWork=applicationUnitOfWork;
+        private readonly IApplicationUnitOfWork _applicationUnitOfWork = applicationUnitOfWork;
         public async Task<Product> Handle(ProductGetByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _applicationUnitOfWork.ProductRepository.GetByIdAsync(request.Id);
+            return await _applicationUnitOfWork.ProductRepository.GetProductWithNavigationAsync(request.Id);
         }
     }
 }

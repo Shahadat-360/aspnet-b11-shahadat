@@ -1,0 +1,417 @@
+2025-07-06 02:07:56.186 +06:00 [INF] Application Starting Up...
+2025-07-06 02:07:59.047 +06:00 [INF] Home page visited
+2025-07-06 02:12:48.771 +06:00 [INF] Application Starting Up...
+2025-07-06 02:12:50.689 +06:00 [INF] Home page visited
+2025-07-06 02:15:22.025 +06:00 [INF] Home page visited
+2025-07-06 02:15:26.913 +06:00 [INF] Home page visited
+2025-07-06 03:21:48.931 +06:00 [INF] Application Starting Up...
+2025-07-06 03:21:51.582 +06:00 [INF] Home page visited
+2025-07-06 03:25:40.628 +06:00 [INF] Application Starting Up...
+2025-07-06 03:25:42.179 +06:00 [INF] Home page visited
+2025-07-06 04:56:37.468 +06:00 [INF] Application Starting Up...
+2025-07-06 04:56:39.775 +06:00 [INF] Home page visited
+2025-07-06 10:19:35.278 +06:00 [INF] Application Starting Up...
+2025-07-06 10:19:38.570 +06:00 [INF] Home page visited
+2025-07-06 10:43:19.494 +06:00 [INF] Application Starting Up...
+2025-07-06 10:43:20.802 +06:00 [INF] Home page visited
+2025-07-06 11:17:57.138 +06:00 [INF] Application Starting Up...
+2025-07-06 11:17:58.444 +06:00 [INF] Home page visited
+2025-07-06 11:31:48.934 +06:00 [INF] Application Starting Up...
+2025-07-06 11:31:50.329 +06:00 [INF] Home page visited
+2025-07-06 11:32:38.853 +06:00 [WRN] The static asset '/Uploads/Products/62014085-a5b3-4125-b02d-4cc553149ed7.jpg' was not found in the built time manifest. This file will not be available at runtime if it is not available at compile time during the publish process. If the file was not added to the project during development, and is created at runtime, use the StaticFiles middleware to serve it instead.
+2025-07-06 11:43:01.886 +06:00 [INF] Application Starting Up...
+2025-07-06 11:43:03.212 +06:00 [INF] Home page visited
+2025-07-06 11:48:16.847 +06:00 [INF] Application Starting Up...
+2025-07-06 11:48:18.119 +06:00 [INF] Home page visited
+2025-07-06 11:52:32.004 +06:00 [INF] Application Starting Up...
+2025-07-06 11:52:33.332 +06:00 [INF] Home page visited
+2025-07-06 12:52:02.479 +06:00 [INF] Application Starting Up...
+2025-07-06 12:52:03.877 +06:00 [INF] Home page visited
+2025-07-06 12:59:09.500 +06:00 [INF] Application Starting Up...
+2025-07-06 12:59:10.768 +06:00 [INF] Home page visited
+2025-07-06 12:59:13.467 +06:00 [INF] Home page visited
+2025-07-06 13:00:44.378 +06:00 [INF] Application Starting Up...
+2025-07-06 13:00:45.584 +06:00 [INF] Home page visited
+2025-07-06 13:00:48.761 +06:00 [INF] Home page visited
+2025-07-06 13:01:58.201 +06:00 [INF] Application Starting Up...
+2025-07-06 13:01:59.488 +06:00 [INF] Home page visited
+2025-07-06 13:04:57.085 +06:00 [INF] Application Starting Up...
+2025-07-06 13:04:58.351 +06:00 [INF] Home page visited
+2025-07-06 13:08:01.952 +06:00 [INF] Application Starting Up...
+2025-07-06 13:08:03.226 +06:00 [INF] Home page visited
+2025-07-06 13:09:52.617 +06:00 [INF] Application Starting Up...
+2025-07-06 13:09:53.852 +06:00 [INF] Home page visited
+2025-07-06 13:10:43.842 +06:00 [INF] Application Starting Up...
+2025-07-06 13:10:45.120 +06:00 [INF] Home page visited
+2025-07-06 14:53:12.219 +06:00 [INF] Application Starting Up...
+2025-07-06 14:53:29.701 +06:00 [INF] Home page visited
+2025-07-06 15:56:31.271 +06:00 [INF] Application Starting Up...
+2025-07-06 15:56:33.199 +06:00 [INF] Home page visited
+2025-07-06 15:56:37.386 +06:00 [INF] Home page visited
+2025-07-06 16:06:44.184 +06:00 [INF] Application Starting Up...
+2025-07-06 16:06:46.163 +06:00 [INF] Home page visited
+2025-07-06 16:08:42.948 +06:00 [INF] Application Starting Up...
+2025-07-06 16:08:44.442 +06:00 [INF] Home page visited
+2025-07-06 16:52:20.389 +06:00 [INF] Application Starting Up...
+2025-07-06 16:52:22.437 +06:00 [INF] Home page visited
+2025-07-06 16:53:30.451 +06:00 [INF] Application Starting Up...
+2025-07-06 16:53:31.931 +06:00 [INF] Home page visited
+2025-07-06 16:53:34.929 +06:00 [INF] Home page visited
+2025-07-06 16:57:09.829 +06:00 [INF] Application Starting Up...
+2025-07-06 16:57:11.261 +06:00 [INF] Home page visited
+2025-07-06 16:57:17.117 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The partial view '__ProductSearchForStockAndDamagePartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/__ProductSearchForStockAndDamagePartial.cshtml
+/Areas/Admin/Views/Shared/__ProductSearchForStockAndDamagePartial.cshtml
+/Views/Shared/__ProductSearchForStockAndDamagePartial.cshtml
+/Pages/Shared/__ProductSearchForStockAndDamagePartial.cshtml
+   at Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.<RunAsync>g__Awaited|0_0(Task task, TagHelperExecutionContext executionContext, Int32 i, Int32 count)
+   at AspNetCoreGeneratedDocument.Areas_Admin_Views_Shared__ProductDamageUpdatePartial.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.RenderPartialViewAsync(TextWriter writer, Object model, IView view)
+   at Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.<RunAsync>g__Awaited|0_0(Task task, TagHelperExecutionContext executionContext, Int32 i, Int32 count)
+   at AspNetCoreGeneratedDocument.Areas_Admin_Views_Products_Index.<ExecuteAsync>b__17_20()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorPage.RenderSectionAsyncCore(String sectionName, Boolean required)
+   at AspNetCoreGeneratedDocument.Areas_Admin_Views_Shared__Layout.<ExecuteAsync>b__35_1()
+   at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperExecutionContext.SetOutputContentAsync()
+   at AspNetCoreGeneratedDocument.Areas_Admin_Views_Shared__Layout.ExecuteAsync()
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderLayoutAsync(ViewContext context, ViewBufferTextWriter bodyWriter)
+   at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ViewContext viewContext, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewExecutor.ExecuteAsync(ActionContext actionContext, IView view, ViewDataDictionary viewData, ITempDataDictionary tempData, String contentType, Nullable`1 statusCode)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.ViewResultExecutor.ExecuteAsync(ActionContext context, ViewResult result)
+   at Microsoft.AspNetCore.Mvc.ViewResult.ExecuteResultAsync(ActionContext context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 17:04:52.513 +06:00 [INF] Application Starting Up...
+2025-07-06 17:04:54.008 +06:00 [INF] Home page visited
+2025-07-06 17:06:39.711 +06:00 [INF] Application Starting Up...
+2025-07-06 17:06:41.170 +06:00 [INF] Home page visited
+2025-07-06 17:07:27.166 +06:00 [INF] Application Starting Up...
+2025-07-06 17:07:29.075 +06:00 [INF] Home page visited
+2025-07-06 17:37:26.030 +06:00 [INF] Dashboard page visited
+2025-07-06 20:25:15.752 +06:00 [INF] Application Starting Up...
+2025-07-06 20:25:20.402 +06:00 [INF] Home page visited
+2025-07-06 20:25:28.564 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:25:28.576 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:25:31.289 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:25:31.292 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:25:32.989 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:25:32.992 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:26:06.024 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:26:06.027 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:26:07.266 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:26:07.269 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:26:11.294 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:26:11.298 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:26:19.856 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:26:19.859 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:27:32.325 +06:00 [INF] Application Starting Up...
+2025-07-06 20:27:34.473 +06:00 [INF] Home page visited
+2025-07-06 20:27:43.884 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:27:43.895 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:27:47.094 +06:00 [ERR] The partial view '_ProductStockUpdateModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Views/Shared/_ProductStockUpdateModalPartial.cshtml","/Pages/Shared/_ProductStockUpdateModalPartial.cshtml"]
+2025-07-06 20:27:47.099 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductStockUpdateModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductStockUpdateModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Views/Shared/_ProductStockUpdateModalPartial.cshtml
+/Pages/Shared/_ProductStockUpdateModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 20:33:43.301 +06:00 [INF] Application Starting Up...
+2025-07-06 20:33:45.486 +06:00 [INF] Home page visited
+2025-07-06 21:35:43.910 +06:00 [INF] Application Starting Up...
+2025-07-06 21:35:45.221 +06:00 [INF] Home page visited
+2025-07-06 21:35:47.319 +06:00 [INF] Home page visited
+2025-07-06 21:37:20.031 +06:00 [ERR] The partial view '_ProductViewModalPartial' was not found. Searched locations: ["/Areas/Admin/Views/Products/_ProductViewModalPartial.cshtml","/Areas/Admin/Views/Shared/_ProductViewModalPartial.cshtml","/Views/Shared/_ProductViewModalPartial.cshtml","/Pages/Shared/_ProductViewModalPartial.cshtml"]
+2025-07-06 21:37:20.037 +06:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: The view '_ProductViewModalPartial' was not found. The following locations were searched:
+/Areas/Admin/Views/Products/_ProductViewModalPartial.cshtml
+/Areas/Admin/Views/Shared/_ProductViewModalPartial.cshtml
+/Views/Shared/_ProductViewModalPartial.cshtml
+/Pages/Shared/_ProductViewModalPartial.cshtml
+   at Microsoft.AspNetCore.Mvc.ViewEngines.ViewEngineResult.EnsureSuccessful(IEnumerable`1 originalLocations)
+   at Microsoft.AspNetCore.Mvc.ViewFeatures.PartialViewResultExecutor.ExecuteAsync(ActionContext context, PartialViewResult result)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-07-06 21:38:26.584 +06:00 [INF] Application Starting Up...
+2025-07-06 21:38:27.833 +06:00 [INF] Home page visited
+2025-07-06 21:53:13.446 +06:00 [INF] Dashboard page visited
+2025-07-06 21:54:14.415 +06:00 [INF] Dashboard page visited
+2025-07-06 21:58:53.205 +06:00 [INF] Application Starting Up...
+2025-07-06 21:58:55.096 +06:00 [INF] Home page visited
+2025-07-06 21:59:01.128 +06:00 [INF] Home page visited
+2025-07-06 22:13:51.342 +06:00 [ERR] There was a problem in getting Products
+Microsoft.Data.SqlClient.SqlException (0x80131904): Procedure or function 'GetProducts' expects parameter '@OrderBy', which was not supplied.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__195_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.ExecuteQueryAsync[TReturn](DbCommand command) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 234
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 97
+   at DevSkill.Inventory.Infrastructure.Utilities.SqlUtility.QueryWithStoredProcedureAsync[TReturn](String storedProcedureName, IDictionary`2 parameters, IDictionary`2 outParameters) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\Utilities\SqlUtility.cs:line 103
+   at DevSkill.Inventory.Infrastructure.ApplicationUnitOfWork.GetPagedProducts(Int32 pageIndex, Int32 pageSize, String order, ProductSearchDto searchItem) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Infrastructure\ApplicationUnitOfWork.cs:line 59
+   at DevSkill.Inventory.Application.Features.Products.Queries.ProductsByQueryHandler.Handle(ProductsByQuery request, CancellationToken cancellationToken) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Application\Features\Products\Queries\ProductsByQueryHandler.cs:line 20
+   at DevSkill.Inventory.Web.Areas.Admin.Controllers.ProductsController.GetProductJsonData(ProductsByQuery model)
+ClientConnectionId:1fb24cec-d083-42b7-9776-b3b0da82bdeb
+Error Number:201,State:4,Class:16
+2025-07-06 22:17:59.299 +06:00 [INF] Application Starting Up...
+2025-07-06 22:18:00.512 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-07-06 22:24:47.279 +06:00 [INF] Application Starting Up...
+2025-07-06 22:24:48.996 +06:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at Program.<Main>$(String[] args) in D:\Asp.Net Core MVC Jalal Sir\devSkill_Final\ss\aspnet-b11-shahadat\DevSkill.Inventory\DevSkill.Inventory.Web\Program.cs:line 70
+2025-07-06 22:25:31.435 +06:00 [INF] Application Starting Up...
+2025-07-06 22:25:32.851 +06:00 [INF] Home page visited
+2025-07-06 22:57:29.033 +06:00 [INF] Application Starting Up...
+2025-07-06 22:57:30.560 +06:00 [INF] Home page visited
+2025-07-06 23:05:19.163 +06:00 [INF] Application Starting Up...
+2025-07-06 23:05:20.423 +06:00 [INF] Home page visited
+2025-07-06 23:05:54.874 +06:00 [INF] Application Starting Up...
+2025-07-06 23:05:56.153 +06:00 [INF] Home page visited
+2025-07-06 23:05:58.991 +06:00 [INF] Home page visited
+2025-07-06 23:08:45.607 +06:00 [INF] Application Starting Up...
+2025-07-06 23:08:47.062 +06:00 [INF] Home page visited
+2025-07-06 23:53:30.795 +06:00 [INF] Application Starting Up...
+2025-07-06 23:53:32.893 +06:00 [INF] Home page visited

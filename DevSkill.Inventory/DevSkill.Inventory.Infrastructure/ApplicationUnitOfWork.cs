@@ -13,12 +13,17 @@ using System.Threading.Tasks;
 namespace DevSkill.Inventory.Infrastructure
 {
     public class ApplicationUnitOfWork(ApplicationDbContext applicationDbContext, 
-        IProductRepository productRepository,ICustomerRepository customerRepository) 
+        IProductRepository productRepository,ICustomerRepository customerRepository,
+        ICategoryRepository categoryRepository,IUnitRepository unitRepository) 
         : UnitOfWork(applicationDbContext),IApplicationUnitOfWork
     {
         public IProductRepository ProductRepository { get; private set; } = productRepository;
 
         public ICustomerRepository CustomerRepository { get; private set; } = customerRepository;
+
+        public ICategoryRepository CategoryRepository { get; set; } = categoryRepository;
+
+        public IUnitRepository UnitRepository { get; private set; }= unitRepository;
 
         public async Task<(IList<Customer> customers, int total, int totalDisplay)> GetPagedCustomers
             (int pageIndex, int pageSize, string? order, CustomerSearchDto? searchItem)
@@ -47,20 +52,25 @@ namespace DevSkill.Inventory.Infrastructure
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
 
-        public async Task<(IList<Product> products, int total, int totalDisplay)> 
+        public async Task<(IList<ProductWithCategoryDto> products, int total, int totalDisplay)> 
             GetPagedProducts(int pageIndex, int pageSize, string? order, ProductSearchDto? searchItem)
         {
             var storedProcedureName = "GetProducts";
-            var result = await _sqlUtility.QueryWithStoredProcedureAsync<Product>(storedProcedureName,
+            var result = await _sqlUtility.QueryWithStoredProcedureAsync<ProductWithCategoryDto>(storedProcedureName,
                 new Dictionary<string, object>
                 {
                     {"PageIndex",pageIndex },
                     {"PageSize",pageSize },
                     {"OrderBy",order },
+                    {"Id",string.IsNullOrEmpty(searchItem?.Id) ? null : searchItem.Id },
                     {"Name",string.IsNullOrEmpty(searchItem?.Name) ? null : searchItem.Name },
-                    {"CategoryId",searchItem?.CategoryId },
-                    {"MinPrice",searchItem?.MinPrice },
-                    {"MaxPrice",searchItem?.MaxPrice }
+                    {"Category",string.IsNullOrEmpty(searchItem?.Category)?null:searchItem.Category },
+                    {"MaxPurchasePrice",searchItem?.MaxPurchasePrice },
+                    {"MinPurchasePrice",searchItem?.MinPurchasePrice },
+                    {"MaxMRP",searchItem?.MaxMRP },
+                    {"MinMRP",searchItem?.MinMRP },
+                    {"MaxWholesalePrice",searchItem?.MaxWholesalePrice },
+                    {"MinWholesalePrice",searchItem?.MinWholesalePrice }
                 },
                 new Dictionary<string, Type>
                 {

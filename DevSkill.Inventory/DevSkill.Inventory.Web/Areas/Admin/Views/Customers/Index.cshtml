@@ -21,7 +21,7 @@
 </div>
 <!--end::App Content Header-->
 <!--begin::App Content-->
-<div id="modalContainer"></div>
+<div id="CustomerModalContainer"></div>
 <div class="app-content">
     <div class="container-fluid">
     <partial name="_ResponsePartial" />
@@ -150,7 +150,7 @@
     <script>
         function Add() {
             $.get("/Admin/Customers/Add", function (response) {
-                $("#modalContainer").html(response);
+                $("#CustomerModalContainer").html(response);
                 $('#CustomerModalForm').attr('action','/Admin/Customers/Add')
                 $("#staticBackdrop").modal("show");
             });
@@ -159,7 +159,7 @@
     <script>
         function Update(Id){
             $.get("/Admin/Customers/Update/" + Id, function (response) {
-                $("#modalContainer").html(response);
+                $("#CustomerModalContainer").html(response);
                 $('#CustomerActionButton').text('Update');
                 $('#staticBackdropLabel').text('Update Customer Information');
                 $('#CustomerModalForm').attr('action','/Admin/Customers/Update')
