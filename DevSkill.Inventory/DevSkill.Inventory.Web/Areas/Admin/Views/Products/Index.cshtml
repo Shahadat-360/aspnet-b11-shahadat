@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "Products";
 }
-
 <!--begin::App Content Header-->
 <div class="app-content-header">
     <div class="container-fluid">
@@ -106,11 +105,18 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h3 class="card-title">Available Products</h3>
-                        <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
-                            <i class="bi bi-plus-lg"></i>
-                            New Product
-                        </button>
+                        <h3 class="card-title d-flex justify-content-start">Available Products</h3>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-warning me-md-2" onclick="DamageUpdate()">
+                                <i class="bi bi-plus-lg"></i> Damage Product
+                            </button>
+                            <button type="button" class="btn btn-success me-md-2" onclick="StockUpdate()">
+                                <i class="bi bi-plus-lg"></i> Store Product
+                            </button>
+                            <button type="button" class="btn btn-primary" onclick="Add()">
+                                <i class="bi bi-plus-lg"></i> New Product
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <partial name="_ModalPartial" />
@@ -159,19 +165,51 @@
 <!--end::App Content-->
 @section Scripts
 {
+    <partial name="_DataTablesHelperPartial" />
+    @* Select2 Support  *@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    @* All Modal Calls Here Start *@
     <script>
+        // Add Product Modal 
         function Add() {
-            $.get("/Admin/Products/Create", function (response) {
+            $.get("/Admin/Products/Add", function (response) {
                 $("#ProductModalContainer").html(response);
-                $('#ProductActionButton').text('Create');
-                $('#staticBackdropLabel').text('Create New Product');
-                $('#ProductModalForm').attr('action', '/Admin/Products/Create')
                 $("#staticBackdrop").modal("show");
             });
-            }
+        }
+        // Update Product Modal 
+        function Update(id) {
+            $.get(`/Admin/Products/Update/${id}`, function (response) {
+                if (response.success === false) {
+                    window.location.href = response.redirectUrl;
+                }
+                else{
+                    $("#ProductModalContainer").html(response);
+                    $("#staticBackdrop").modal("show");
+                }
+            });
+        }
+        // Stock Update Modal
+        function StockUpdate()
+        {
+            $.get("/Admin/Products/StockUpdate", function (response) {
+                $("#ProductModalContainer").html(response);
+                $("#ProductStockUpdate").modal("show");
+            });
+        }
+        // Damage Update Modal
+        function DamageUpdate()
+        {
+            $.get("/Admin/Products/DamageStockUpdate", function (response) {
+                $("#ProductModalContainer").html(response);
+                $("#ProductDamageUpdate").modal("show");
+            });
+        }
     </script>
-
-    <partial name="_DataTablesHelperPartial" />
+    @* All Modal Calls Here Start *@
     <script>
         $(function () {
             $("#products").DataTable({
@@ -230,18 +268,40 @@
                         targets: [0,1,11],
                     },
                     {
+                        targets: 1,
+                        render: function(data,type,row){
+                            console.log(data,row[3]);
+                            return `
+                                <img src="/${row[1]}" alt="No Image" style="Width:60px;height:60px;" />
+                            `;
+                        }
+                    },
+                    {
                         targets: 11,
                         render: function (data, type, row) {
-                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/products/update/${data}'" value='${data}'>
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                Edit
-                                            </button>
-                                            <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
-                                                <i class="fas fa-trash">
-                                                </i>
-                                                Delete
-                                            </button>`;
+                            return `
+                             <div class="dropdown">
+                               <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 Actions
+                               </button>
+                               <ul class="dropdown-menu">
+                                 <li>
+                                   <a class="dropdown-item text-primary" href="/admin/products/ProductView/${row[2]}">
+                                     <i class="bi bi-eye"></i> View
+                                   </a>
+                                 </li>
+                                 <li>
+                                   <a class="dropdown-item text-info"" onclick="Update('${row[2]}')">
+                                     <i class="bi bi-pencil-square"></i> Edit
+                                   </a>
+                                 </li>
+                                 <li>
+                                   <button class="dropdown-item text-danger show-bs-modal" data-id="${row[2]}">
+                                     <i class="bi bi-trash"></i> Delete
+                                   </button>
+                                 </li>
+                               </ul>
+                             </div>`;
                         }
                     }
                 ],
