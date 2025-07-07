@@ -18,5 +18,7 @@ namespace DevSkill.Inventory.Domain.Entities
         public int OpeningBalance { get; set; }
         public decimal CurrentBalance { get; set; }
         public Status Status { get; set; }
+
+        public IList<Sale> Sales { get; set; } = new List<Sale>();  
     }
 }

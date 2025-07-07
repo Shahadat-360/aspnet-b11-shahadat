@@ -19,7 +19,7 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<Log> Logs { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<IdTracker> IdTrackers { get; set; }
-        public DbSet<Sales> Sales { get; set; }
+        public DbSet<Sale> Sales { get; set; }
         public ApplicationDbContext(string connectionString, string migrationAssembly)
         {
             _connectionString = connectionString;
@@ -105,26 +105,26 @@ namespace DevSkill.Inventory.Infrastructure
                 entity.Property(e => e.LastUsedNumber).IsRequired();
             });
 
-            modelBuilder.Entity<Sales>(entity =>
+            modelBuilder.Entity<Sale>(entity =>
             {
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Name).HasColumnType("nvarchar(100)").IsRequired();
                 entity.Property(e => e.CustomerId).IsRequired();
                 entity.Property(e => e.ProductId).IsRequired();
                 entity.Property(e => e.Quantity).IsRequired();
-                entity.Property(e => e.DateOnly).HasColumnType("date").IsRequired();
-                entity.Property(e => e.TimeOnly).HasColumnType("time").IsRequired();
+                entity.Property(e => e.OrderDate).HasColumnType("date").IsRequired();
+                entity.Property(e => e.OrderTime).HasColumnType("time").IsRequired();
                 entity.Property(e => e.Total).HasColumnType("decimal(18,2)").IsRequired();
                 entity.Property(e => e.Due).HasColumnType("decimal(18,2)").IsRequired();
                 entity.Property(e => e.Paid).HasColumnType("decimal(18,2)").IsRequired();
                 entity.Property(e => e.PaymentStatus).HasConversion<int>().IsRequired();
                 entity.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)").IsRequired();
                 entity.HasOne(e => e.Customer)
-                    .WithMany()
+                    .WithMany(e=>e.Sales)
                     .HasForeignKey(e => e.CustomerId)
                     .OnDelete(DeleteBehavior.Restrict);
                 entity.HasOne(e => e.Product)
-                    .WithMany()
+                    .WithMany(e=>e.Sales)
                     .HasForeignKey(e => e.ProductId)
                     .OnDelete(DeleteBehavior.Restrict);
             });

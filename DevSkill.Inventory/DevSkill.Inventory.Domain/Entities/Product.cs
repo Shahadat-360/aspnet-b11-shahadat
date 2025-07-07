@@ -21,5 +21,6 @@ namespace DevSkill.Inventory.Domain.Entities
         public Unit Unit { get; set; }
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
+        public IList<Sale> Sales { get; set; } = new List<Sale>();
     }
 }

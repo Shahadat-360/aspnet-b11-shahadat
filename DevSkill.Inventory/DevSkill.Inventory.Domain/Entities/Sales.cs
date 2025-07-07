@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Domain.Entities
 {
-    public class Sales:IEntity<string>
+    public class Sale:IEntity<string>
     {
         public string Id {  get; set; }
         public string Name { get; set; }
@@ -16,8 +16,8 @@ namespace DevSkill.Inventory.Domain.Entities
         public string ProductId {  get; set; }
         public Product Product { get; set; }
         public int Quantity {  get; set; }
-        public DateOnly DateOnly { get; set; }
-        public TimeOnly TimeOnly { get; set; }
+        public DateOnly OrderDate { get; set; }
+        public TimeOnly OrderTime { get; set; }
         public decimal Total { get; set; }
         public decimal Due {  get; set; }
         public decimal Paid {  get; set; }

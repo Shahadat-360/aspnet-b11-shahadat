@@ -163,7 +163,7 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Sales", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Sale", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -172,15 +172,18 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateOnly>("DateOnly")
-                        .HasColumnType("date");
-
                     b.Property<decimal>("Due")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateOnly>("OrderDate")
+                        .HasColumnType("date");
+
+                    b.Property<TimeOnly>("OrderTime")
+                        .HasColumnType("time");
 
                     b.Property<decimal>("Paid")
                         .HasColumnType("decimal(18,2)");
@@ -194,9 +197,6 @@ namespace DevSkill.Inventory.Web.Data.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<TimeOnly>("TimeOnly")
-                        .HasColumnType("time");
 
                     b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
@@ -448,16 +448,16 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.Navigation("Unit");
                 });
 
-            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Sales", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Sale", b =>
                 {
                     b.HasOne("DevSkill.Inventory.Domain.Entities.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Sales")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DevSkill.Inventory.Domain.Entities.Product", "Product")
-                        .WithMany()
+                        .WithMany("Sales")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -521,6 +521,16 @@ namespace DevSkill.Inventory.Web.Data.Migrations
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Sales");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("Sales");
                 });
 
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Unit", b =>
