@@ -16,4 +16,8 @@
     <ProjectReference Include="..\DevSkill.Inventory.Domain\DevSkill.Inventory.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Sales\" />
+  </ItemGroup>
+
 </Project>
