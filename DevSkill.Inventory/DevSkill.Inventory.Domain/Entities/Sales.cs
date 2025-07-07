@@ -11,9 +11,9 @@ namespace DevSkill.Inventory.Domain.Entities
     {
         public string Id {  get; set; }
         public string Name { get; set; }
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public Guid ProductId {  get; set; }
+        public string ProductId {  get; set; }
         public Product Product { get; set; }
         public int Quantity {  get; set; }
         public DateOnly DateOnly { get; set; }
@@ -23,7 +23,5 @@ namespace DevSkill.Inventory.Domain.Entities
         public decimal Paid {  get; set; }
         public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Due;
         public decimal UnitPrice { get; set; }
-
-
     }
 }
