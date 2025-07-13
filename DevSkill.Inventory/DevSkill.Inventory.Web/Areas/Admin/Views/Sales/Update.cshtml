@@ -1,0 +1,590 @@
+﻿@using DevSkill.Inventory.Domain.Enums
+@using DevSkill.Inventory.Application.Features.Sales.Commands
+@model SaleUpdateCommand
+@{
+    ViewData["Title"] = "Sale Update";
+}
+
+<div class="app-content">
+    <div class="container-fluid">
+        <div class="card mt-2">
+            <div class="card-header">
+                <h4 class="mb-0">Update Sale Information</h4>
+            </div>
+            <div class="card-body">
+                <div id="alertBox" class="alert alert-warning d-none" role="alert">
+                    Please select <strong>Customer</strong>, <strong>Sales Type</strong> and <strong>Product</strong>.
+                </div>
+                <form id="saleForm" asp-action="Update" asp-controller="Sales" asp-area="Admin" asp-antiforgery="true">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="SaleDate" />
+                    <!-- Top form fields -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <label asp-for="SaleDate" class="form-label required-field">Sale Date</label>
+                            <input type="date" asp-for="SaleDate" class="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="CustomerId" class="form-label required-field">Select Customer</label>
+                            <select asp-for="CustomerId" class="form-select" data-placeholder="Select a Customer">
+                                @if (!string.IsNullOrEmpty(Model.CustomerId))
+                                {
+                                    <option value="@Model.CustomerId" selected>@Model.CustomerName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="CustomerId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="SalesType" class="form-label required-field">Select Sales Type</label>
+                            <select asp-for="SalesType" asp-items="Html.GetEnumSelectList<SalesType>()" class="form-select">
+                                <option value="">-- Select Sales Type --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="ProductId" class="form-label required-field">Select Product</label>
+                            <select asp-for="ProductId" class="form-select" data-placeholder="Select a Product"></select>
+                        </div>
+                    </div>
+
+                    <!-- Products table -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-cart-check me-2"></i>Selected Products
+                            </h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover mb-0">
+                                    <thead class="table-dark">
+                                        <tr class="text-center">
+                                            <th>Code</th>
+                                            <th>Product Name</th>
+                                            <th>Stock</th>
+                                            <th>Quantity</th>
+                                            <th>Unit Price</th>
+                                            <th>SubTotal</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productsTableBody">
+                                        @if (Model.SaleItems != null && Model.SaleItems.Any())
+                                        {
+                                            @for (int i = 0; i < Model.SaleItems.Count; i++)
+                                            {
+                                                <tr data-product-id="@Model.SaleItems[i].ProductId"
+                                                    data-index="@i"
+                                                    data-original-id="@Model.SaleItems[i].Id"
+                                                    class="text-center existing-item">
+                                                    <td><span class="badge bg-secondary product-code">Loading...</span></td>
+                                                    <td class="text-start fw-semibold product-name">Loading...</td>
+                                                    <td><span class="badge bg-info product-stock">0</span></td>
+                                                    <td>
+                                                        <input type="number"
+                                                               class="form-control quantity-input text-center"
+                                                               value="@Model.SaleItems[i].Quantity"
+                                                               min="1"
+                                                               data-unit-price="@Model.SaleItems[i].UnitPrice"
+                                                               style="max-width: 80px; margin: 0 auto;" />
+                                                    </td>
+                                                    <td>
+                                                        <input type="number"
+                                                               class="form-control unitprice-input text-center"
+                                                               value="@Model.SaleItems[i].UnitPrice"
+                                                               min="0"
+                                                               step="0.01"
+                                                               style="max-width: 100px; margin: 0 auto;" />
+                                                    </td>
+                                                    <td class="subtotal fw-bold text-success">@Model.SaleItems[i].SubTotal.ToString("F2")</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-danger btn-sm remove-item">
+                                                            <i class="bi bi-trash-fill"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr class="text-center" id="emptyTableMessage">
+                                                <td colspan="7" class="py-5 text-muted">
+                                                    <i class="bi bi-box-seam fa-3x mb-3 text-secondary"></i>
+                                                    <h5 class="text-secondary">No products added yet</h5>
+                                                    <p class="mb-0">Select a product from the dropdown above to add it to your sale</p>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary section -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card shadow-sm">
+                                <div class="card-header bg-success text-white">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-calculator me-2"></i>Order Summary
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label asp-for="VatPercentage" class="form-label fw-semibold">VAT (%)</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" asp-for="VatPercentage" class="form-control text-end" min="0" step="0.01" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label asp-for="NetAmmount" class="form-label fw-semibold">Net Amount</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" asp-for="NetAmmount" class="form-control text-end bg-light" readonly />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label asp-for="Discount" class="form-label fw-semibold">Discount</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" asp-for="Discount" class="form-control text-end" step="0.01" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label asp-for="Total" class="form-label fw-semibold">Total Amount</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" asp-for="Total" class="form-control text-end bg-light" readonly />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label asp-for="Paid" class="form-label fw-semibold">Paid Amount</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" asp-for="Paid" class="form-control text-end" min="0" step="0.01" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <div class="col-6">
+                                            <label asp-for="Due" class="form-label fw-semibold">Due Amount</label>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" asp-for="Due" class="form-control text-end bg-light" readonly />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-4">
+                            <label asp-for="AccountType" class="form-label required-field">Account Type</label>
+                            <select asp-for="AccountType" asp-items="Html.GetEnumSelectList<AccountType>()" class="form-select">
+                                <option value="">-- Select Account Type --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="AccountId" class="form-label required-field">Account</label>
+                            <select asp-for="AccountId" class="form-select" data-placeholder="Select an Account">
+                                @if (Model.AccountId > 0)
+                                {
+                                    <option value="@Model.AccountId" selected>@Model.AccountName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Note" class="form-label">Note</label>
+                            <input asp-for="Note" class="form-control" placeholder="If Any" />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div col-12">
+                            <label asp-for="TermsAndConditions" class="form-label">Terms And Conditions</label>
+                            <textarea asp-for="TermsAndConditions" class="form-control" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <!-- Action buttons -->
+                    <div class="row mt-4">
+                        <div class="col-12 text-center">
+                            <a type="button" class="btn btn-secondary btn-lg me-3" asp-action="Index" asp-controller="Sales" asp-area="Admin">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-check-circle me-2"></i>Update Sale
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Hidden container for SaleItems -->
+                    <div id="hiddenSaleItemsContainer">
+                        @if (Model.SaleItems != null && Model.SaleItems.Any())
+                        {
+                            @for (int i = 0; i < Model.SaleItems.Count; i++)
+                            {
+                                <input type="hidden" name="SaleItems[@i].Id" value="@Model.SaleItems[i].Id" />
+                                <input type="hidden" name="SaleItems[@i].ProductId" value="@Model.SaleItems[i].ProductId" />
+                                <input type="hidden" name="SaleItems[@i].Quantity" value="@Model.SaleItems[i].Quantity" class="hidden-quantity" data-index="@i" />
+                                <input type="hidden" name="SaleItems[@i].UnitPrice" value="@Model.SaleItems[i].UnitPrice" class="hidden-unitprice" data-index="@i" />
+                                <input type="hidden" name="SaleItems[@i].SubTotal" value="@Model.SaleItems[i].SubTotal" class="hidden-subtotal" data-index="@i" />
+                            }
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <partial name="_Select2LibraryPartial" />
+    <partial name="_Select2SearchingByIdPartial" />
+    <script>
+        let saleItemIndex = @(Model.SaleItems?.Count ?? 0);
+        let isInitialized = false;
+
+        $(document).ready(function () {
+            initializeSelect2Controls();
+            loadExistingProductDetails();
+
+            // Set initial account dropdown based on selected AccountType
+            if ($('#AccountType').val()) {
+                updateAccountDropdown($('#AccountType').val());
+            }
+
+            // Calculate summary after loading existing data
+            setTimeout(function() {
+                calculateSummary();
+                isInitialized = true;
+            }, 1000);
+        });
+
+        function initializeSelect2Controls() {
+            // Initialize Customer dropdown
+            initializeSearchOnlySelect2({
+                selectorId: '#CustomerId',
+                searchUrl: '/Admin/Customers/SearchCustomers'
+            });
+
+            // Initialize Product dropdown
+            initializeSearchOnlySelect2({
+                selectorId: '#ProductId',
+                searchUrl: '/Admin/Products/SearchProducts'
+            });
+
+            // Initialize Account dropdown (will be updated based on AccountType)
+            initializeSearchOnlySelect2({
+                selectorId: '#AccountId',
+                searchUrl: '/Admin/CashAccounts/SearchAccounts'
+            });
+        }
+
+        function loadExistingProductDetails() {
+            // Load product details for existing items
+            $('.existing-item').each(function() {
+                const $row = $(this);
+                const productId = $row.data('product-id');
+                const salesType = $('#SalesType').val();
+
+                if (productId && salesType) {
+                    loadProductDetailsForRow($row, productId, salesType);
+                }
+            });
+        }
+
+        function loadProductDetailsForRow($row, productId, salesType) {
+            $.ajax({
+                url: `/Admin/Products/GetProductDetails`,
+                type: 'GET',
+                data: { productId, salesType },
+                success: function (res) {
+                    if (res.success) {
+                        $row.find('.product-code').text(res.code);
+                        $row.find('.product-name').text(res.name);
+                        $row.find('.product-stock').text(res.stock);
+                        $row.find('.quantity-input').attr('max', res.stock);
+                    }
+                },
+                error: function () {
+                    console.log('Error loading product details for existing item');
+                }
+            });
+        }
+
+        // Handle Account Type change
+        $('#AccountType').on('change', function () {
+            const accountType = $(this).val();
+            updateAccountDropdown(accountType);
+        });
+
+        function updateAccountDropdown(accountType) {
+            const $accountSelect = $('#AccountId');
+            const currentAccountId = $accountSelect.val();
+
+            if (accountType) {
+                let searchUrl = '';
+                switch (accountType) {
+                    case '0':
+                        searchUrl = '/Admin/CashAccounts/SearchAccounts';
+                        break;
+                    case '1':
+                        searchUrl = '/Admin/BankAccounts/SearchAccounts';
+                        break;
+                    case '2':
+                        searchUrl = '/Admin/MobileAccounts/SearchAccounts';
+                        break;
+                }
+
+                if (searchUrl) {
+                    // Reinitialize Select2 with new URL
+                    $accountSelect.select2('destroy');
+
+                    // Clear options but keep the selected one if it exists
+                    if (currentAccountId) {
+                        $accountSelect.html(`<option value="${currentAccountId}" selected>@Model.AccountName</option>`);
+                    } else {
+                        $accountSelect.html('<option value="">-- Select Account --</option>');
+                    }
+
+                    initializeSearchOnlySelect2({
+                        selectorId: '#AccountId',
+                        searchUrl: searchUrl
+                    });
+                }
+            }
+        }
+
+        // Validate selections and fetch details
+        $('#ProductId').on('change', function () {
+            const productId = $('#ProductId').val();
+            const salesType = $('#SalesType').val();
+            const customerId = $('#CustomerId').val();
+
+            if (!productId || !salesType || !customerId) {
+                $('#alertBox').removeClass('d-none');
+                setTimeout(() => $('#alertBox').addClass('d-none'), 3000);
+                return;
+            }
+
+            $('#alertBox').addClass('d-none');
+            fetchProductDetails(productId, salesType);
+        });
+
+        function fetchProductDetails(productId, salesType) {
+            $.ajax({
+                url: `/Admin/Products/GetProductDetails`,
+                type: 'GET',
+                data: { productId, salesType },
+                success: function (res) {
+                    if (!res.success) {
+                        alert(res.message || 'Product not found');
+                        return;
+                    }
+
+                    // Prevent duplicate rows
+                    if ($(`#productsTableBody tr[data-product-id="${res.id}"]`).length) {
+                        alert("Already Selected");
+                        return;
+                    }
+
+                    // Remove empty message if it exists
+                    $('#emptyTableMessage').remove();
+
+                    const unitPrice = parseFloat(res.unitprice);
+                    const stock = parseInt(res.stock, 10);
+                    const currentIndex = saleItemIndex;
+
+                    const row = `
+                        <tr data-product-id="${res.id}" data-index="${currentIndex}" class="text-center">
+                            <td><span class="badge bg-secondary">${res.code}</span></td>
+                            <td class="text-start fw-semibold">${res.name}</td>
+                            <td><span class="badge bg-info">${stock}</span></td>
+                            <td>
+                                <input type="number"
+                                       class="form-control quantity-input text-center"
+                                       value="1"
+                                       min="1"
+                                       max="${stock}"
+                                       data-unit-price="${unitPrice}"
+                                       style="max-width: 80px; margin: 0 auto;" />
+                            </td>
+                            <td>
+                                <input type="number"
+                                       class="form-control unitprice-input text-center"
+                                       value="${unitPrice}"
+                                       min="0"
+                                       step="0.01"
+                                       style="max-width: 100px; margin: 0 auto;" />
+                            </td>
+                            <td class="subtotal fw-bold text-success">${unitPrice.toFixed(2)}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm remove-item">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+
+                    $('#productsTableBody').append(row);
+
+                    saleItemIndex++;
+
+                    // Rebuild all hidden fields to ensure proper indexing
+                    rebuildHiddenFields();
+                    calculateSummary();
+                },
+                error: function () {
+                    alert('Error fetching product details');
+                }
+            });
+        }
+
+        // NEW: Function to rebuild hidden fields with proper sequential indexing
+        function rebuildHiddenFields() {
+            // Clear existing hidden fields
+            $('#hiddenSaleItemsContainer').empty();
+
+            // Rebuild with proper sequential indexing
+            let index = 0;
+            $('#productsTableBody tr:not(#emptyTableMessage)').each(function () {
+                const $row = $(this);
+                const productId = $row.data('product-id');
+                const quantity = parseInt($row.find('.quantity-input').val(), 10) || 0;
+                const unitPrice = parseFloat($row.find('.unitprice-input').val()) || 0;
+                const subTotal = quantity * unitPrice;
+
+                // Update the row's data-index attribute
+                $row.attr('data-index', index);
+
+                // Check if this is an existing item (has existing-item class)
+                const isExisting = $row.hasClass('existing-item');
+                let hiddenFields = '';
+
+                if (isExisting) {
+                    // For existing items, we need to preserve the original Id
+                    const originalId = $row.data('original-id') || 0;
+                    hiddenFields = `
+                        <input type="hidden" name="SaleItems[${index}].Id" value="${originalId}" />
+                        <input type="hidden" name="SaleItems[${index}].ProductId" value="${productId}" />
+                        <input type="hidden" name="SaleItems[${index}].Quantity" value="${quantity}" class="hidden-quantity" data-index="${index}" />
+                        <input type="hidden" name="SaleItems[${index}].UnitPrice" value="${unitPrice}" class="hidden-unitprice" data-index="${index}" />
+                        <input type="hidden" name="SaleItems[${index}].SubTotal" value="${subTotal}" class="hidden-subtotal" data-index="${index}" />
+                    `;
+                } else {
+                    // For new items, no Id field
+                    hiddenFields = `
+                        <input type="hidden" name="SaleItems[${index}].ProductId" value="${productId}" />
+                        <input type="hidden" name="SaleItems[${index}].Quantity" value="${quantity}" class="hidden-quantity" data-index="${index}" />
+                        <input type="hidden" name="SaleItems[${index}].UnitPrice" value="${unitPrice}" class="hidden-unitprice" data-index="${index}" />
+                        <input type="hidden" name="SaleItems[${index}].SubTotal" value="${subTotal}" class="hidden-subtotal" data-index="${index}" />
+                    `;
+                }
+
+                $('#hiddenSaleItemsContainer').append(hiddenFields);
+                index++;
+            });
+        }
+
+        function updateRowSubtotal($row) {
+            const qty = parseInt($row.find('.quantity-input').val(), 10) || 0;
+            const unitPrice = parseFloat($row.find('.unitprice-input').val()) || 0;
+            const subtotal = qty * unitPrice;
+            const index = $row.data('index');
+
+            $row.find('.subtotal').text(`${subtotal.toFixed(2)}`);
+
+            // Update hidden fields
+            $(`.hidden-quantity[data-index="${index}"]`).val(qty);
+            $(`.hidden-unitprice[data-index="${index}"]`).val(unitPrice);
+            $(`.hidden-subtotal[data-index="${index}"]`).val(subtotal);
+
+            calculateSummary();
+        }
+
+        // Quantity change
+        $(document).on('input', '.quantity-input', function () {
+            const $row = $(this).closest('tr');
+            updateRowSubtotal($row);
+        });
+
+        // Unit price change
+        $(document).on('input', '.unitprice-input', function () {
+            const $row = $(this).closest('tr');
+            updateRowSubtotal($row);
+        });
+
+        // Remove item - FIXED VERSION
+        $(document).on('click', '.remove-item', function () {
+            const $row = $(this).closest('tr');
+
+            // Remove the table row
+            $row.remove();
+
+            // Show empty message if no rows left
+            if ($('#productsTableBody tr').length === 0) {
+                $('#productsTableBody').append(`
+                    <tr class="text-center" id="emptyTableMessage">
+                        <td colspan="7" class="py-5 text-muted">
+                            <i class="bi bi-box-seam fa-3x mb-3 text-secondary"></i>
+                            <h5 class="text-secondary">No products added yet</h5>
+                            <p class="mb-0">Select a product from the dropdown above to add it to your sale</p>
+                        </td>
+                    </tr>
+                `);
+            } else {
+                // Rebuild hidden fields with proper sequential indexing
+                rebuildHiddenFields();
+            }
+
+            calculateSummary();
+        });
+
+        // Compute totals / vat / discount / due
+        function calculateSummary() {
+            let netTotal = 0;
+            $('#productsTableBody tr:not(#emptyTableMessage)').each(function () {
+                const subtotalText = $(this).find('.subtotal').text();
+                netTotal += parseFloat(subtotalText) || 0;
+            });
+
+            const vatPct = parseFloat($('#VatPercentage').val()) || 0;
+            const discount = parseFloat($('#Discount').val()) || 0;
+            const paid = parseFloat($('#Paid').val()) || 0;
+
+            const vatAmount = (vatPct / 100) * netTotal;
+            const netAmount = netTotal + vatAmount;
+            const totalAmount = netAmount - discount;
+            const due = totalAmount - paid;
+
+            $('#NetAmmount').val(`${netAmount.toFixed(2)}`);
+            $('#Total').val(`${totalAmount.toFixed(2)}`);
+            $('#Due').val(`${due.toFixed(2)}`);
+        }
+
+        // Recalc if VAT/Discount/Paid inputs change
+        $('#VatPercentage, #Discount, #Paid').on('input', function() {
+            if (isInitialized) {
+                calculateSummary();
+            }
+        });
+
+        // Form validation before submit
+        $('#saleForm').on('submit', function (e) {
+            if ($('#productsTableBody tr:not(#emptyTableMessage)').length === 0) {
+                e.preventDefault();
+                alert('Please add at least one product to the sale.');
+                return false;
+            }
+        });
+    </script>
+}
