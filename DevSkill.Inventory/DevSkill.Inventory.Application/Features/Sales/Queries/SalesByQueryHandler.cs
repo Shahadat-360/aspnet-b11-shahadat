@@ -15,7 +15,7 @@ namespace DevSkill.Inventory.Application.Features.Sales.Queries
         private readonly IApplicationUnitOfWork _applicationUnitOfWork = applicationUnitOfWork;
         public async Task<(IList<SalesIndexViewDto> data, int total, int totalDisplay)> Handle(SalesByQuery request, CancellationToken cancellationToken)
         {
-            var order = request.FormatSortExpression("Id","Id", "OrderDate", "CustomerName", "Total", "Paid", "Due", "PaymentStatus");
+            string? order = request.FormatSortExpression("Id","Id", "SaleDate", "CustomerName", "Total", "Paid", "Due", "PaymentStatus");
             return await _applicationUnitOfWork.GetPagedSales(request.PageIndex,request.PageSize,order,request.SearchItem);
         }
     }
