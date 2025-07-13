@@ -34,6 +34,14 @@ namespace DevSkill.Inventory.Web
                 .InstancePerLifetimeScope();
             builder.RegisterType<UnitRepository>().As<IUnitRepository>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<SaleRepository>().As<ISaleRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<CashAccountRepository>().As<ICashAccountRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<BankAccountRepository>().As<IBankAccountRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<MobileAccountRepository>().As<IMobileAccountRepository>()
+                .InstancePerLifetimeScope();
             builder.RegisterType<IdGenerator>().As<IIdGenerator>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<ImageService>().As<IImageService>()

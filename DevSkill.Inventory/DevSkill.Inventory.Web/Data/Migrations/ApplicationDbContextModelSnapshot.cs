@@ -22,6 +22,70 @@ namespace DevSkill.Inventory.Web.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.BankAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("BankName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("BranchName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpeningBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BankAccounts");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.CashAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpeningBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CashAccounts");
+                });
+
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
@@ -118,6 +182,40 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.MobileAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("AccountOwner")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpeningBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MobileAccounts");
+                });
+
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Product", b =>
                 {
                     b.Property<string>("Id")
@@ -168,28 +266,63 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccountType")
+                        .HasColumnType("int");
+
                     b.Property<string>("CustomerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<decimal>("Due")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<decimal>("NetAmmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Note")
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateOnly>("OrderDate")
-                        .HasColumnType("date");
-
-                    b.Property<TimeOnly>("OrderTime")
-                        .HasColumnType("time");
 
                     b.Property<decimal>("Paid")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("SaleTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("SalesType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TermsAndConditions")
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VatPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Sales");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.SaleItem", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProductId")
                         .IsRequired()
@@ -198,7 +331,11 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Total")
+                    b.Property<string>("SaleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("SubTotal")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("UnitPrice")
@@ -206,11 +343,11 @@ namespace DevSkill.Inventory.Web.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
-
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Sales");
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("SaleItems");
                 });
 
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Unit", b =>
@@ -456,15 +593,26 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.SaleItem", b =>
+                {
                     b.HasOne("DevSkill.Inventory.Domain.Entities.Product", "Product")
-                        .WithMany("Sales")
+                        .WithMany("SaleItems")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.HasOne("DevSkill.Inventory.Domain.Entities.Sale", "Sale")
+                        .WithMany("SaleItems")
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("Sale");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -530,7 +678,12 @@ namespace DevSkill.Inventory.Web.Data.Migrations
 
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Product", b =>
                 {
-                    b.Navigation("Sales");
+                    b.Navigation("SaleItems");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Sale", b =>
+                {
+                    b.Navigation("SaleItems");
                 });
 
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Unit", b =>
