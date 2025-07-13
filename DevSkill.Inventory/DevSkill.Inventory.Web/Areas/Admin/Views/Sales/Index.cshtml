@@ -1,7 +1,315 @@
-﻿
+﻿@using DevSkill.Inventory.Application.Features.Sales.Queries
+@using DevSkill.Inventory.Domain.Enums
+@model SalesByQuery
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sales";
 }
 
-<h1>Index</h1>
+<!--begin::App Content Header-->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Available Sales</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Sales</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::App Content Header-->
 
+
+
+<!--begin::App Content-->
+<div id="SaleModalContainer"></div>
+<div class="app-content">
+    <div class="container-fluid">
+        <partial name="_ResponsePartial" />
+        <!--begin::Row-->
+        <!-- Search Customer Card -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-search mr-1"></i>Search Sales</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.Id">Sale ID</label>
+                                <input type="text" asp-for="SearchItem.Id" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.SaleDateFrom">Sales Date From</label>
+                                <input type="date" asp-for="SearchItem.SaleDateFrom" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.SaleDateTo">Sales Date To</label>
+                                <input type="date" asp-for="SearchItem.SaleDateTo" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.CustomerName">Customer Name</label>
+                                <input type="text" asp-for="SearchItem.CustomerName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.CustomerPhone">Customer Phone</label>
+                                <input type="tel" asp-for="SearchItem.CustomerPhone" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.MinTotal">Mininmum Total Tk</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MinTotal" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.MaxTotal">Maximum Total Tk</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MaxTotal" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.MinPaid">Mininmum Paid Tk</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MinPaid" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.MaxPaid">Maximum Paid Tk</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MaxPaid" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.MinDue">Mininmum Due Tk</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MinDue" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.MaxDue">Maximum Due Tk</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MaxDue" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.PaymentStatus">Status</label>
+                                <div class="position-relative">
+                                    <select asp-for="SearchItem.PaymentStatus" class="form-select" asp-items="Html.GetEnumSelectList<PaymentStatus>()">
+                                        <option value="">-- Select Status --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="saleSearchButton" type="submit" class="btn btn-primary float-right">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Space between cards -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex">
+                        <h3 class="card-title">Available Sales</h3>
+                        <a asp-action="Add" asp-controller="Sales" asp-area="Admin" class="btn btn-primary ms-auto">
+                            <i class="bi bi-plus-lg"></i>
+                            New Sale
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <partial name="_ModalPartial" />
+                        <table id="sales" class="table table-bordered">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#SN</th>
+                                    <th>Invoice No.</th>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
+                                    <th>Due</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot class="text-center">
+                                <tr>
+                                    <th>#SN</th>
+                                    <th>Invoice No.</th>
+                                    <th>Date</th>
+                                    <th>Customer</th>
+                                    <th>Total</th>
+                                    <th>Paid</th>
+                                    <th>Due</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>
+
+<!--end::App Content-->
+@section Scripts {
+    <partial name="_DataTablesHelperPartial" />
+    <partial name="_Select2LibraryPartial" />
+    <script>
+        function Payment(id)
+        {
+            $.get(`/Admin/Sales/Payment/${id}`, function (response) {
+                if (response.success === false) {
+                    window.location.href = response.redirectUrl;
+                }
+                else{
+                    $("#SaleModalContainer").html(response);
+                    $("#SalePaymentUpdate").modal("show");
+                }
+            });
+        }
+    </script>
+    <script>
+                $(function () {
+                    $("#sales").DataTable({
+                        processing: true,
+                        serverSide: true,
+                        responsive: true,
+                        lengthChange: true,
+                        autoWidth: false,
+                        searching: false,
+                        lengthMenu: [
+                            [10, 25, 50, -1],
+                            [10, 25, 50, 'All']
+                        ],
+
+                        // there is various Option present such as
+                        // buttonStart,buttonEnd,topStart,topEnd,
+                        // top2Start,top2Start so on.
+                        layout: {
+                            top: {
+                                // buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                                // for customizing column
+                                buttons:[
+                                    // specific index based
+                                    // { extend: 'copy',  exportOptions: { columns: [0,1,2] } },
+                                    // { extend: 'csv',   exportOptions: { columns: [0,1,2] } },
+                                    // { extend: 'excel', exportOptions: { columns: [0,1,2] } },
+                                    // { extend: 'pdf',   exportOptions: { columns: [0,1,2] } },
+                                    // { extend: 'print', exportOptions: { columns: [0,1,2] } }
+                                    // to exclude last child of the columns
+                                    { extend: 'copy',  exportOptions: { columns: ':not(:last-child)' } },
+                                    { extend: 'csv',   exportOptions: { columns: ':not(:last-child)' } },
+                                    { extend: 'excel', exportOptions: { columns: ':not(:last-child)' } },
+                                    { extend: 'pdf',   exportOptions: { columns: ':not(:last-child)' } },
+                                    { extend: 'print', exportOptions: { columns: ':not(:last-child)' } }
+                                ]
+                            },
+                            topEnd:'search'
+                        },
+                        ajax: {
+                            url: "/Admin/Sales/GetSaleJsonData",
+                            type: "POST",
+                             contentType: "application/json", //must be added
+                             dataType: "json", //better to add, not mandatory
+                             data: function (d) {
+                                 d.SearchItem = {
+                                    Id: $("#SearchItem_Id").val(),
+                                    SaleDateFrom: $("#SearchItem_SaleDateFrom").val()===""?null:$("#SearchItem_SaleDateFrom").val(),
+                                    SaleDateTo: $("#SearchItem_SaleDateTo").val()===""?null:$("#SearchItem_SaleDateTo").val(),
+                                    CustomerName: $("#SearchItem_CustomerName").val(),
+                                    CustomerPhone: $("#SearchItem_CustomerPhone").val(),
+                                    MinTotal: $("#SearchItem_MinTotal").val()===""?null:$("#SearchItem_MinTotal").val(),
+                                    MaxTotal: $("#SearchItem_MaxTotal").val()===""?null:$("#SearchItem_MaxTotal").val(),
+                                    MinPaid: $("#SearchItem_MinPaid").val()===""?null:$("#SearchItem_MinPaid").val(),
+                                    MaxPaid: $("#SearchItem_MaxPaid").val()===""?null:$("#SearchItem_MaxPaid").val(),
+                                    MinDue: $("#SearchItem_MinDue").val()===""?null:$("#SearchItem_MinDue").val(),
+                                    MaxDue: $("#SearchItem_MaxDue").val()===""?null:$("#SearchItem_MaxDue").val(),
+                                    PaymentStatus: $("#SearchItem_PaymentStatus").val()===""?null:parseInt($("#SearchItem_PaymentStatus").val())
+                                 };
+                                 return JSON.stringify(d);
+                             },
+                        },
+                        order: [[1, 'asc']],
+                        columnDefs: [
+                            {
+                                orderable: false,
+                                targets: 0,
+                            },
+                            {
+                                orderable: false,
+                                targets: 8,
+                                render: function (data, type, row) {
+                                            return `
+                                                <div class="dropdown">
+                                                  <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    Actions
+                                                  </button>
+                                                  <ul class="dropdown-menu">
+                                                    <li>
+                                                      <a class="dropdown-item text-primary" href="/admin/Sales/SaleView/${row[1]}">
+                                                        <i class="bi bi-eye"></i> View
+                                                      </a>
+                                                    </li>
+                                                    <li>
+                                                      <button class="dropdown-item text-success" onclick="Payment('${row[1]}')">
+                                                        <i class="bi bi-plus-lg"></i> Payment
+                                                      </button>
+                                                    </li>
+                                                    <li>
+                                                      <a class="dropdown-item text-info" href="/admin/Sales/Update/${row[1]}">
+                                                        <i class="bi bi-pencil-square"></i> Edit
+                                                      </a>
+                                                    </li>
+                                                    <li>
+                                                      <button class="dropdown-item text-danger show-bs-modal" data-id="${row[1]}">
+                                                        <i class="bi bi-trash"></i> Delete
+                                                      </button>
+                                                    </li>
+                                                  </ul>
+                                                </div>`;
+
+                                }
+                            }
+                        ],
+                    });
+            $('#sales').on('click','.show-bs-modal',function()
+            {
+                let id = $(this).data('id');
+                let DeleteModal = $('#delete-modal');
+                DeleteModal.find('.modal-body p').html('Are you sure you want to delete this Sale?');
+                $('#delete-id').val(id);
+                $('#delete-form').attr('action', '/Admin/Sales/Delete');
+                DeleteModal.modal('show');
+            });
+
+            $('#delete-btn').on('click', function () {
+                $('#delete-form').submit();
+            });
+
+            $('#saleSearchButton').on('click', function () {
+                $("#sales").DataTable().ajax.reload(null,false);
+            });
+        });
+    </script>
+}

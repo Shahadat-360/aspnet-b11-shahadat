@@ -28,6 +28,20 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<JsonResult> GetProductDetails(string ProductId,SalesType salesType)
+        {
+            var product = await _mediator.Send(new ProductGetByIdQuery { Id = ProductId });
+            return Json(new
+            {
+                success = true,
+                id = product.Id,
+                code = product.Id,
+                name = product.Name,
+                stock = product.Stock,
+                unitprice = salesType==SalesType.MRP? product.MRP : product.WholesalePrice,
+                });
+        }
 
         [HttpGet]
         public async Task<IActionResult> ProductView(string Id)
@@ -324,7 +338,6 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost]
         public async Task<JsonResult> GetProductJsonData([FromBody] ProductsByQuery model)
         {
             try

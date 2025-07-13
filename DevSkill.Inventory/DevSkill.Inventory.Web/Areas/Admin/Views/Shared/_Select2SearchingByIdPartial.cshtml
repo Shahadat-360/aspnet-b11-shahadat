@@ -44,7 +44,20 @@
                 cache: true
             },
             templateResult: function (option) {
-                return option.loading ? option.text : $('<span>').text(`${option.text} (ID: ${option.id})`);
+                if (option.loading) {
+                    return option.text;
+                }
+                if(selectorId.includes('CustomerId'))
+                {
+                    return  $('<span>').html(`${option.text}<br>Mobile: ${option.mobile}`);
+                }
+                else if(selectorId.includes('AccountId'))
+                {
+                    return  $('<span>').html(`${option.text}`);
+                }
+                else{
+                     return  $('<span>').html(`ID: ${option.id}<br>Name: ${option.text}`);
+                }
             },
             templateSelection: function (option) {
                 return option.text;

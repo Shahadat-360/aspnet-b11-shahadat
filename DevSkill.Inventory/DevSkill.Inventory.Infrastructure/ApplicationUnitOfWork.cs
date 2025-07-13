@@ -14,7 +14,9 @@ namespace DevSkill.Inventory.Infrastructure
 {
     public class ApplicationUnitOfWork(ApplicationDbContext applicationDbContext, 
         IProductRepository productRepository,ICustomerRepository customerRepository,
-        ICategoryRepository categoryRepository,IUnitRepository unitRepository) 
+        ICategoryRepository categoryRepository,IUnitRepository unitRepository,
+        ISaleRepository saleRepository,ICashAccountRepository cashAccountRepository,
+        IBankAccountRepository bankAccountRepository,IMobileAccountRepository mobileAccountRepository) 
         : UnitOfWork(applicationDbContext),IApplicationUnitOfWork
     {
         public IProductRepository ProductRepository { get; private set; } = productRepository;
@@ -23,7 +25,15 @@ namespace DevSkill.Inventory.Infrastructure
 
         public ICategoryRepository CategoryRepository { get; set; } = categoryRepository;
 
-        public IUnitRepository UnitRepository { get; private set; }= unitRepository;
+        public IUnitRepository UnitRepository { get; private set; } = unitRepository;
+
+        public ISaleRepository SaleRepository { get; private set; } = saleRepository;
+
+        public ICashAccountRepository CashAccountRepository { get; private set; } = cashAccountRepository;
+
+        public IBankAccountRepository BankAccountRepository { get; private set; } = bankAccountRepository;
+
+        public IMobileAccountRepository MobileAccountRepository { get; private set; } = mobileAccountRepository;
 
         public async Task<(IList<Customer> customers, int total, int totalDisplay)> GetPagedCustomers
             (int pageIndex, int pageSize, string? order, CustomerSearchDto? searchItem)
@@ -79,6 +89,37 @@ namespace DevSkill.Inventory.Infrastructure
                 });
             return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
 
+        }
+
+        public async Task<(IList<SalesIndexViewDto> data, int total, int totalDisplay)> 
+            GetPagedSales(int pageIndex, int pageSize, string? order, SaleSearchDto? searchItem)
+        {
+            var storedProcedureName = "GetSales";
+            var result = await _sqlUtility.QueryWithStoredProcedureAsync<SalesIndexViewDto>(storedProcedureName,
+                new Dictionary<string, object>
+                {
+                    {"PageIndex",pageIndex },
+                    {"PageSize",pageSize },
+                    {"OrderBy",order },
+                    {"Id",string.IsNullOrEmpty(searchItem?.Id) ? null : searchItem.Id },
+                    {"SalesDateFrom", searchItem?.SaleDateFrom },
+                    {"SalesDateTo", searchItem?.SaleDateTo },
+                    {"CustomerName",string.IsNullOrEmpty(searchItem?.CustomerName) ? null : searchItem.CustomerName },
+                    {"CustomerPhone",string.IsNullOrEmpty(searchItem?.CustomerPhone) ? null : searchItem.CustomerPhone },
+                    {"MinTotal",searchItem?.MinTotal },
+                    {"MaxTotal",searchItem?.MaxTotal },
+                    {"MinPaid",searchItem?.MinPaid },
+                    {"MaxPaid",searchItem?.MaxPaid },
+                    {"MinDue",searchItem?.MinDue },
+                    {"MaxDue",searchItem?.MaxDue },
+                    {"PaymentStatus",searchItem?.PaymentStatus }
+                },
+                new Dictionary<string, Type>
+                {
+                    {"Total",typeof(int) },
+                    {"TotalDisplay",typeof(int) }
+                });
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
         }
     }
 }

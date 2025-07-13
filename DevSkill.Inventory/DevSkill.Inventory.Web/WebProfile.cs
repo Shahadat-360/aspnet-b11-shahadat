@@ -2,6 +2,7 @@
 using DevSkill.Inventory.Application.Features.Categories.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Products.Commands;
+using DevSkill.Inventory.Application.Features.Sales.Commands;
 using DevSkill.Inventory.Application.Features.Units.Commands;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
@@ -25,6 +26,21 @@ namespace DevSkill.Inventory.Web
             CreateMap<Product, ProductViewDto>()
                 .ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.Name))
                 .ForMember(d => d.UnitName, o => o.MapFrom(s => s.Unit.Name));
+            CreateMap<SaleAddCommand, Sale>()
+                .ForMember(d => d.SaleItems, o => o.MapFrom(s => s.SaleItems));
+            CreateMap<SaleUpdateCommand, Sale>()
+                .ForMember(d => d.SaleItems, o => o.Ignore());
+
+            CreateMap<SaleItemDto, SaleItem>().ReverseMap();
+            CreateMap<Sale, SaleItemDto>();
+            CreateMap<Sale, SaleDto>().ReverseMap();
+            CreateMap<SaleDto,SaleUpdateCommand>()
+                .ForMember(d => d.SaleItems, o => o.MapFrom(s => s.SaleItems))
+                .ForMember(d => d.CustomerName, o => o.MapFrom(s => s.Customer.CustomerName))
+                .ReverseMap();
+            CreateMap<SaleDto, SalePaymentUpdateCommand>()
+                .ForMember(d => d.Paid, o => o.Ignore());
+
         }
     }
 }

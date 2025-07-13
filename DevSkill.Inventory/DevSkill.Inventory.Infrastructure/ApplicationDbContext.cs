@@ -19,6 +19,11 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<Log> Logs { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<IdTracker> IdTrackers { get; set; }
+        public DbSet<Sale> Sales { get; set; }
+        public DbSet<SaleItem> SaleItems { get; set; }
+        public DbSet<MobileAccount> MobileAccounts { get; set; }
+        public DbSet<BankAccount> BankAccounts { get; set; }
+        public DbSet<CashAccount> CashAccounts { get; set; }
         public ApplicationDbContext(string connectionString, string migrationAssembly)
         {
             _connectionString = connectionString;
@@ -102,6 +107,86 @@ namespace DevSkill.Inventory.Infrastructure
             {
                 entity.HasKey(e => e.Prefix);
                 entity.Property(e => e.LastUsedNumber).IsRequired();
+            });
+
+            modelBuilder.Entity<Sale>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.CustomerId).IsRequired();
+                entity.Property(e => e.SaleDate).HasColumnType("datetime").IsRequired();
+                entity.Property(e => e.SaleTime).HasColumnType("datetime").IsRequired();
+                entity.Property(e => e.Total).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e=> e.Due).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.Paid).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.Discount).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.VatPercentage).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.NetAmmount).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.AccountType).HasConversion<int>().IsRequired();
+                entity.Property(e => e.AccountId).IsRequired();
+                entity.Property(e => e.Note).HasColumnType("nvarchar(100)").IsRequired(false);
+                entity.Property(e => e.TermsAndConditions).HasColumnType("nvarchar(500)").IsRequired(false);
+                entity.Property(e => e.SalesType).HasConversion<int>().IsRequired();
+                entity.Property(e => e.PaymentStatus).HasConversion<int>().IsRequired();
+                entity.HasOne(e => e.Customer)
+                    .WithMany(e => e.Sales)
+                    .HasForeignKey(e => e.CustomerId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(e => e.SaleItems)
+                    .WithOne(e => e.Sale)
+                    .HasForeignKey(e => e.SaleId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<SaleItem>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.ProductId).IsRequired();
+                entity.Property(e => e.SaleId).IsRequired();
+                entity.Property(e => e.Quantity).IsRequired();
+                entity.Property(e => e.UnitPrice).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.SubTotal).HasColumnType("decimal(18,2)").IsRequired();
+                entity.HasOne(e => e.Product)
+                    .WithMany(e => e.SaleItems)
+                    .HasForeignKey(e => e.ProductId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(e => e.Sale)
+                    .WithMany(e => e.SaleItems)
+                    .HasForeignKey(e => e.SaleId)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<MobileAccount>(entity=>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.AccountName).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.AccountNumber).HasColumnType("nvarchar(50)").IsRequired();
+                entity.Property(e => e.AccountOwner).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.OpeningBalance).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.CurrentBalance).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.Status).HasConversion<int>().IsRequired();
+            });
+
+            modelBuilder.Entity<BankAccount>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.AccountName).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.AccountNumber).HasColumnType("nvarchar(50)").IsRequired();
+                entity.Property(e => e.BankName).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.BranchName).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.OpeningBalance).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.CurrentBalance).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.Status).HasConversion<int>().IsRequired();
+            });
+
+            modelBuilder.Entity<CashAccount>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.AccountName).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.OpeningBalance).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.CurrentBalance).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.Status).HasConversion<int>().IsRequired();
             });
         }
     }

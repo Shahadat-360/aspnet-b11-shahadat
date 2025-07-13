@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DevSkill.Inventory.Application.Features.Categories.Queries;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Queries;
 using DevSkill.Inventory.Domain.Enums;
@@ -136,6 +137,36 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SearchCustomers(string term = "", int page = 1, int pageSize = 5)
+        {
+            try
+            {
+                var result = await _mediator.Send(new CustomerSearchWithPaginationQuery { term = term, page = page, pageSize = pageSize });
+
+                var results = result.Items.Select(c => new
+                {
+                    id = c.Id.ToString(),
+                    text = c.CustomerName,
+                    mobile = c.Mobile,
+                    disabled = c.Status == Status.Inactive
+                }).ToList();
+
+                return Json(new
+                {
+                    results = results,
+                    pagination = new
+                    {
+                        more = result.HasNextPage
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error searching Customers");
+                return Json(new { results = new List<object>(), pagination = new { more = false } });
+            }
+        }
         public async Task<JsonResult> GetCustomerJsonData([FromBody] CustomersByQuery model)
         {
             try
