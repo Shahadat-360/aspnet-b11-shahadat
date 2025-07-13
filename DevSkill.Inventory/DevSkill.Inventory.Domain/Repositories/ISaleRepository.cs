@@ -1,6 +1,5 @@
 ﻿using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Domain.Repositories
 {
-    public interface ICustomerRepository : IRepository<Customer, string>
+    public interface ISaleRepository : IRepository<Sale, string>
     {
-        Task<PaginatedResult<Customer>> SearchCustomerWithPaginationAsync(string term, int page, int pageSize);
+        Task<Sale> GetSaleByIdWithNavigationAsync(string id);
+        Task<Sale> UpdateSaleWithItemsAsync(Sale sale, IList<SaleItemDto> newSaleItems);
+        void ProductQuantityRestored(Sale sale);
     }
 }
