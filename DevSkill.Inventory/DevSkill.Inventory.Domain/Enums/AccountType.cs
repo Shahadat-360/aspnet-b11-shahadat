@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Domain.Enums
 {
-    public enum PaymentStatus
+    public enum AccountType
     {
-        Due,
-        Paid,
-        Partial
+        Cash,
+        Bank,
+        Mobile
     }
 }
