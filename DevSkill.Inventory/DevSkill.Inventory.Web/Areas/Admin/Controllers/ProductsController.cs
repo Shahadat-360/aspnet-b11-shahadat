@@ -337,7 +337,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
-
+        [HttpPost]
         public async Task<JsonResult> GetProductJsonData([FromBody] ProductsByQuery model)
         {
             try

@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewData["Title"] = "Settings";
+}
+@section Styles{
+    <style>
+        .small-box .small-box-icon {
+            position: absolute;
+            top: 20px !important;
+            right: 20px !important;
+            z-index: 0;
+            height: 70px;
+            font-size: 35px !important;
+            color: rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s linear;
+        }
+
+        .small-box p {
+            margin-bottom: 0px !important;
+        }
+
+        .small-box h3 {
+            font-size: 1.5rem !important;
+        }
+    </style>
+}
+
+<!--begin::App Content Header-->
+<div class="app-content-header">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Settings</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard" asp-area="Admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                </ol>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::App Content Header-->
+
+<!--begin::App Content-->
+<div class="app-content">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-search mr-1"></i>Settings</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-6">
+                            <!--begin::Small Box Widget 1-->
+                            <a href="#" class="text-decoration-none">
+                                <div class="small-box text-bg-primary">
+                                    <div class="inner">
+                                        <h3>Category</h3>
+                                        <p>Count</p>
+                                    </div>
+                                    <i class="small-box-icon bi bi-stack"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!--begin::Small Box Widget 1-->
+                            <a href="#" class="text-decoration-none">
+                                <div class="small-box text-bg-success">
+                                    <div class="inner">
+                                        <h3>Unit</h3>
+                                        <p>Count</p>
+                                    </div>
+                                    <i class="small-box-icon bi bi-stack"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!--begin::Small Box Widget 1-->
+                            <a href="#" class="text-decoration-none">
+                                <div class="small-box text-bg-warning">
+                                    <div class="inner">
+                                        <h3>Cash Account</h3>
+                                        <p>Count</p>
+                                    </div>
+                                    <i class="small-box-icon bi bi-stack"></i>
+
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!--begin::Small Box Widget 1-->
+                            <a href="#" class="text-decoration-none">
+                                <div class="small-box text-bg-danger">
+                                    <div class="inner">
+                                        <h3>Bank Account</h3>
+                                        <p>Count</p>
+                                    </div>
+                                    <i class="small-box-icon bi bi-stack"></i>
+
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!--begin::Small Box Widget 1-->
+                            <a href="#" class="text-decoration-none">
+                                <div class="small-box text-bg-primary">
+                                    <div class="inner">
+                                        <h3>Mobile Account</h3>
+                                        <p>Count</p>
+                                    </div>
+                                    <i class="small-box-icon bi bi-stack"></i>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!--begin::Small Box Widget 1-->
+                            <a asp-action="Index" asp-area="Admin" asp-controller="BalanceTransfers" class="text-decoration-none">
+                                <div class="small-box text-bg-success">
+                                    <div class="inner">
+                                        <h3>Balance Transfer</h3>
+                                        <p>Count</p>
+                                    </div>
+                                    <i class="small-box-icon bi bi-stack"></i>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

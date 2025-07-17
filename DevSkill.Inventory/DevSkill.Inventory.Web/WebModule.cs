@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using DevSkill.Inventory.Application.Features.BalanceTransfers.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Repositories;
@@ -42,9 +43,15 @@ namespace DevSkill.Inventory.Web
                 .InstancePerLifetimeScope();
             builder.RegisterType<MobileAccountRepository>().As<IMobileAccountRepository>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<BalanceTransferRepository>().As<IBalanceTransferRepository>()
+                .InstancePerLifetimeScope();
             builder.RegisterType<IdGenerator>().As<IIdGenerator>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<ImageService>().As<IImageService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<BalanceTransferService>().As<IBalanceTransferService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<TransactionService>().As<ITransactionService>()
                 .InstancePerLifetimeScope();
             base.Load(builder);
         }
