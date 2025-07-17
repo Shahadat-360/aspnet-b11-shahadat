@@ -28,9 +28,9 @@ namespace DevSkill.Inventory.Application.Features.Sales.Queries
             var saleDto = _mapper.Map<SaleDto>(sale);
             saleDto.AccountName = saleDto.AccountType switch
             {
-                AccountType.Cash => (await _mediator.Send(new CashAccountGetByIdQuery { Id = saleDto.AccountId }))?.AccountName,
-                AccountType.Bank => (await _mediator.Send(new BankAccountGetByIdQuery { Id = saleDto.AccountId }))?.AccountName,
-                AccountType.Mobile => (await _mediator.Send(new MobileAccountGetByIdQuery { Id = saleDto.AccountId }))?.AccountName,
+                AccountType.Cash=> (await _applicationUnitOfWork.CashAccountRepository.GetByIdAsync(saleDto.AccountId)).AccountName,
+                AccountType.Bank => (await _applicationUnitOfWork.BankAccountRepository.GetByIdAsync(saleDto.AccountId)).AccountName,
+                AccountType.Mobile => (await _applicationUnitOfWork.MobileAccountRepository.GetByIdAsync(saleDto.AccountId)).AccountName,
                 _ => null
             };
             return saleDto;

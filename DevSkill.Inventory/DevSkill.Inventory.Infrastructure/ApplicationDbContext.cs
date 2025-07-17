@@ -24,6 +24,7 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<MobileAccount> MobileAccounts { get; set; }
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<CashAccount> CashAccounts { get; set; }
+        public DbSet<BalanceTransfer> BalanceTransfers { get; set; }
         public ApplicationDbContext(string connectionString, string migrationAssembly)
         {
             _connectionString = connectionString;
@@ -187,6 +188,18 @@ namespace DevSkill.Inventory.Infrastructure
                 entity.Property(e => e.OpeningBalance).HasColumnType("decimal(18,2)").IsRequired();
                 entity.Property(e => e.CurrentBalance).HasColumnType("decimal(18,2)").IsRequired();
                 entity.Property(e => e.Status).HasConversion<int>().IsRequired();
+            });
+
+            modelBuilder.Entity<BalanceTransfer>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.TransferDate).HasColumnType("datetime").IsRequired();
+                entity.Property(e => e.SendingAccountType).HasConversion<int>().IsRequired();
+                entity.Property(e => e.SendingAccountId).HasColumnType("int").IsRequired();
+                entity.Property(e => e.ReceivingAccountType).HasConversion<int>().IsRequired();
+                entity.Property(e => e.ReceivingAccountId).HasColumnType("int").IsRequired();
+                entity.Property(e => e.TransferAmount).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.Note).HasColumnType("nvarchar(100)").IsRequired(false);
             });
         }
     }

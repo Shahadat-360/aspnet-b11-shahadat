@@ -1,0 +1,124 @@
+﻿@using DevSkill.Inventory.Domain.Enums
+@using DevSkill.Inventory.Application.Features.BalanceTransfers.Commands
+@model BalanceTransferAddCommand
+
+<div class="modal fade" id="BalanceTransferModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="BalanceTransferModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="BalanceTransferModalLabel">Balance Transfer Information</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form asp-action="Add" asp-area="Admin" asp-controller="BalanceTransfers" method="post" asp-antiforgery="true">
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Sending Section -->
+                        <div class="col-md-6 border-end">
+                            <h6 class="fw-bold mb-3">Sending Information</h6>
+                            <div class="mb-3">
+                                <label asp-for="SendingAccountType" class="form-label required-field">Account Type</label>
+                                <select asp-for="SendingAccountType" asp-items="Html.GetEnumSelectList<AccountType>()" class="form-select">
+                                    <option value="">-- Select Account Type --</option>
+                                </select>
+                                <span asp-validation-for="SendingAccountType" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="SendingAccountId" class="form-label required-field">Account</label>
+                                <select asp-for="SendingAccountId" class="form-select" data-placeholder="Select an Account"></select>
+                                <span asp-validation-for="SendingAccountId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="TransferAmount" class="form-label required-field">Transfer Amount</label>
+                                <input type="number" asp-for="TransferAmount" class="form-control" />
+                                <span asp-validation-for="TransferAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <!-- Receiving Section -->
+                        <div class="col-md-6">
+                            <h6 class="fw-bold mb-3">Receiving Information</h6>
+                            <div class="mb-3">
+                                <label asp-for="ReceivingAccountType" class="form-label required-field">Account Type</label>
+                                <select asp-for="ReceivingAccountType" asp-items="Html.GetEnumSelectList<AccountType>()" class="form-select">
+                                    <option value="">-- Select Account Type --</option>
+                                </select>
+                                <span asp-validation-for="ReceivingAccountType" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="ReceivingAccountId" class="form-label required-field">Account</label>
+                                <select asp-for="ReceivingAccountId" class="form-select" data-placeholder="Select an Account"></select>
+                                <span asp-validation-for="ReceivingAccountId" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Note" class="form-label">Note</label>
+                                <input type="text" asp-for="Note" class="form-control" />
+                                <span asp-validation-for="Note" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary px-4">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<partial name="_Select2SearchingByIdPartial" />
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    $(document).ready(function () {
+        initializeSearchOnlySelect2({
+            selectorId: '#SendingAccountId',
+            searchUrl: '/Admin/CashAccounts/SearchAccounts'
+        });
+
+        initializeSearchOnlySelect2({
+            selectorId: '#ReceivingAccountId',
+            searchUrl: '/Admin/CashAccounts/SearchAccounts'
+        });
+
+        $('#SendingAccountType').on('change', function () {
+            AccountTypeBasedSearch({
+                selectId: '#SendingAccountType',
+                AccountId: '#SendingAccountId'
+            });
+        });
+
+        $('#ReceivingAccountType').on('change', function () {
+            AccountTypeBasedSearch({
+                selectId: '#ReceivingAccountType',
+                AccountId: '#ReceivingAccountId'
+            });
+        });
+
+        function AccountTypeBasedSearch({ selectId, AccountId }) {
+            const accountType = $(selectId).val();
+            const $accountSelect = $(AccountId);
+
+            $accountSelect.empty().append('<option value="">-- Select Account --</option>');
+
+            if (accountType) {
+                let searchUrl = '';
+                switch (accountType) {
+                    case '0': searchUrl = '/Admin/CashAccounts/SearchAccounts'; break;
+                    case '1': searchUrl = '/Admin/BankAccounts/SearchAccounts'; break;
+                    case '2': searchUrl = '/Admin/MobileAccounts/SearchAccounts'; break;
+                }
+
+                if (searchUrl) {
+                    $accountSelect.select2('destroy');
+                    initializeSearchOnlySelect2({
+                        selectorId: AccountId,
+                        searchUrl: searchUrl
+                    });
+                }
+            }
+        }
+    });
+</script>

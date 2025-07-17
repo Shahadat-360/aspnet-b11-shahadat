@@ -39,7 +39,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     TempData.Put("ResponseMessage", new ResponseModel
                     {
                         Message = "Please FullFil Essential Field",
-                        Type = ResponseType.Success,
+                        Type = ResponseType.Danger,
                     });
                     return View(saleAddCommand);
                 }
@@ -245,7 +245,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [HttpPost]
         public async Task<JsonResult> GetSaleJsonData([FromBody] SalesByQuery salesByQuery)
         {
             try

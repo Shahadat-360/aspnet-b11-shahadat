@@ -167,6 +167,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 return Json(new { results = new List<object>(), pagination = new { more = false } });
             }
         }
+        [HttpPost]
         public async Task<JsonResult> GetCustomerJsonData([FromBody] CustomersByQuery model)
         {
             try

@@ -313,6 +313,13 @@
                                 <p>Balance Transfers</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a asp-action="Index" asp-controller="Settings" asp-area="admin"
+                               class="nav-link @IsActive("Settings", "Admin")">
+                                <i class="nav-icon bi bi-gear"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
                         @* <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-box-seam-fill"></i>

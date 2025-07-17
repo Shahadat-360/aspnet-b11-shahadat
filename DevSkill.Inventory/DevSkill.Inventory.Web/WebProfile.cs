@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DevSkill.Inventory.Application.Features.BalanceTransfers.Commands;
 using DevSkill.Inventory.Application.Features.Categories.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Products.Commands;
@@ -40,7 +41,7 @@ namespace DevSkill.Inventory.Web
                 .ReverseMap();
             CreateMap<SaleDto, SalePaymentUpdateCommand>()
                 .ForMember(d => d.Paid, o => o.Ignore());
-
+            CreateMap<BalanceTransferAddCommand, BalanceTransfer>();
         }
     }
 }
