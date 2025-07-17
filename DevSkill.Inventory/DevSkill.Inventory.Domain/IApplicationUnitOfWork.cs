@@ -19,6 +19,9 @@ namespace DevSkill.Inventory.Domain
         public ICashAccountRepository CashAccountRepository { get; }
         public IBankAccountRepository BankAccountRepository { get; }
         public IMobileAccountRepository MobileAccountRepository { get; }
+        public IBalanceTransferRepository BalanceTransferRepository { get; }
+        Task<(IList<BalanceTransferIndexDto>, int, int)> GetPagedBalanceTransfers
+            (int pageIndex, int pageSize, string? order, BalanceTransferSearchDto? searchItem);
         Task<(IList<Customer> customers, int total, int totalDisplay)> GetPagedCustomers
             (int pageIndex, int pageSize, string? order, CustomerSearchDto? searchItem);
         Task<(IList<ProductWithCategoryDto> products, int total, int totalDisplay)> GetPagedProducts
