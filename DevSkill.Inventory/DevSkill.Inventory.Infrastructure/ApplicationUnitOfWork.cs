@@ -16,7 +16,8 @@ namespace DevSkill.Inventory.Infrastructure
         IProductRepository productRepository,ICustomerRepository customerRepository,
         ICategoryRepository categoryRepository,IUnitRepository unitRepository,
         ISaleRepository saleRepository,ICashAccountRepository cashAccountRepository,
-        IBankAccountRepository bankAccountRepository,IMobileAccountRepository mobileAccountRepository) 
+        IBankAccountRepository bankAccountRepository,IMobileAccountRepository mobileAccountRepository,
+        IBalanceTransferRepository balanceTransferRepository) 
         : UnitOfWork(applicationDbContext),IApplicationUnitOfWork
     {
         public IProductRepository ProductRepository { get; private set; } = productRepository;
@@ -34,6 +35,33 @@ namespace DevSkill.Inventory.Infrastructure
         public IBankAccountRepository BankAccountRepository { get; private set; } = bankAccountRepository;
 
         public IMobileAccountRepository MobileAccountRepository { get; private set; } = mobileAccountRepository;
+
+        public IBalanceTransferRepository BalanceTransferRepository { get; private set; } = balanceTransferRepository;
+        public async Task<(IList<BalanceTransferIndexDto>, int, int)> GetPagedBalanceTransfers(int pageIndex, int pageSize, string? order, BalanceTransferSearchDto? searchItem)
+        {
+            var storedProcedureName = "GetBalanceTransfers";
+            var result = await _sqlUtility.QueryWithStoredProcedureAsync<BalanceTransferIndexDto>(storedProcedureName,
+                new Dictionary<string, object>
+                {
+                    {"PageIndex",pageIndex },
+                    {"PageSize",pageSize },
+                    {"OrderBy",order },
+                    {"TransferDateFrom",searchItem?.TransferDateFrom },
+                    {"TransferDateTo",searchItem?.TransferDateTo },
+                    {"SendingAccountType",searchItem?.SendingAccountType},
+                    {"SendingAccount",string.IsNullOrEmpty(searchItem.SendingAccount)?null:searchItem.SendingAccount },
+                    {"ReceivingAccountType",searchItem?.ReceivingAccountType},
+                    {"ReceivingAccount",string.IsNullOrEmpty(searchItem.ReceivingAccount)?null:searchItem.ReceivingAccount },
+                    {"MinTransferAmount",searchItem?.MinTransferAmount },
+                    {"MaxTransferAmount",searchItem?.MaxTransferAmount},
+                    {"Note",string.IsNullOrEmpty(searchItem?.Note)?null:searchItem.Note }
+                },
+                new Dictionary<string, Type> {
+                    {"Total",typeof(int) },
+                    {"TotalDisplay",typeof(int) }
+                });
+            return (result.result, (int)result.outValues["Total"], (int)result.outValues["TotalDisplay"]);
+        }
 
         public async Task<(IList<Customer> customers, int total, int totalDisplay)> GetPagedCustomers
             (int pageIndex, int pageSize, string? order, CustomerSearchDto? searchItem)
