@@ -21,15 +21,6 @@ namespace DevSkill.Inventory.Infrastructure.Services
             _url = cfg["AWS:SqsUrl"]!;
         }
 
-        public async Task SendGuidAsync(Guid imageGuid)
-        {
-            await _sqs.SendMessageAsync(new SendMessageRequest
-            {
-                QueueUrl = _url,
-                MessageBody = imageGuid.ToString()
-            });
-        }
-
         public async Task<List<Message>> ReceiveMessagesAsync(int maxMessages = 5)
         {
             var resp = await _sqs.ReceiveMessageAsync(new ReceiveMessageRequest
@@ -43,5 +34,14 @@ namespace DevSkill.Inventory.Infrastructure.Services
 
         public Task DeleteMessageAsync(string receiptHandle)
             => _sqs.DeleteMessageAsync(_url, receiptHandle);
+
+        public async Task SendKeyAsync(string key)
+        {
+            await _sqs.SendMessageAsync(new SendMessageRequest
+            {
+                QueueUrl = _url,
+                MessageBody = key
+            });
+        }
     }
 }
