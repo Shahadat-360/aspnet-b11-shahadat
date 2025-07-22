@@ -1,12 +1,10 @@
 ﻿using Autofac;
-using DevSkill.Inventory.Application.Features.BalanceTransfers.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Repositories;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Infrastructure.Repositories;
 using DevSkill.Inventory.Infrastructure.Services;
-using DevSkill.Inventory.Web.Data;
 
 namespace DevSkill.Inventory.Web
 {
@@ -45,6 +43,10 @@ namespace DevSkill.Inventory.Web
                 .InstancePerLifetimeScope();
             builder.RegisterType<BalanceTransferRepository>().As<IBalanceTransferRepository>()
                 .InstancePerLifetimeScope();
+            builder.RegisterType<DepartmentRepository>().As<IDepartmentRepository>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>()
+                .InstancePerLifetimeScope();
             builder.RegisterType<IdGenerator>().As<IIdGenerator>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<ImageService>().As<IImageService>()
@@ -52,6 +54,12 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<BalanceTransferService>().As<IBalanceTransferService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<TransactionService>().As<ITransactionService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<RoleService>().As<IRoleService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<UserService>().As<IUserService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<AccessSetupService>().As<IAccessSetupService>()
                 .InstancePerLifetimeScope();
             base.Load(builder);
         }

@@ -2,13 +2,16 @@
 using DevSkill.Inventory.Application.Features.Products.Commands;
 using DevSkill.Inventory.Application.Features.Products.Queries;
 using DevSkill.Inventory.Application.Services;
+using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Enums;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Web;
@@ -16,7 +19,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Policy=Permissions.ProductPage)]
     public class ProductsController(IMediator mediator, ILogger<ProductsController> logger,
         IMapper mapper) : Controller
     {
@@ -28,7 +31,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet,AllowAnonymous]
         public async Task<JsonResult> GetProductDetails(string ProductId,SalesType salesType)
         {
             var product = await _mediator.Send(new ProductGetByIdQuery { Id = ProductId });
@@ -77,7 +80,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet,Authorize(Policy = Permissions.ProductUpdate)]
         public IActionResult StockUpdate()
         {
             var model = new ProductStockUpdateCommand();
@@ -85,6 +88,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.ProductUpdate)]
         public async Task<IActionResult> StockUpdate(ProductStockUpdateCommand productStockUpdate)
         {
             try
@@ -123,6 +127,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.ProductUpdate)]
         public IActionResult DamageStockUpdate()
         {
             var model = new ProductDamageUpdateCommand();
@@ -130,6 +135,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.ProductUpdate)]
         public async Task<IActionResult> DamageStockUpdate(ProductDamageUpdateCommand productDamageUpdate)
         {
             try
@@ -176,6 +182,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet,Authorize(Policy = Permissions.ProductAdd)]
         public IActionResult Add()
         {
             var model = new ProductAddCommand();
@@ -183,6 +190,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.ProductAdd)]
         public async Task<IActionResult> Add(ProductAddCommand model)
         {
             try
@@ -211,6 +219,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Permissions.ProductUpdate)]
         public async Task<IActionResult> Update(string Id)
         {
             try
@@ -252,7 +261,45 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.ProductUpdate)]
+        public async Task<IActionResult> Update(ProductUpdateCommand model)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    await _mediator.Send(model);
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Product updated successfully",
+                        Type = ResponseType.Success
+                    });
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData.Put("ResponseMessage", new ResponseModel
+                    {
+                        Message = "Product update Failed",
+                        Type = ResponseType.Danger
+                    });
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData.Put("ResponseMessage", new ResponseModel
+                {
+                    Message = "Error updating product",
+                    Type = ResponseType.Danger
+                });
+                _logger.LogError(ex, "Error updating product");
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet,AllowAnonymous]
         public async Task<IActionResult> SearchProducts(string term = "", int page = 1, int pageSize = 5)
         {
             try
@@ -287,34 +334,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(ProductUpdateCommand model)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    await _mediator.Send(model);
-                    TempData.Put("ResponseMessage", new ResponseModel
-                    {
-                        Message = "Product updated successfully",
-                        Type = ResponseType.Success
-                    });
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (Exception ex)
-            {
-                TempData.Put("ResponseMessage", new ResponseModel
-                {
-                    Message = "Error updating product",
-                    Type = ResponseType.Danger
-                });
-                _logger.LogError(ex, "Error updating product");
-            }
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.ProductDelete)]
         public async Task<IActionResult> Delete(string Id)
         {
             try
@@ -325,6 +345,16 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     Message = "Product deleted successfully",
                     Type = ResponseType.Success
                 });
+            }
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx &&
+                                      (sqlEx.Number == 547 || sqlEx.Number == 2292))
+            {
+                TempData.Put("ResponseMessage", new ResponseModel()
+                {
+                    Message = "Cannot delete customer because it has related sales records",
+                    Type = ResponseType.Danger
+                });
+                _logger.LogWarning(ex, "Failed to delete customer {CustomerId} due to foreign key constraint", Id);
             }
             catch (Exception ex)
             {

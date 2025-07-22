@@ -1,0 +1,80 @@
+﻿@using DevSkill.Inventory.Domain
+@using DevSkill.Inventory.Domain.Dtos
+@model List<AccessSetupIndexDto>
+@{
+    ViewData["Title"] = "Access Setup";
+    var idx = 1;
+}
+<!--begin::App Content Header-->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Available Access Setup </h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index" asp-area="Admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> Access Setup</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div class="app-content">
+    <div class="container-fluid">
+        <partial name="_ResponsePartial" />
+        <!-- Space between cards -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex">
+                        <h3 class="card-title"> Access Setup List </h3>
+                    </div>
+                    <div class="card-body">
+                        <partial name="_ModalPartial" />
+                        <table id=" AccessSetups" class="table table-bordered">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#SN</th>
+                                    <th>Role Name</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var role in Model.ToList())
+                                {
+                                    <tr class="text-center">
+                                        <td>@(idx++)</td>
+                                        <td>@role.RoleName</td>
+                                        <td>@role.Status.ToString()</td>
+                                        <td>
+                                            <a class="btn btn-primary @(User.HasClaim(PermissionTypes.UserRole, Permissions.UserRoleAssign) ? "" : "disabled")"
+                                               asp-action="ManageClaims"
+                                               asp-controller="AccessSetups"
+                                               asp-area="Admin"
+                                               asp-route-roleId="@role.RoleId">
+                                                <i class="bi bi-pencil-square"></i> Manage
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="text-center">
+                                <tr>
+                                    <th>#SN</th>
+                                    <th>Role Name</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>
+<!--end::App Content-->

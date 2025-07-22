@@ -1,16 +1,18 @@
 ﻿using AutoMapper;
 using DevSkill.Inventory.Application.Features.Sales.Commands;
 using DevSkill.Inventory.Application.Features.Sales.Queries;
+using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Enums;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Policy = Permissions.SalePage)]
     public class SalesController(IMediator mediator,ILogger<SalesController> logger,IMapper mapper) 
         : Controller
     {
@@ -22,14 +24,14 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet,Authorize(Policy = Permissions.SaleAdd)]
         public IActionResult Add()
         {
             var model = new SaleAddCommand();
             return View(model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken,Authorize(Permissions.SaleAdd)]
         public async Task<IActionResult> Add(SaleAddCommand saleAddCommand)
         {
             try
@@ -67,6 +69,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
         }
 
+        [HttpGet,Authorize(Policy = Permissions.SaleUpdate)]
         public async Task<IActionResult> Update(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -87,7 +90,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken,Authorize(Policy = Permissions.SaleUpdate)]
         public async Task<IActionResult> Update(SaleUpdateCommand saleUpdateCommand)
         {
             try
@@ -112,7 +115,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost,ValidateAntiForgeryToken,Authorize(Policy = Permissions.SaleDelete)]
         public async Task<IActionResult> Delete(string id)
         {
             try
@@ -185,7 +188,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet,Authorize(Policy = Permissions.SaleUpdate)]
         public async Task<IActionResult> Payment(string Id)
         {
             var sale = await _mediator.Send(new SaleGetByIdQuery { Id = Id });
@@ -209,7 +212,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken,Authorize(Policy = Permissions.SaleUpdate)]
         public async Task<IActionResult> Payment(SalePaymentUpdateCommand salePaymentUpdateCommand)
         {
             try

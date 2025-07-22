@@ -2,10 +2,13 @@
 using DevSkill.Inventory.Application.Features.Categories.Queries;
 using DevSkill.Inventory.Application.Features.Customers.Commands;
 using DevSkill.Inventory.Application.Features.Customers.Queries;
+using DevSkill.Inventory.Domain;
+using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Enums;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -13,7 +16,7 @@ using System.Web;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Policy = Permissions.CustomerPage)]
     public class CustomersController(ILogger<CustomersController> logger,IMediator mediator,
         IMapper mapper) : Controller
     {
@@ -25,12 +28,35 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
+        public async Task<IActionResult> CustomerView(string Id)
+        {
+            try
+            {
+                var customer = await _mediator.Send(new CustomerGetByIdQuery { Id = Id });
+                var model = _mapper.Map<CustomerViewDto>(customer);
+                model.Sales = customer.Sales.OrderBy(s => s.SaleDate).Take(5).ToList();
+                return View(model);
+            }
+            catch (Exception ex) 
+            {
+                _logger.LogError(ex, "Error to load customer details");
+                TempData.Put("ResponseMessage", new ResponseModel()
+                {
+                    Message = "Customer View Failed",
+                    Type = ResponseType.Danger
+                });
+                return RedirectToAction("Index");
+            }
+        }
+
+        [Authorize(Policy = Permissions.CustomerAdd)]
         public IActionResult Add()
         {
             var model = new CustomerAddCommand();
             return PartialView("_CustomerModalPartial", model);
         }
 
+        [Authorize(Policy = Permissions.CustomerAdd)]
         [HttpPost,ValidateAntiForgeryToken]
         public async Task<IActionResult> AddAsync(CustomerAddCommand customerAddCommand)
         {
@@ -69,6 +95,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Policy = Permissions.CustomerUpdate)]
         public async Task<IActionResult> Update(string id)
         {
             var customer = await _mediator.Send(new CustomerGetByIdQuery { Id = id });
@@ -76,7 +103,8 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return PartialView("_CustomerModalPartial", model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken,]
+        [Authorize(Policy = Permissions.CustomerUpdate)]
         public async Task<IActionResult> UpdateAsync(CustomerUpdateCommand customerUpdateCommand)
         {
             try
@@ -114,6 +142,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
         }
 
         [HttpPost,ValidateAntiForgeryToken]
+        [Authorize(Policy = Permissions.CustomerDelete)]
         public async Task<IActionResult> Delete(string Id)
         {
             try
@@ -137,7 +166,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+        [HttpGet,AllowAnonymous]
         public async Task<IActionResult> SearchCustomers(string term = "", int page = 1, int pageSize = 5)
         {
             try

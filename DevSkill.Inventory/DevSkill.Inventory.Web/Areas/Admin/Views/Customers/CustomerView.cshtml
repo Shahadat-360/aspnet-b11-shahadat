@@ -1,0 +1,130 @@
+﻿@using DevSkill.Inventory.Domain.Dtos
+@using DevSkill.Inventory.Domain.Enums
+@model CustomerViewDto
+@{
+    ViewData["Title"] = "CustomerView";
+}
+<div class="app-content">
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="col-12">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="mr-1"></i>Customer View</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-primary text-white h-100">
+                                <div class="card-body d-flex flex-column justify-content-center align-items-center text-center">
+                                    <i class="bi bi-person-circle text-white" style="font-size:120px;"></i>
+                                    <h3 class="mb-2">@Model.CustomerName</h3>
+                                    <p class="mb-2 fw-semibold">@Model.CompanyName</p>
+                                    <p class="mb-1"><i class="fas fa-envelope me-2"></i><span>@Model.Email</span></p>
+                                    <p class="mb-0"><i class="fas fa-phone me-2"></i><span>@Model.Mobile</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer Details Section (Right Col-6) -->
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <h4 class="card-title">
+                                        <i class="fas fa-info-circle me-2 text-primary"></i>
+                                        <span>Customer Information</span>
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-5 fw-semibold text-muted">Customer ID:</div>
+                                        <div class="col-sm-7 text-end">@Model.Id</div>
+                                    </div>
+                                    <hr class="my-2">
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-5 fw-semibold text-muted">Address:</div>
+                                        <div class="col-sm-7 text-end">@Model.Address</div>
+                                    </div>
+                                    <hr class="my-2">
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-5 fw-semibold text-muted">Opening Balance:</div>
+                                        <div class="col-sm-7 text-end fw-bold text-success">@Model.OpeningBalance</div>
+                                    </div>
+                                    <hr class="my-2">
+
+                                    <div class="row mb-3">
+                                        <div class="col-sm-5 fw-semibold text-muted">Current Balance:</div>
+                                        <div class="col-sm-7 text-end fw-bold text-success">@Model.CurrentBalance</div>
+                                    </div>
+                                    <hr class="my-2">
+
+                                    <div class="row mb-0">
+                                        <div class="col-sm-5 fw-semibold text-muted">Status:</div>
+                                        <div class="col-sm-7 text-end">
+                                            <span class="badge bg-success">@Model.Status.ToString()</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sales Section (New Row) -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title mb-0">
+                                            <i class="fas fa-shopping-cart me-2 text-primary"></i>Recent Sales
+                                        </h4>
+                                        <small class="text-muted">Latest 5 transactions</small>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" id="salesTable">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th class="fw-semibold">Sale ID</th>
+                                                    <th class="fw-semibold">Date</th>
+                                                    <th class="fw-semibold">Payment Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach(var sale in Model.Sales)
+                                                {
+                                                    <tr>
+                                                          <td class="fw-bold">@sale.Id</td>
+                                                          <td>@sale.SaleDate</td>
+                                                          <td>
+                                                              <span class="badge @(sale.PaymentStatus == PaymentStatus.Due ? "bg-danger text-white" :
+                                                                    sale.PaymentStatus == PaymentStatus.Paid ? "bg-success" : "bg-warning text-dark")">
+                                                              @sale.PaymentStatus.ToString()
+                                                              </span>
+                                                          </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="text-center mt-4">
+                                        <a class="btn btn-danger btn px-4" asp-action="Index" asp-controller="Customers" 
+                                                    asp-area="Admin"><i class="bi bi-arrow-left-short"></i>Back</a>
+                                        <a class="btn btn-primary btn px-4" asp-action="Index" asp-controller="Sales" asp-area="Admin">
+                                            View More Sale
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

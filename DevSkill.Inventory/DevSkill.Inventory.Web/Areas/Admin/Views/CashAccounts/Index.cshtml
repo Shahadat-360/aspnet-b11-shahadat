@@ -1,0 +1,156 @@
+﻿@using DevSkill.Inventory.Domain
+@using DevSkill.Inventory.Domain.Dtos
+@using DevSkill.Inventory.Domain.Enums
+@model IEnumerable<CashAccountIndexDto>
+@{
+    ViewData["Title"] = "Index";
+    var idx = 1;
+}
+
+<!--begin::App Content Header-->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Available Cash Accounts</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a asp-controller="Settings" asp-action="Index" asp-area="Admin">Settings</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Cash Accounts</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div id="CashAccountModalContainer"></div>
+<div class="app-content">
+    <div class="container-fluid">
+        <partial name="_ResponsePartial" />
+        <!-- Space between cards -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex">
+                        <h3 class="card-title">Cash Accounts</h3>
+                        @if (User.HasClaim(PermissionTypes.CashAccount, Permissions.CashAccountAdd))
+                        {
+                            <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
+                                <i class="bi bi-plus-lg"></i>
+                                New Cash Account
+                            </button>
+                        }
+                    </div>
+                    <div class="card-body">
+                        <partial name="_ModalPartial" />
+                        <table id="CashAccounts" class="table table-bordered">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#SN</th>
+                                    <th>Account Name</th>
+                                    <th>Opening Balance</th>
+                                    <th>Current Balance</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var cashAccount in Model.ToList())
+                                {
+                                    <tr class="text-center">
+                                        <td>@(idx++)</td>
+                                        <td>@cashAccount.AccountName</td>
+                                        <td>@cashAccount.OpeningBalance</td>
+                                        <td>@cashAccount.CurrentBalance</td>
+                                        <td>@cashAccount.Status.ToString()</td>
+                                        <td>
+                                            @if (User.HasClaim(PermissionTypes.CashAccount, Permissions.CashAccountUpdate)
+                                                                                    || User.HasClaim(PermissionTypes.CashAccount, Permissions.CashAccountDelete))
+                                            {
+                                                <div class="dropdown">
+                                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        @if (User.HasClaim(PermissionTypes.CashAccount, Permissions.CashAccountUpdate))
+                                                        {
+                                                            <li>
+                                                                <button class="dropdown-item text-info" onclick="Update(@cashAccount.Id)">
+                                                                    <i class="bi bi-pencil-square"></i> Edit
+                                                                </button>
+                                                            </li>
+                                                        }
+                                                        @if (User.HasClaim(PermissionTypes.CashAccount, Permissions.CashAccountDelete))
+                                                        {
+                                                            <li>
+                                                                <button class="dropdown-item text-danger show-bs-modal" data-id="@cashAccount.Id">
+                                                                    <i class="bi bi-trash"></i> Delete
+                                                                </button>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <p class="text-danger">Unavailable</p>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="text-center">
+                                <tr class="text-center">
+                                    <th>#SN</th>
+                                    <th>Account Name</th>
+                                    <th>Opening Balance</th>
+                                    <th>Current Balance</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>
+<!--end::App Content-->
+@section Scripts {
+    <script>
+        function Add() {
+            $.get("/Admin/CashAccounts/Add", function (response) {
+                $("#CashAccountModalContainer").html(response);
+                $("#CashAccountModal").modal("show");
+            });
+        }
+        function Update(Id)
+        {
+            $.get("/Admin/CashAccounts/Update/"+Id, function (response) {
+                if (response.success === false) {
+                    window.location.href = response.redirectUrl;
+                }
+                $("#CashAccountModalContainer").html(response);
+                $("#CashAccountModal").modal("show");
+            });
+        }
+    </script>
+    <script>
+        $('#CashAccounts').on('click', '.show-bs-modal', function() {
+            let id = $(this).data('id');
+            let DeleteModal = $('#delete-modal');
+            DeleteModal.find('.modal-body p').html('Are you sure you want to delete this Cash Account?');
+            $('#delete-id').val(id);
+            $('#delete-form').attr('action', '/Admin/CashAccounts/Delete');
+            DeleteModal.modal('show');
+        });
+
+        $('#delete-btn').on('click', function() {
+            $('#delete-form').submit();
+        });
+    </script>
+}
+
+

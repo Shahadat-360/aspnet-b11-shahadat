@@ -1,4 +1,5 @@
 ﻿@using DevSkill.Inventory.Application.Features.Sales.Queries
+@using DevSkill.Inventory.Domain
 @using DevSkill.Inventory.Domain.Enums
 @model SalesByQuery
 @{
@@ -127,10 +128,13 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex">
                         <h3 class="card-title">Available Sales</h3>
-                        <a asp-action="Add" asp-controller="Sales" asp-area="Admin" class="btn btn-primary ms-auto">
-                            <i class="bi bi-plus-lg"></i>
-                            New Sale
-                        </a>
+                        @if (User.HasClaim(PermissionTypes.Sale, Permissions.SaleAdd))
+                        {
+                            <a asp-action="Add" asp-controller="Sales" asp-area="Admin" class="btn btn-primary ms-auto">
+                                <i class="bi bi-plus-lg"></i>
+                                New Sale
+                            </a>
+                        }
                     </div>
                     <div class="card-body">
                         <partial name="_ModalPartial" />
@@ -271,21 +275,27 @@
                                                         <i class="bi bi-eye"></i> View
                                                       </a>
                                                     </li>
-                                                    <li>
-                                                      <button class="dropdown-item text-success" onclick="Payment('${row[1]}')">
-                                                        <i class="bi bi-plus-lg"></i> Payment
-                                                      </button>
-                                                    </li>
-                                                    <li>
-                                                      <a class="dropdown-item text-info" href="/admin/Sales/Update/${row[1]}">
-                                                        <i class="bi bi-pencil-square"></i> Edit
-                                                      </a>
-                                                    </li>
-                                                    <li>
-                                                      <button class="dropdown-item text-danger show-bs-modal" data-id="${row[1]}">
-                                                        <i class="bi bi-trash"></i> Delete
-                                                      </button>
-                                                    </li>
+                                                    @if(User.HasClaim(PermissionTypes.Sale,Permissions.SaleUpdate))
+                                                    {
+                                                        <li>
+                                                          <button class="dropdown-item text-success ${parseFloat(row[6]) === 0 ? 'd-none' : 'd-block'}" onclick="Payment('${row[1]}')">
+                                                            <i class="bi bi-plus-lg"></i> Payment
+                                                          </button>
+                                                        </li>
+                                                        <li>
+                                                          <a class="dropdown-item text-info" href="/admin/Sales/Update/${row[1]}">
+                                                            <i class="bi bi-pencil-square"></i> Edit
+                                                          </a>
+                                                        </li>
+                                                    }
+                                                    @if (User.HasClaim(PermissionTypes.Sale, Permissions.SaleDelete))
+                                                    {
+                                                        <li>
+                                                          <button class="dropdown-item text-danger show-bs-modal" data-id="${row[1]}">
+                                                            <i class="bi bi-trash"></i> Delete
+                                                          </button>
+                                                        </li>
+                                                    }
                                                   </ul>
                                                 </div>`;
 

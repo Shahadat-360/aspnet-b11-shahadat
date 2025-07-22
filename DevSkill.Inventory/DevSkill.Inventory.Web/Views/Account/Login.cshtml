@@ -1,0 +1,128 @@
+﻿@model LoginModel
+@{
+    ViewData["Title"] = "DevSkill Inventory - Login";
+    Layout = null;
+    var uploadsPath = ViewBag.UploadsPath as string;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevSkill Inventory - Login</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #20d4d4 0%, #4ecdc4 100%);
+            min-height: 100vh;
+        }
+
+        .login-card {
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border: none;
+            overflow: hidden;
+        }
+
+        .welcome-side {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .logo-container {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd);
+            background-size: 300% 300%;
+            animation: gradientShift 3s ease infinite;
+        }
+        @@keyframes gradientShift {
+            0%, 100%
+
+        {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid vh-100 d-flex align-items-center justify-content-center p-4">
+        <div class="row login-card bg-white" style="max-width: 900px; width: 100%; min-height: 500px;">
+            <!-- Welcome Side -->
+            <div class="col-lg-6 welcome-side d-flex flex-column align-items-center justify-content-center p-5">
+                <div class="logo-container rounded-4 d-flex align-items-center justify-content-center mb-4 mx-auto">
+                    <img src="\@uploadsPath" alt="DevSkill Logo" class="img-fluid" style="width: 80px; height: 80px; object-fit: contain;" />
+                </div>
+                <h1 class="display-4 fw-bold text-dark mb-3">Welcome</h1>
+                <p class="text-muted text-center fs-6">Sign in to access your<br>inventory management system</p>
+            </div>
+
+            <!-- Login Side -->
+            <div class="col-lg-6 d-flex flex-column justify-content-center p-5">
+                <div class="text-center mb-4">
+                    <h1 class="h2 fw-bold text-dark mb-2">Sign in to Software</h1>
+                    <p class="text-muted">DevSkill Inventory Management</p>
+                </div>
+
+                <form method="post">
+                    <!-- Display validation summary for model errors -->
+                    <div asp-validation-summary="All" class="alert alert-danger d-none"></div>
+
+                    <div class="mb-3">
+                        <input asp-for="EmailOrUsername" class="form-control" placeholder="Enter Email or Username" />
+                        <span asp-validation-for="EmailOrUsername" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <input asp-for="Password" class="form-control" placeholder="Enter Password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input asp-for="RememberMe" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label text-muted">
+                                Remember me?
+                            </label>
+                        </div>
+                    </div>
+
+                    <input asp-for="ReturnUrl" type="hidden" />
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-4">
+                        SIGN IN
+                    </button>
+
+                    <!-- Demo Credentials -->
+                    <div class="card bg-light">
+                        <div class="card-body p-3">
+                            <h6 class="card-title mb-2 fw-semibold">Demo Credentials:</h6>
+                            <div class="row g-0">
+                                <div class="col-4">
+                                    <small class="text-muted"><strong>Role:</strong></small><br>
+                                    <small>Admin</small>
+                                </div>
+                                <div class="col-4">
+                                    <small class="text-muted"><strong>Username:</strong></small><br>
+                                    <small>admin</small>
+                                </div>
+                                <div class="col-4">
+                                    <small class="text-muted"><strong>Password:</strong></small><br>
+                                    <small>123456</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>
