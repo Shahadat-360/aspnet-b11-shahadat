@@ -1,0 +1,67 @@
+﻿@using DevSkill.Inventory.Application.Features.Users.Commands
+@using DevSkill.Inventory.Domain.Enums
+@model UserAddCommand
+
+<div class="modal fade" id="UserModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="UserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Add" asp-controller="Users" asp-area="Admin" method="post" asp-antiforgery="true">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="EmployeeId" class="form-label">Employee</label>
+                            <select asp-for="EmployeeId" class="form-select" data-placeholder="Select an Employee"></select>
+                            <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="RoleId" class="form-label">Role</label>
+                            <select asp-for="RoleId" class="form-select" data-placeholder="Select a Role"></select>
+                            <span asp-validation-for="RoleId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Password" class="form-label">Password</label>
+                            <input type="password" asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Status" class="form-label">Status</label>
+                            <select asp-for="Status" class="form-select">
+                                <option value="0">Active</option>
+                                <option value="1">Inactive</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<partial name="_Select2SearchingByIdPartial" />
+<partial name="_ValidationScriptsPartial" />
+<script>
+    $(document).ready(function () {
+      initializeSearchOnlySelect2({
+        selectorId: '#EmployeeId',
+        searchUrl: '/Admin/Employees/SearchEmployees'
+      });
+
+      initializeSearchOnlySelect2({
+        selectorId: '#RoleId',
+        searchUrl: '/Admin/UserRoles/SearchUserRoles'
+      });
+    });
+</script>

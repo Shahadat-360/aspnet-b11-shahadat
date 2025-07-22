@@ -14,7 +14,7 @@ namespace DevSkill.Inventory.Application.Features.Customers.Queries
         private readonly IApplicationUnitOfWork _applicationUnitOfWork = applicationUnitOfWork;
         public async Task<Customer> Handle(CustomerGetByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _applicationUnitOfWork.CustomerRepository.GetByIdAsync(request.Id);
+            return await _applicationUnitOfWork.CustomerRepository.GetByIdWithNavigationAsync(request.Id);
         }
     }
 }

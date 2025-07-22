@@ -1,4 +1,5 @@
-﻿
+﻿@using DevSkill.Inventory.Domain
+
 @{
     ViewData["Title"] = "Settings";
 }
@@ -6,8 +7,8 @@
     <style>
         .small-box .small-box-icon {
             position: absolute;
-            top: 20px !important;
-            right: 20px !important;
+            top: 15px !important;
+            right: 15px !important;
             z-index: 0;
             height: 70px;
             font-size: 35px !important;
@@ -20,7 +21,7 @@
         }
 
         .small-box h3 {
-            font-size: 1.5rem !important;
+            font-size: 1rem !important;
         }
     </style>
 }
@@ -49,6 +50,7 @@
 <div class="app-content">
     <!--begin::Container-->
     <div class="container-fluid">
+        <partial name="_ResponsePartial" />
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -56,9 +58,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-3 col-6">
+                        @if(User.HasClaim(PermissionTypes.Category,Permissions.CategoryPage))
+                        {
+                            <div class="col-lg-3 col-6">
                             <!--begin::Small Box Widget 1-->
-                            <a href="#" class="text-decoration-none">
+                            <a asp-action="Index" asp-area="Admin" asp-controller="Categories" class="text-decoration-none">
                                 <div class="small-box text-bg-primary">
                                     <div class="inner">
                                         <h3>Category</h3>
@@ -68,9 +72,12 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-3 col-6">
+                        }
+                        @if (User.HasClaim(PermissionTypes.Unit, Permissions.UnitPage))
+                        {
+                            <div class="col-lg-3 col-6">
                             <!--begin::Small Box Widget 1-->
-                            <a href="#" class="text-decoration-none">
+                            <a asp-action="Index" asp-area="Admin" asp-controller="Units" class="text-decoration-none">
                                 <div class="small-box text-bg-success">
                                     <div class="inner">
                                         <h3>Unit</h3>
@@ -80,56 +87,98 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-lg-3 col-6">
-                            <!--begin::Small Box Widget 1-->
-                            <a href="#" class="text-decoration-none">
-                                <div class="small-box text-bg-warning">
-                                    <div class="inner">
-                                        <h3>Cash Account</h3>
-                                        <p>Count</p>
+                        }
+                        @if (User.HasClaim(PermissionTypes.CashAccount, Permissions.CashAccountPage))
+                        {
+                            <div class="col-lg-3 col-6">
+                                <!--begin::Small Box Widget 1-->
+                                <a asp-action="Index" asp-area="Admin" asp-controller="CashAccounts" class="text-decoration-none">
+                                    <div class="small-box text-bg-warning">
+                                        <div class="inner">
+                                            <h3>Cash Account</h3>
+                                            <p>Count</p>
+                                        </div>
+                                        <i class="small-box-icon bi bi-stack"></i>
                                     </div>
-                                    <i class="small-box-icon bi bi-stack"></i>
+                                </a>
+                            </div>
+                        }
+                        @if (User.HasClaim(PermissionTypes.BankAccount, Permissions.BankAccountPage))
+                        {
+                            <div class="col-lg-3 col-6">
+                                <!--begin::Small Box Widget 1-->
+                                <a asp-action="Index" asp-area="Admin" asp-controller="BankAccounts" class="text-decoration-none">
+                                    <div class="small-box text-bg-danger">
+                                        <div class="inner">
+                                            <h3>Bank Account</h3>
+                                            <p>Count</p>
+                                        </div>
+                                        <i class="small-box-icon bi bi-stack"></i>
 
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <!--begin::Small Box Widget 1-->
-                            <a href="#" class="text-decoration-none">
-                                <div class="small-box text-bg-danger">
-                                    <div class="inner">
-                                        <h3>Bank Account</h3>
-                                        <p>Count</p>
                                     </div>
-                                    <i class="small-box-icon bi bi-stack"></i>
-
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <!--begin::Small Box Widget 1-->
-                            <a href="#" class="text-decoration-none">
-                                <div class="small-box text-bg-primary">
-                                    <div class="inner">
-                                        <h3>Mobile Account</h3>
-                                        <p>Count</p>
+                                </a>
+                            </div>
+                        }
+                        @if (User.HasClaim(PermissionTypes.MobileAccount, Permissions.MobileAccountPage))
+                        {
+                            <div class="col-lg-3 col-6">
+                                <!--begin::Small Box Widget 1-->
+                                <a asp-action="Index" asp-area="Admin" asp-controller="MobileAccounts" class="text-decoration-none">
+                                    <div class="small-box text-bg-primary">
+                                        <div class="inner">
+                                            <h3>Mobile Account</h3>
+                                            <p>Count</p>
+                                        </div>
+                                        <i class="small-box-icon bi bi-stack"></i>
                                     </div>
-                                    <i class="small-box-icon bi bi-stack"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-6">
-                            <!--begin::Small Box Widget 1-->
-                            <a asp-action="Index" asp-area="Admin" asp-controller="BalanceTransfers" class="text-decoration-none">
-                                <div class="small-box text-bg-success">
-                                    <div class="inner">
-                                        <h3>Balance Transfer</h3>
-                                        <p>Count</p>
+                                </a>
+                            </div>
+                        }
+                        @if (User.HasClaim(PermissionTypes.BalanceTransfer, Permissions.BalanceTransferPage))
+                        {
+                            <div class="col-lg-3 col-6">
+                                <!--begin::Small Box Widget 1-->
+                                <a asp-action="Index" asp-area="Admin" asp-controller="BalanceTransfers" class="text-decoration-none">
+                                    <div class="small-box text-bg-success">
+                                        <div class="inner">
+                                            <h3>Balance Transfer</h3>
+                                            <p>Count</p>
+                                        </div>
+                                        <i class="small-box-icon bi bi-stack"></i>
                                     </div>
-                                    <i class="small-box-icon bi bi-stack"></i>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        }
+                        @if (User.HasClaim(PermissionTypes.UserRole, Permissions.UserRolePage))
+                        {
+                            <div class="col-lg-3 col-6">
+                                <!--begin::Small Box Widget 1-->
+                                <a asp-action="Index" asp-area="Admin" asp-controller="UserRoles" class="text-decoration-none">
+                                    <div class="small-box text-bg-warning">
+                                        <div class="inner">
+                                            <h3>User Role</h3>
+                                            <p>Count</p>
+                                        </div>
+                                        <i class="small-box-icon bi bi-stack"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        }
+                        @if (User.HasClaim(PermissionTypes.Department, Permissions.DepartmentPage))
+                        {
+                            <div class="col-lg-3 col-6">
+                                <!--begin::Small Box Widget 1-->
+                                <a asp-action="Index" asp-area="Admin" asp-controller="Departments" class="text-decoration-none">
+                                    <div class="small-box text-bg-danger">
+                                        <div class="inner">
+                                            <h3>Department</h3>
+                                            <p>Count</p>
+                                        </div>
+                                        <i class="small-box-icon bi bi-stack"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="card-footer">

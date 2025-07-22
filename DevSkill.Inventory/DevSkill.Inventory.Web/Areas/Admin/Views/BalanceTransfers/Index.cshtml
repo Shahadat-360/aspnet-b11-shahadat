@@ -1,5 +1,6 @@
 ﻿
 @using DevSkill.Inventory.Application.Features.BalanceTransfers.Queries
+@using DevSkill.Inventory.Domain
 @using DevSkill.Inventory.Domain.Enums
 @model BalanceTransfersByQuery
 @{
@@ -111,10 +112,13 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex">
                         <h3 class="card-title">Available Balance Transfers</h3>
-                        <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
-                            <i class="bi bi-plus-lg"></i>
-                            Transfer Balance
-                        </button>
+                        @if(User.HasClaim(PermissionTypes.BalanceTransfer,Permissions.BalanceTransferAdd))
+                        {
+                            <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
+                                <i class="bi bi-plus-lg"></i>
+                                Transfer Balance
+                            </button>
+                        }
                     </div>
                     <div class="card-body">
                         <partial name="_ModalPartial" />
@@ -167,84 +171,90 @@
         }
     </script>
     <script>
-                $(function () {
-                    $("#BalanceTransfers").DataTable({
-                        processing: true,
-                        serverSide: true,
-                        responsive: true,
-                        lengthChange: true,
-                        autoWidth: false,
-                        searching: false,
-                        lengthMenu: [
-                            [10, 25, 50, -1],
-                            [10, 25, 50, 'All']
-                        ],
+        $(function () {
+            $("#BalanceTransfers").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                lengthChange: true,
+                autoWidth: false,
+                searching: false,
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, 'All']
+                ],
 
-                        // there is various Option present such as
-                        // buttonStart,buttonEnd,topStart,topEnd,
-                        // top2Start,top2Start so on.
-                        layout: {
-                            top: {
-                                // buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
-                                // for customizing column
-                                buttons:[
-                                    // specific index based
-                                    // { extend: 'copy',  exportOptions: { columns: [0,1,2] } },
-                                    // { extend: 'csv',   exportOptions: { columns: [0,1,2] } },
-                                    // { extend: 'excel', exportOptions: { columns: [0,1,2] } },
-                                    // { extend: 'pdf',   exportOptions: { columns: [0,1,2] } },
-                                    // { extend: 'print', exportOptions: { columns: [0,1,2] } }
-                                    // to exclude last child of the columns
-                                    { extend: 'copy',  exportOptions: { columns: ':not(:last-child)' } },
-                                    { extend: 'csv',   exportOptions: { columns: ':not(:last-child)' } },
-                                    { extend: 'excel', exportOptions: { columns: ':not(:last-child)' } },
-                                    { extend: 'pdf',   exportOptions: { columns: ':not(:last-child)' } },
-                                    { extend: 'print', exportOptions: { columns: ':not(:last-child)' } }
-                                ]
-                            },
-                            topEnd:'search'
-                        },
-                        ajax: {
-                            url: "/Admin/BalanceTransfers/GetBankTransferJsonData",
-                            type: "POST",
-                             contentType: "application/json", //must be added
-                             dataType: "json", //better to add, not mandatory
-                             data: function (d) {
-                                 d.SearchItem = {
-                                    TransferDateFrom: $("#SearchItem_TransferDateFrom").val()===""?null:$("#SearchItem_TransferDateFrom").val(),
-                                    TransferDateTo: $("#SearchItem_TransferDateTo").val()===""?null:$("#SearchItem_TransferDateTo").val(),
-                                    SendingAccountType: $("#SearchItem_SendingAccountType").val()===""?null:parseInt($("#SearchItem_SendingAccountType").val()),
-                                    SendingAccount: $("#SearchItem_SendingAccount").val(),
-                                    ReceivingAccountType: $('#SearchItem_ReceivingAccountType').val()===""?null:parseInt($('#SearchItem_ReceivingAccountType').val()),
-                                    ReceivingAccount: $('#SearchItem_ReceivingAccount').val(),
-                                    MinTransferAmount: $('#SearchItem_MinTransferAmount').val()===""?null:$('#SearchItem_MinTransferAmount').val(),
-                                    MaxTransferAmount: $('#SearchItem_MaxTransferAmount').val()===""?null:$('#SearchItem_MaxTransferAmount').val(),
-                                    Note: $('#SearchItem_Note').val()
-                                 };
-                                 return JSON.stringify(d);
-                             },
-                        },
-                        order: [[1, 'desc']],
-                        columnDefs: [
-                            {
-                                orderable: false,
-                                targets: [0,2,4]
-                            },
-                            {
-                                orderable: false,
-                                targets: 8,
-                                render: function (data, type, row) {
-                                    console.log(data,row);
-                                            return `
-                                                <button class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
-                                            `;
+                // there is various Option present such as
+                // buttonStart,buttonEnd,topStart,topEnd,
+                // top2Start,top2Start so on.
+                layout: {
+                    top: {
+                        // buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                        // for customizing column
+                        buttons:[
+                            // specific index based
+                            // { extend: 'copy',  exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'csv',   exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'excel', exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'pdf',   exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'print', exportOptions: { columns: [0,1,2] } }
+                            // to exclude last child of the columns
+                            { extend: 'copy',  exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'csv',   exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'excel', exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'pdf',   exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'print', exportOptions: { columns: ':not(:last-child)' } }
+                        ]
+                    },
+                    topEnd:'search'
+                },
+                ajax: {
+                    url: "/Admin/BalanceTransfers/GetBankTransferJsonData",
+                    type: "POST",
+                     contentType: "application/json", //must be added
+                     dataType: "json", //better to add, not mandatory
+                     data: function (d) {
+                         d.SearchItem = {
+                            TransferDateFrom: $("#SearchItem_TransferDateFrom").val()===""?null:$("#SearchItem_TransferDateFrom").val(),
+                            TransferDateTo: $("#SearchItem_TransferDateTo").val()===""?null:$("#SearchItem_TransferDateTo").val(),
+                            SendingAccountType: $("#SearchItem_SendingAccountType").val()===""?null:parseInt($("#SearchItem_SendingAccountType").val()),
+                            SendingAccount: $("#SearchItem_SendingAccount").val(),
+                            ReceivingAccountType: $('#SearchItem_ReceivingAccountType').val()===""?null:parseInt($('#SearchItem_ReceivingAccountType').val()),
+                            ReceivingAccount: $('#SearchItem_ReceivingAccount').val(),
+                            MinTransferAmount: $('#SearchItem_MinTransferAmount').val()===""?null:$('#SearchItem_MinTransferAmount').val(),
+                            MaxTransferAmount: $('#SearchItem_MaxTransferAmount').val()===""?null:$('#SearchItem_MaxTransferAmount').val(),
+                            Note: $('#SearchItem_Note').val()
+                         };
+                         return JSON.stringify(d);
+                     },
+                },
+                order: [[1, 'desc']],
+                columnDefs: [
+                    {
+                        orderable: false,
+                        targets: [0,2,4]
+                    },
+                    {
+                        orderable: false,
+                        targets: 8,
+                        render: function (data, type, row) {
+                            console.log(data,row);
+                                    return `
+                                    @if(User.HasClaim(PermissionTypes.BalanceTransfer,Permissions.BalanceTransferDelete))
+                                    {
+                                        <button class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    }
+                                    else {
+                                        <p>Unavailable</p>
+                                    }
+                                    `;
 
-                                }
-                            }
-                        ],
-                    });
+                        }
+                    }
+                ],
+            });
             $('#BalanceTransfers').on('click','.show-bs-modal',function()
             {
                 let id = $(this).data('id');

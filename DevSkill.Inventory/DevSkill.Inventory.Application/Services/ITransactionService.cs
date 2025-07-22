@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevSkill.Inventory.Application.Features.BalanceTransfers.Queries
+namespace DevSkill.Inventory.Application.Services
 {
     public interface ITransactionService
     {

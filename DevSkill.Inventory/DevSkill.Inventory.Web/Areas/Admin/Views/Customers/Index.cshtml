@@ -1,4 +1,5 @@
 ﻿@using DevSkill.Inventory.Application.Features.Customers.Queries
+@using DevSkill.Inventory.Domain
 @using DevSkill.Inventory.Domain.Enums
 @model CustomersByQuery
 @{
@@ -12,7 +13,7 @@
             <div class="col-sm-6"><h3 class="mb-0">Available Customers</h3></div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-area="Admin" asp-controller="Dashboard">Dashboard</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Customers</li>
                 </ol>
             </div>
@@ -100,10 +101,13 @@
                 <div class="card mb-4">
                     <div class="card-header d-flex">
                         <h3 class="card-title">Available Customers</h3>
-                        <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
-                            <i class="bi bi-plus-lg"></i>
-                            New Customer
-                        </button>
+                        @if(User.HasClaim(PermissionTypes.Customer,Permissions.CustomerAdd))
+                        {
+                            <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
+                                <i class="bi bi-plus-lg"></i>
+                                New Customer
+                            </button>
+                        }
                     </div>
                     <div class="card-body">
                         <partial name="_ModalPartial" />
@@ -152,7 +156,7 @@
             $.get("/Admin/Customers/Add", function (response) {
                 $("#CustomerModalContainer").html(response);
                 $('#CustomerModalForm').attr('action','/Admin/Customers/Add')
-                $("#staticBackdrop").modal("show");
+                $("#CustomerModal").modal("show");
             });
         }
     </script>
@@ -161,9 +165,9 @@
             $.get("/Admin/Customers/Update/" + Id, function (response) {
                 $("#CustomerModalContainer").html(response);
                 $('#CustomerActionButton').text('Update');
-                $('#staticBackdropLabel').text('Update Customer Information');
+                $('#CustomerModalLabel').text('Update Customer Information');
                 $('#CustomerModalForm').attr('action','/Admin/Customers/Update')
-                $("#staticBackdrop").modal("show");
+                $("#CustomerModal").modal("show");
             });
         }
     </script>
@@ -242,20 +246,26 @@
                                                   </button>
                                                   <ul class="dropdown-menu">
                                                     <li>
-                                                      <a class="dropdown-item text-primary" href="/admin/products/details/${data}">
+                                                      <a class="dropdown-item text-primary" href="/admin/Customers/CustomerView/${row[1]}">
                                                         <i class="bi bi-eye"></i> View
                                                       </a>
                                                     </li>
-                                                    <li>
-                                                      <a class="dropdown-item text-info"" onclick="Update('${row[1]}')">
-                                                        <i class="bi bi-pencil-square"></i> Edit
-                                                      </a>
-                                                    </li>
-                                                    <li>
-                                                      <button class="dropdown-item text-danger show-bs-modal" data-id="${row[1]}">
-                                                        <i class="bi bi-trash"></i> Delete
-                                                      </button>
-                                                    </li>
+                                                    @if(User.HasClaim(PermissionTypes.Customer,Permissions.CustomerUpdate))
+                                                    {
+                                                        <li>
+                                                          <a class="dropdown-item text-info"" onclick="Update('${row[1]}')">
+                                                            <i class="bi bi-pencil-square"></i> Edit
+                                                          </a>
+                                                        </li>
+                                                    }
+                                                    @if(User.HasClaim(PermissionTypes.Customer,Permissions.CustomerDelete))
+                                                    {
+                                                        <li>
+                                                          <button class="dropdown-item text-danger show-bs-modal" data-id="${row[1]}">
+                                                            <i class="bi bi-trash"></i> Delete
+                                                          </button>
+                                                        </li>
+                                                    }
                                                   </ul>
                                                 </div>`;
 

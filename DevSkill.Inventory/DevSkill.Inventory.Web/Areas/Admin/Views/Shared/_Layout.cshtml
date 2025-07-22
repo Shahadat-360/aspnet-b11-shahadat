@@ -1,4 +1,5 @@
-﻿<!-- begin::Active Menu Helper -->
+﻿@using DevSkill.Inventory.Domain
+<!-- begin::Active Menu Helper -->
 @functions{
     public string IsActive(string controller,string? area= null)
     {
@@ -47,6 +48,12 @@
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="~/admin-lte-4/css/adminlte.css" asp-append-version="true" />
     <!--end::Required Plugin(AdminLTE)-->
+    <style>
+        .modal-header, .modal-footer {
+            background: #ecf7fc !important;
+            color:black !important;
+        }
+    </style>
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <!--end::Head-->
@@ -278,48 +285,76 @@
                                 </p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="Users" asp-area="admin"
-                               class="nav-link @IsActive("Users", "Admin")">
-                                <i class="nav-icon bi bi-people-fill"></i>
-                                <p>Users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="Customers" asp-area="admin"
-                               class="nav-link @IsActive("Customers", "Admin")">
-                                <i class="nav-icon bi bi-person"></i>
-                                <p>Customers</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="Products" asp-area="admin"
-                               class="nav-link @IsActive("Products", "Admin")">
-                                <i class="nav-icon bi bi-basket2"></i>
-                                <p>Products</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="Sales" asp-area="admin"
-                               class="nav-link @IsActive("Sales", "Admin")">
-                                <i class="nav-icon bi bi-bag-check-fill"></i>
-                                <p>Sales</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="BalanceTransfers" asp-area="admin"
-                               class="nav-link @IsActive("BalanceTransfers", "Admin")">
-                                <i class="nav-icon bi bi-currency-exchange"></i>
-                                <p>Balance Transfers</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-action="Index" asp-controller="Settings" asp-area="admin"
-                               class="nav-link @IsActive("Settings", "Admin")">
-                                <i class="nav-icon bi bi-gear"></i>
-                                <p>Settings</p>
-                            </a>
-                        </li>
+                        @if (User.HasClaim(PermissionTypes.Customer, Permissions.CustomerPage))
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="Customers" asp-area="admin"
+                                   class="nav-link @IsActive("Customers", "Admin")">
+                                    <i class="nav-icon bi bi-person"></i>
+                                    <p>Customers</p>
+                                </a>
+                            </li>
+                        }
+                        @if (User.HasClaim(PermissionTypes.Product, Permissions.ProductPage))
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="Products" asp-area="admin"
+                                   class="nav-link @IsActive("Products", "Admin")">
+                                    <i class="nav-icon bi bi-basket2"></i>
+                                    <p>Products</p>
+                                </a>
+                            </li>
+                        }
+                        @if(User.HasClaim(PermissionTypes.Sale, Permissions.SalePage))
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="Sales" asp-area="admin"
+                                   class="nav-link @IsActive("Sales", "Admin")">
+                                    <i class="nav-icon bi bi-bag-check-fill"></i>
+                                    <p>Sales</p>
+                                </a>
+                            </li>
+                        }
+                        @if(User.HasClaim(PermissionTypes.BalanceTransfer,Permissions.BalanceTransferPage))
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="BalanceTransfers" asp-area="admin"
+                                   class="nav-link @IsActive("BalanceTransfers", "Admin")">
+                                    <i class="nav-icon bi bi-currency-exchange"></i>
+                                    <p>Balance Transfers</p>
+                                </a>
+                            </li>
+                        }
+                        @if(User.HasClaim(PermissionTypes.User, Permissions.UserPage))
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="Users" asp-area="admin"
+                                   class="nav-link @IsActive("Users", "Admin")">
+                                    <i class="nav-icon bi bi-people-fill"></i>
+                                    <p>Users</p>
+                                </a>
+                            </li>
+                        }
+                        @if(User.HasClaim(PermissionTypes.AccessSetup,Permissions.AccessSetup))
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="AccessSetups" asp-area="admin"
+                                   class="nav-link @IsActive("AccessSetups", "Admin")">
+                                    <i class="nav-icon bi bi-shield-lock"></i>
+                                    <p>Access Setup</p>
+                                </a>
+                            </li>
+                        }
+                        @if (User.HasClaim(PermissionTypes.Settings, Permissions.SettingsPage))
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-controller="Settings" asp-area="admin"
+                                   class="nav-link @IsActive("Settings", "Admin")">
+                                    <i class="nav-icon bi bi-gear"></i>
+                                    <p>Settings</p>
+                                </a>
+                            </li>
+                        }
                         @* <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-box-seam-fill"></i>
@@ -762,6 +797,36 @@
         });
     </script>
     <!--end::OverlayScrollbars Configure-->
+    <!--end::OverlayScrollbars Configure-->
+    <!--begin::Required Plugin(jQuery)-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!--end::Required Plugin(jQuery)-->
+    <!-- Global 401 Error Handler -->
+    <script>
+        $(document).ready(function() {
+            // Global handler for all AJAX requests - handles HTTP 401 status codes
+            $(document).ajaxComplete(function(event, xhr, settings) {
+                if (xhr.status === 401) {
+                    window.location.href = "/Account/AccessDenied";
+                }
+            });
+
+            // Also handle response body 401 status globally - for custom Status: "401" in response
+            $(document).ajaxSuccess(function(event, xhr, settings) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.Status === "401") {
+                        window.location.href = "/Account/AccessDenied";
+                    }
+                } catch(e) {
+                    // Not JSON response or no Status property, ignore
+                }
+            });
+        });
+    </script>
+    <!-- End Global 401 Error Handler -->
     <!-- OPTIONAL SCRIPTS -->
     @await RenderSectionAsync("Scripts", required: false)
     <!--end::Script-->

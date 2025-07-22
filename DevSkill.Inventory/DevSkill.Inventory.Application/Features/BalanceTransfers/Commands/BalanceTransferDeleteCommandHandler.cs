@@ -1,5 +1,4 @@
-﻿using DevSkill.Inventory.Application.Features.BalanceTransfers.Queries;
-using DevSkill.Inventory.Application.Services;
+﻿using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using MediatR;
 using System;

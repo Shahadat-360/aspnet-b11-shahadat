@@ -1,0 +1,262 @@
+﻿@using DevSkill.Inventory.Application.Features.Users.Queries
+@using DevSkill.Inventory.Domain
+@using DevSkill.Inventory.Domain.Enums
+@model UsersByQuery
+@{
+    ViewData["Title"] = "View Users";
+}
+
+<!--begin::App Content Header-->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Available Users</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-area="Admin" asp-controller="Dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Users</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div id="UserModalContainer"></div>
+<div class="app-content">
+    <div class="container-fluid">
+        <partial name="_ResponsePartial" />
+        <!--begin::Row-->
+        <!-- Search User Card -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-search mr-1"></i>Search User</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.EmployeeName">Employee Name</label>
+                                <input type="text" asp-for="SearchItem.EmployeeName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.Email">Email</label>
+                                <input type="text" asp-for="SearchItem.Email" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.Mobile">Mobile</label>
+                                <input type="tel" asp-for="SearchItem.Mobile" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.RoleName">Role Name</label>
+                                <input type="text" asp-for="SearchItem.RoleName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.Status">Status</label>
+                                <div class="position-relative">
+                                    <select asp-for="SearchItem.Status" class="form-select pe-5" asp-items="Html.GetEnumSelectList<Status>()">
+                                        <option value="">-- Select Status --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="UserSearchButton" type="submit" class="btn btn-primary float-right">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Space between cards -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex">
+                        <h3 class="card-title">Available Users</h3>
+                        @if (User.HasClaim(PermissionTypes.User, Permissions.UserAdd))
+                        {
+                            <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
+                                <i class="bi bi-plus-lg"></i>
+                                New User
+                            </button>
+                        }
+                    </div>
+                    <div class="card-body">
+                        <partial name="_ModalPartial" />
+                        <table id="Users" class="table table-bordered">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#SN</th>
+                                    <th>Employee Name</th>
+                                    <th>Company</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>Role Name</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot class="text-center">
+                                <tr>
+                                    <th>#SN</th>
+                                    <th>Employee Name</th>
+                                    <th>Company</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>Role Name</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>
+<!--end::App Content-->
+@section Scripts {
+    <partial name="_DataTablesHelperPartial" />
+    <partial name="_Select2LibraryPartial" />
+    <script>
+        function Add() {
+            $.get("/Admin/Users/Add", function (response) {
+                $("#UserModalContainer").html(response);
+                $("#UserModal").modal("show");
+            });
+        }
+    </script>
+    <script>
+        function Update(Id){
+            $.get("/Admin/Users/Update/" + Id, function (response) {
+                $("#UserModalContainer").html(response);
+                $("#UserModal").modal("show");
+            });
+        }
+    </script>
+    <script>
+        $(function () {
+            $("#Users").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                lengthChange: true,
+                autoWidth: false,
+                searching: false,
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, 'All']
+                ],
+
+                // there is various Option present such as
+                // buttonStart,buttonEnd,topStart,topEnd,
+                // top2Start,top2Start so on.
+                layout: {
+                    top: {
+                        // buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                        // for customizing column
+                        buttons:[
+                            // specific index based
+                            // { extend: 'copy',  exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'csv',   exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'excel', exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'pdf',   exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'print', exportOptions: { columns: [0,1,2] } }
+                            // to exclude last child of the columns
+                            { extend: 'copy',  exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'csv',   exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'excel', exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'pdf',   exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'print', exportOptions: { columns: ':not(:last-child)' } }
+                        ]
+                    },
+                    topEnd:'search'
+                },
+                ajax: {
+                    url: "/Admin/Users/GetUsersJsonData",
+                    type: "POST",
+                     contentType: "application/json", //must be added
+                     dataType: "json", //better to add, not mandatory
+                     data: function (d) {
+                         d.SearchItem = {
+                            EmployeeName: $("#SearchItem_EmployeeName").val(),
+                            Email: $("#SearchItem_Email").val(),
+                            Mobile: $("#SearchItem_Mobile").val(),
+                            RoleName: $("#SearchItem_RoleName").val(),
+                            Status: $("#SearchItem_Status").val() === "" ? null : $("#SearchItem_Status").val()
+                         };
+                         return JSON.stringify(d);
+                     },
+                },
+                order: [[1, 'asc']],
+                columnDefs: [
+                    {
+                        orderable: false,
+                        targets: 0,
+                    },
+                    {
+                        orderable: false,
+                        targets: 7,
+                        render: function (data, type, row) {
+                            return `
+                                <div class="dropdown">
+                                  <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Actions
+                                  </button>
+                                  <ul class="dropdown-menu">
+                                    @if (User.HasClaim(PermissionTypes.User, Permissions.UserUpdate))
+                                    {
+                                                    <li>
+                                                      <button class="dropdown-item text-info"" onclick="Update('${data}')">
+                                                        <i class="bi bi-pencil-square"></i> Edit
+                                                      </button>
+                                                    </li>
+                                    }
+                                    @if (User.HasClaim(PermissionTypes.User, Permissions.UserDelete))
+                                    {
+                                                    <li>
+                                                      <button class="dropdown-item text-danger show-bs-modal" data-id="${data}">
+                                                        <i class="bi bi-trash"></i> Delete
+                                                      </button>
+                                                    </li>
+                                    }
+                                  </ul>
+                                </div>`;
+
+                        }
+                    }
+                ],
+            });
+            $('#Users').on('click','.show-bs-modal',function()
+            {
+                let id = $(this).data('id');
+                let DeleteModal = $('#delete-modal');
+                DeleteModal.find('.modal-body p').html('Are you sure you want to delete this User?');
+                $('#delete-id').val(id);
+                $('#delete-form').attr('action', '/Admin/Users/Delete');
+                DeleteModal.modal('show');
+            });
+
+            $('#delete-btn').on('click', function () {
+                $('#delete-form').submit();
+            });
+
+            $('#UserSearchButton').on('click', function () {
+                $("#Users").DataTable().ajax.reload(null,false);
+            });
+        });
+    </script>
+}

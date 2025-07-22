@@ -1,10 +1,12 @@
 ﻿using DevSkill.Inventory.Application.Features.BalanceTransfers.Commands;
 using DevSkill.Inventory.Application.Features.BalanceTransfers.Queries;
 using DevSkill.Inventory.Application.Features.Sales.Queries;
+using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Enums;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ using System.Web;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Policy = Permissions.BalanceTransferPage)]
     public class BalanceTransfersController(IMediator mediator,ILogger<BalanceTransfersByQuery> logger) : Controller
     {
         private readonly IMediator _mediator = mediator;
@@ -22,14 +24,14 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet,Authorize(Policy = Permissions.BalanceTransferAdd)]
         public IActionResult Add()
         {
             var model = new BalanceTransferAddCommand();
             return PartialView("_BalanceTransferModalPartial",model);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken, Authorize(Policy = Permissions.BalanceTransferAdd)]
         public async Task<IActionResult> Add(BalanceTransferAddCommand balanceTransferAddCommand)
         {
             try
@@ -99,7 +101,7 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost,ValidateAntiForgeryToken]
+        [HttpPost,ValidateAntiForgeryToken, Authorize(Policy = Permissions.BalanceTransferDelete)]
         public async Task<IActionResult> Delete(Guid Id)
         {
             try

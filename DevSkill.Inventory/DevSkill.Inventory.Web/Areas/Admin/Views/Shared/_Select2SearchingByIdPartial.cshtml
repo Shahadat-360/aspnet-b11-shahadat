@@ -51,7 +51,8 @@
                 {
                     return  $('<span>').html(`${option.text}<br>Mobile: ${option.mobile}`);
                 }
-                else if(selectorId.includes('AccountId'))
+                else if(selectorId.includes('AccountId') || selectorId.includes('DepartmentId')
+                    || selectorId.includes('RoleId'))
                 {
                     return  $('<span>').html(`${option.text}`);
                 }
