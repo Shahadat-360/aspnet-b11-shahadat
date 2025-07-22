@@ -17,12 +17,12 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
         public async Task Handle(ProductDeleteCommand request, CancellationToken cancellationToken)
         {
             var product = await _applicationUnitOfWork.ProductRepository.GetByIdAsync(request.Id);
+            await _applicationUnitOfWork.ProductRepository.RemoveAsync(request.Id);
+            await _applicationUnitOfWork.SaveAsync();
             if (product.ImageUrl != null)
             {
                 await _imageService.DeleteImageAsync(product.ImageUrl);
             }
-            await _applicationUnitOfWork.ProductRepository.RemoveAsync(request.Id);
-            await _applicationUnitOfWork.SaveAsync();
         }
     }
 }

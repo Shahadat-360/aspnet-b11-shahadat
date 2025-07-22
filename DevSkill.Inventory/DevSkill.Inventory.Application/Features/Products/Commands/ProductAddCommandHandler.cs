@@ -31,10 +31,7 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
                 var folder = _configuration["ImageUploadSettings:Product"]!;
                 var key = await _imageService.SaveImageAsync(request.ImageFile, folder);
                 request.ImageUrl = key;
-
-                // enqueue GUID
-                var guid = Guid.Parse(Path.GetFileNameWithoutExtension(key));
-                await _sqsService.SendGuidAsync(guid);
+                await _sqsService.SendKeyAsync(key);
             }
             var product = _mapper.Map<Product>(request);
             product.Id= await _idGenerator.GenerateIdAsync("P-DEV");

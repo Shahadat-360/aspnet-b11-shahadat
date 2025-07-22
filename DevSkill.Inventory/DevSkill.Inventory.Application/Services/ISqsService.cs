@@ -9,8 +9,8 @@ namespace DevSkill.Inventory.Application.Services
 {
     public interface ISqsService
     {
-        Task SendGuidAsync(Guid imageGuid);
         Task<List<Message>> ReceiveMessagesAsync(int maxMessages = 5);
         Task DeleteMessageAsync(string receiptHandle);
+        Task SendKeyAsync(string key);
     }
 }

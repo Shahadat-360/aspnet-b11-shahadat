@@ -43,9 +43,7 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
 
                 var key = await _imageService.SaveImageAsync(request.ImageFile, folder);
                 request.ImageUrl = key;
-
-                var guid = Guid.Parse(Path.GetFileNameWithoutExtension(key));
-                await _sqsService.SendGuidAsync(guid);
+                await _sqsService.SendKeyAsync(key);
             }
             if (request.ImageBackup!= null && request.ImageBackup != request.ImageUrl)
             {
