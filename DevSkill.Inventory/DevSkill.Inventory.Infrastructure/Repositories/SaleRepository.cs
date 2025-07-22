@@ -2,6 +2,7 @@
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
 using DevSkill.Inventory.Domain.Entities;
+using DevSkill.Inventory.Domain.Enums;
 using DevSkill.Inventory.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -28,6 +29,11 @@ namespace DevSkill.Inventory.Infrastructure.Repositories
                             .ThenInclude(u=>u.Unit)
                       .Include(s=>s.Customer));
             return sales.Single();
+        }
+
+        public async Task<bool> AccountExistInSales(AccountType accountType,int AccountId)
+        {
+            return await _applicationDbContext.Sales.AnyAsync(s => s.AccountType == accountType && s.AccountId == AccountId);
         }
 
         public async Task<Sale> UpdateSaleWithItemsAsync(Sale sale, IList<SaleItemDto> newSaleItems)

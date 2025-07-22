@@ -6,10 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using DevSkill.Inventory.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using DevSkill.Inventory.Infrastructure.Identity;
+using DevSkill.Inventory.Infrastructure.Seeds;
 
 namespace DevSkill.Inventory.Infrastructure
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,
+        ApplicationRole,Guid,ApplicationUserClaim,ApplicationUserRole,
+        ApplicationUserLogin,ApplicationRoleClaim,ApplicationUserToken>
     {
         private readonly string _connectionString;
         private readonly string _migrationAssembly;
@@ -25,6 +29,8 @@ namespace DevSkill.Inventory.Infrastructure
         public DbSet<BankAccount> BankAccounts { get; set; }
         public DbSet<CashAccount> CashAccounts { get; set; }
         public DbSet<BalanceTransfer> BalanceTransfers { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public ApplicationDbContext(string connectionString, string migrationAssembly)
         {
             _connectionString = connectionString;
@@ -41,7 +47,50 @@ namespace DevSkill.Inventory.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ApplicationRole>().HasData(RoleSeed.GetRoles());
+            modelBuilder.Entity<ApplicationRoleClaim>().HasData(ClaimSeed.GetClaims());
+
+            modelBuilder.Entity<ApplicationRole>(entity =>
+            {
+                entity.Property(e => e.Company).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.Status).HasConversion<int>().IsRequired();
+            });
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOne(u => u.Employee)
+                .WithOne()
+                .HasForeignKey<ApplicationUser>(u => u.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(modelBuilder);
+            
+            modelBuilder.Entity<Employee>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.Email).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.Mobile).HasColumnType("nvarchar(15)").IsRequired();
+                entity.Property(e => e.Address).HasColumnType("nvarchar(200)").IsRequired(false);
+                entity.Property(e => e.JoiningDate).HasColumnType("datetime").IsRequired();
+                entity.Property(e => e.Salary).HasColumnType("decimal(18,2)").IsRequired();
+                entity.Property(e => e.Status).HasConversion<int>().IsRequired();
+                entity.Property(e => e.NationalId).HasColumnType("nvarchar(20)").IsRequired(false);
+            });
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Department)
+                .WithMany(d => d.Employees)
+                .HasForeignKey(e => e.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Department>(entity=>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Name).HasColumnType("nvarchar(100)").IsRequired();
+                entity.Property(e => e.Status).HasConversion<int>().IsRequired();
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime").IsRequired();
+            });
+
             modelBuilder.Entity<Log>(entity =>
             {
                 entity.HasKey(e => e.Id);
