@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DevSkill.Inventory.Application.Features.BalanceTransfers.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Entities;
