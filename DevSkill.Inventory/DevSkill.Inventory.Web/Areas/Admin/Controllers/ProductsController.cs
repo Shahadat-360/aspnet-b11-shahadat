@@ -4,7 +4,6 @@ using DevSkill.Inventory.Application.Features.Products.Queries;
 using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Dtos;
-using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Domain.Enums;
 using DevSkill.Inventory.Infrastructure;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
@@ -13,19 +12,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
 using System.Web;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
     [Area("Admin"),Authorize(Policy=Permissions.ProductPage)]
     public class ProductsController(IMediator mediator, ILogger<ProductsController> logger,
-        IMapper mapper) : Controller
+        IMapper mapper,IImageService imageService) : Controller
     {
         private readonly IMediator _mediator = mediator;
         private readonly ILogger<ProductsController> _logger = logger;
         private readonly IMapper _mapper = mapper;
+        private readonly IImageService _imageService = imageService;
         public IActionResult Index()
         {
             return View();
@@ -378,21 +376,24 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 {
                     recordsTotal = total,
                     recordsFiltered = totalDisplay,
-                    data = (from record in data
-                            select new string[]
-                            {
-                                (++index).ToString(),
-                                HttpUtility.HtmlEncode(record.ImageUrl),
-                                record.Id.ToString(),
-                                HttpUtility.HtmlEncode(record.Name),
-                                HttpUtility.HtmlEncode(record.CategoryName),
-                                record.PurchasePrice.ToString("F2"),
-                                record.MRP.ToString("F2"),
-                                record.WholesalePrice.ToString("F2"),
-                                record.Stock.ToString(),
-                                record.LowStock.ToString(),
-                                record.DamageStock.ToString()
-                            })
+                    data = data.Select(record =>
+                    {
+                        var imgUrl = string.IsNullOrEmpty(record.ImageUrl)? "":_imageService.GetPreSignedURL(record.ImageUrl);
+                        return new[]
+                        {
+                            (++index).ToString(),
+                            HttpUtility.HtmlEncode(imgUrl),
+                            record.Id.ToString(),
+                            HttpUtility.HtmlEncode(record.Name),
+                            HttpUtility.HtmlEncode(record.CategoryName),
+                            record.PurchasePrice.ToString("F2"),
+                            record.MRP.ToString("F2"),
+                            record.WholesalePrice.ToString("F2"),
+                            record.Stock.ToString(),
+                            record.LowStock.ToString(),
+                            record.DamageStock.ToString()
+                        };
+                    })
                 };
                 return Json(products);
             }

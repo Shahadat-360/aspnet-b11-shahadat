@@ -10,6 +10,7 @@ namespace DevSkill.Inventory.Application.Services
     public interface IImageService
     {
         Task<string> SaveImageAsync(IFormFile ImageFile, string Folder);
+        string GetPreSignedURL(string key);
         Task<bool> DeleteImageAsync(string ImagePath);
     }
 }
