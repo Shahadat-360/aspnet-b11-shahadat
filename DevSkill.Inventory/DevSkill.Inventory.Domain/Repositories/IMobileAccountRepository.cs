@@ -10,6 +10,7 @@ namespace DevSkill.Inventory.Domain.Repositories
 {
     public interface IMobileAccountRepository : IRepository<MobileAccount, int>
     {
+        Task<MobileAccount> GetByIdAsNoTrackingAsync(int id);
         Task<PaginatedResult<MobileAccount>> SearchMobileAccounthWithPaginationAsync(string term, int page, int pageSize);
     }
 }

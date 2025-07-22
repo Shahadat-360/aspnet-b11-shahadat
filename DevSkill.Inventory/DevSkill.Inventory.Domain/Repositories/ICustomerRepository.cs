@@ -11,6 +11,7 @@ namespace DevSkill.Inventory.Domain.Repositories
 {
     public interface ICustomerRepository : IRepository<Customer, string>
     {
+        Task<Customer> GetByIdWithNavigationAsync(string Id);
         Task<PaginatedResult<Customer>> SearchCustomerWithPaginationAsync(string term, int page, int pageSize);
     }
 }

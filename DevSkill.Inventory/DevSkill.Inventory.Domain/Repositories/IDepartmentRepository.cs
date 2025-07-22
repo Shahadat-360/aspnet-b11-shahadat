@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Domain.Repositories
 {
-    public interface ICashAccountRepository:IRepository<CashAccount, int>
+    public interface IDepartmentRepository : IRepository<Department, int>
     {
-        Task<CashAccount> GetByIdAsNoTrackingAsync(int id);
-        Task<PaginatedResult<CashAccount>> SearchCashAccounthWithPaginationAsync(string term, int page,int pageSize);
+        Task<PaginatedResult<Department>> SearcDepartmenthWithPaginationAsync(string term, int page, int pageSize);
     }
 }

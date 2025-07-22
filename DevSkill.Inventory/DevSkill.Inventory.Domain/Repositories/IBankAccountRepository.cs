@@ -10,6 +10,7 @@ namespace DevSkill.Inventory.Domain.Repositories
 {
     public interface IBankAccountRepository : IRepository<BankAccount, int>
     {
+        Task<BankAccount> GetByIdAsNoTrackingAsync(int id);
         Task<PaginatedResult<BankAccount>> SearchBankAccounthWithPaginationAsync(string term,int page,int pageSize);
     }
 }
