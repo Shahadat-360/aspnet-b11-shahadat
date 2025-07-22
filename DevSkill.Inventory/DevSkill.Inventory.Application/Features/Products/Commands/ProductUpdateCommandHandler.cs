@@ -14,12 +14,14 @@ using System.Threading.Tasks;
 namespace DevSkill.Inventory.Application.Features.Products.Commands
 {
     public class ProductUpdateCommandHandler(IApplicationUnitOfWork applicationUnitOfWork,IMapper mapper,
-        IConfiguration configuration,IImageService imageService) : IRequestHandler<ProductUpdateCommand>
+        IConfiguration configuration,IImageService imageService,ISqsService sqsService) 
+        : IRequestHandler<ProductUpdateCommand>
     {
         private readonly IApplicationUnitOfWork _applicationUnitOfWork = applicationUnitOfWork;
         private readonly IMapper _mapper = mapper;
         private readonly IConfiguration _configuration = configuration;
         private readonly IImageService _imageService = imageService;
+        private readonly ISqsService _sqsService = sqsService;
         public async Task Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
         {
             if (request.ImageFile != null && request.ImageFile.Length > 0)
@@ -33,7 +35,19 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
                         await _imageService.DeleteImageAsync(request.ImageUrl);
                     request.ImageUrl = await _imageService.SaveImageAsync(request.ImageFile, UploadsFolder);
             }
-            if(request.ImageBackup!= null && request.ImageBackup != request.ImageUrl)
+            if (request.ImageFile != null)
+            {
+                var folder = _configuration["ImageUploadSettings:Product"]!;
+                if (!string.IsNullOrEmpty(request.ImageUrl))
+                    await _imageService.DeleteImageAsync(request.ImageUrl);
+
+                var key = await _imageService.SaveImageAsync(request.ImageFile, folder);
+                request.ImageUrl = key;
+
+                var guid = Guid.Parse(Path.GetFileNameWithoutExtension(key));
+                await _sqsService.SendGuidAsync(guid);
+            }
+            if (request.ImageBackup!= null && request.ImageBackup != request.ImageUrl)
             {
                 await _imageService.DeleteImageAsync(request.ImageBackup);
             }

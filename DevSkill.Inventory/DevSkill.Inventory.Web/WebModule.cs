@@ -49,8 +49,6 @@ namespace DevSkill.Inventory.Web
                 .InstancePerLifetimeScope();
             builder.RegisterType<IdGenerator>().As<IIdGenerator>()
                 .InstancePerLifetimeScope();
-            builder.RegisterType<ImageService>().As<IImageService>()
-                .InstancePerLifetimeScope();
             builder.RegisterType<BalanceTransferService>().As<IBalanceTransferService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<TransactionService>().As<ITransactionService>()
@@ -60,6 +58,10 @@ namespace DevSkill.Inventory.Web
             builder.RegisterType<UserService>().As<IUserService>()
                 .InstancePerLifetimeScope();
             builder.RegisterType<AccessSetupService>().As<IAccessSetupService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<S3ImageService>().As<IImageService>()
+                .InstancePerLifetimeScope();
+            builder.RegisterType<SqsService>().As<ISqsService>()
                 .InstancePerLifetimeScope();
             base.Load(builder);
         }

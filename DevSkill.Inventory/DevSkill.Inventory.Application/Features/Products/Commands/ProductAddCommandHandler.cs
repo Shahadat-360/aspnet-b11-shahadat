@@ -15,23 +15,26 @@ using System.Threading.Tasks;
 namespace DevSkill.Inventory.Application.Features.Products.Commands
 {
     public class ProductAddCommandHandler(IApplicationUnitOfWork applicationUnitOfWork,IMapper mapper,
-        IImageService imageService,IConfiguration configuration,IIdGenerator idGenerator) : IRequestHandler<ProductAddCommand>
+        IImageService imageService,IConfiguration configuration,IIdGenerator idGenerator,ISqsService sqsService
+        ) : IRequestHandler<ProductAddCommand>
     {
         private readonly IApplicationUnitOfWork _applicationUnitOfWork=applicationUnitOfWork;
         private readonly IMapper _mapper=mapper;
         private readonly IImageService _imageService = imageService;
         private readonly IConfiguration _configuration = configuration;
         private readonly IIdGenerator _idGenerator = idGenerator;
+        private readonly ISqsService _sqsService = sqsService;
         public async Task Handle(ProductAddCommand request, CancellationToken cancellationToken)
         {
-            if (request.ImageFile != null && request.ImageFile.Length > 0)
+            if (request.ImageFile != null)
             {
-                var UploadsFolder = _configuration["ImageUploadSettings:Product"];
-                if (string.IsNullOrEmpty(UploadsFolder))
-                {
-                    throw new InvalidOperationException("Uploads folder path is not configured.");
-                }
-                request.ImageUrl = await _imageService.SaveImageAsync(request.ImageFile, UploadsFolder);
+                var folder = _configuration["ImageUploadSettings:Product"]!;
+                var key = await _imageService.SaveImageAsync(request.ImageFile, folder);
+                request.ImageUrl = key;
+
+                // enqueue GUID
+                var guid = Guid.Parse(Path.GetFileNameWithoutExtension(key));
+                await _sqsService.SendGuidAsync(guid);
             }
             var product = _mapper.Map<Product>(request);
             product.Id= await _idGenerator.GenerateIdAsync("P-DEV");
