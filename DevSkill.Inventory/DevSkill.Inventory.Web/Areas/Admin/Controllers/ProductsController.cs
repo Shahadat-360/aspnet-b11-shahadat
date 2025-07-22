@@ -18,12 +18,13 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
     [Area("Admin"),Authorize(Policy=Permissions.ProductPage)]
     public class ProductsController(IMediator mediator, ILogger<ProductsController> logger,
-        IMapper mapper,IImageService imageService) : Controller
+        IMapper mapper,IImageService imageService,IConfiguration configuration) : Controller
     {
         private readonly IMediator _mediator = mediator;
         private readonly ILogger<ProductsController> _logger = logger;
         private readonly IMapper _mapper = mapper;
         private readonly IImageService _imageService = imageService;
+        private readonly IConfiguration _configuration = configuration;
         public IActionResult Index()
         {
             return View();
@@ -378,7 +379,9 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                     recordsFiltered = totalDisplay,
                     data = data.Select(record =>
                     {
-                        var imgUrl = string.IsNullOrEmpty(record.ImageUrl)? "":_imageService.GetPreSignedURL(record.ImageUrl);
+                        var folder = _configuration["ImageUploadSettings:Product"]!;
+                        var imgUrl = string.IsNullOrEmpty(record.ImageUrl)? ""
+                        :_imageService.GetPreSignedURL($"{folder}/{record.ImageUrl}");
                         return new[]
                         {
                             (++index).ToString(),
