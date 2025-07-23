@@ -68,8 +68,8 @@
             }
         });
 
-        $select.on('select2:select', function (e) {
-            const data = e.params.data;
+        $select.on('select2:close', function (e) {
+            const data = $select.select2('data')[0];
             if (data.newTag) {
                 const token = $('input[name="__RequestVerificationToken"]').val();
                 $.ajax({
