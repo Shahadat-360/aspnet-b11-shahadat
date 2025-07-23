@@ -1,6 +1,7 @@
 using Amazon.S3;
 using Amazon.S3.Model;
 using DevSkill.Inventory.Application.Services;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Drawing;
 using System.Drawing.Imaging;
 
@@ -41,9 +42,11 @@ namespace DevSkill.Inventory.Worker
                 foreach (var message in messages)
                 {
                     Guid guid;
+                    string? ext;
                     try
                     {
-                        guid = Guid.Parse(message.Body);
+                        guid = Guid.Parse(Path.GetFileNameWithoutExtension(message.Body));
+                        ext = Path.GetExtension(message.Body);
                     }
                     catch (FormatException)
                     {
@@ -52,8 +55,7 @@ namespace DevSkill.Inventory.Worker
                         continue;
                     }
 
-                    var origKey = $"{_configuration["ImageUploadSettings:Product"]}/{guid}.jpg";
-                    Console.WriteLine(origKey);
+                    var origKey = $"{_configuration["ImageUploadSettings:Product"]}/{guid}{ext}";
 
                     try
                     {
@@ -69,7 +71,7 @@ namespace DevSkill.Inventory.Worker
                         using var getResponse = await _s3.GetObjectAsync(_bucket, origKey);
                         using var originalImage = Image.FromStream(getResponse.ResponseStream);
 
-                        using var resizedImage = new Bitmap(originalImage, new Size(300, 300));
+                        using var resizedImage = new Bitmap(originalImage, new Size(400, 400));
                         using var memoryStream = new MemoryStream();
 
                         resizedImage.Save(memoryStream, ImageFormat.Jpeg);

@@ -27,12 +27,13 @@ namespace DevSkill.Inventory.Infrastructure
         {
             var ext = Path.GetExtension(imageFile.FileName);
             var guid = Guid.NewGuid().ToString();
-            var key = $"{folder.TrimEnd('/')}/{guid}{ext}";
+            var key = $"{guid}{ext}";
+            var bucketKey = $"{folder.TrimEnd('/')}/{guid}{ext}";
             using var st = imageFile.OpenReadStream();
             var req = new TransferUtilityUploadRequest
             {
                 BucketName = _bucket,
-                Key = key,
+                Key = bucketKey,
                 InputStream = st,
                 ContentType = imageFile.ContentType,
                 CannedACL = S3CannedACL.Private
