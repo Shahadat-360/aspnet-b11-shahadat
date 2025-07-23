@@ -60,7 +60,6 @@
                                         <td>@(idx++)</td>
                                         <td>@userRole.Name</td>
                                         <td>@userRole.Company</td>
-                                        <td>@userRole.Status</td>
                                         <td>@userRole.Status.ToString()</td>
                                         <td>
                                             @if (User.HasClaim(PermissionTypes.UserRole, Permissions.UserRoleUpdate)
@@ -150,5 +149,3 @@
         });
     </script>
 }
-
-

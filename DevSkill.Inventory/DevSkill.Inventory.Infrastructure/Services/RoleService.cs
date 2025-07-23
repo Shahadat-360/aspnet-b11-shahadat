@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Infrastructure.Services
 {
-    public class RoleService(RoleManager<ApplicationRole> roleManager,IMapper mapper,
-        ApplicationDbContext applicationDbContext) : IRoleService
+    public class RoleService(RoleManager<ApplicationRole> roleManager, IMapper mapper
+        , ITransactionService transactionService) : IRoleService
     {
         private readonly RoleManager<ApplicationRole> _roleManager = roleManager;
         private readonly IMapper _mapper = mapper;
-        private readonly ApplicationDbContext _applicationDbContext = applicationDbContext; 
+        private readonly ITransactionService _transactionService = transactionService;
         public async Task AddRoleAsync(UserRoleAddCommand userRoleAddCommand)
         {
             var newRole = _mapper.Map<ApplicationRole>(userRoleAddCommand);
@@ -33,15 +33,34 @@ namespace DevSkill.Inventory.Infrastructure.Services
 
         public async Task DeleteRoleAsync(Guid id)
         {
-            var role = await _roleManager.FindByIdAsync(id.ToString());
-            if (role == null)
-                throw new KeyNotFoundException($"Role with ID '{id}' not found.");
-
-            var result = await _roleManager.DeleteAsync(role);
-            if (!result.Succeeded)
+            await _transactionService.BeginTransactionAsync();
+            try
             {
-                throw new InvalidOperationException(
-                    $"Failed to delete role: {string.Join(", ", result.Errors)}");
+                var role = await _roleManager.FindByIdAsync(id.ToString());
+                if (role == null)
+                    throw new KeyNotFoundException($"Role with ID '{id}' not found.");
+                var claims = await _roleManager.GetClaimsAsync(role);
+                foreach (var claim in claims)
+                {
+                    var removeResult = await _roleManager.RemoveClaimAsync(role, claim);
+                    if (!removeResult.Succeeded)
+                    {
+                        throw new InvalidOperationException(
+                            $"Failed to remove claim '{claim.Type}': {string.Join(", ", removeResult.Errors.Select(e => e.Description))}");
+                    }
+                }
+                var result = await _roleManager.DeleteAsync(role);
+                if (!result.Succeeded)
+                {
+                    throw new InvalidOperationException(
+                        $"Failed to delete role: {string.Join(", ", result.Errors)}");
+                }
+                await _transactionService.CommitTransactionAsync();
+            }
+            catch (Exception ex)
+            {
+                await _transactionService.RollbackTransactionAsync();
+                throw new InvalidOperationException("An error occurred while deleting the role.", ex);
             }
         }
 
