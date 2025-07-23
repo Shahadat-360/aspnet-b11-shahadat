@@ -1,6 +1,7 @@
 ﻿using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,13 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.Products.Commands
 {
-    public class ProductDeleteCommandHandler(IApplicationUnitOfWork applicationUnitOfWork,IImageService imageService) 
+    public class ProductDeleteCommandHandler(IApplicationUnitOfWork applicationUnitOfWork,IImageService imageService,
+        IConfiguration configuration) 
         : IRequestHandler<ProductDeleteCommand>
     {
         private readonly IApplicationUnitOfWork _applicationUnitOfWork = applicationUnitOfWork;
         private readonly IImageService _imageService = imageService;
+        private readonly IConfiguration _configuration = configuration;
         public async Task Handle(ProductDeleteCommand request, CancellationToken cancellationToken)
         {
             var product = await _applicationUnitOfWork.ProductRepository.GetByIdAsync(request.Id);
@@ -21,7 +24,9 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
             await _applicationUnitOfWork.SaveAsync();
             if (product.ImageUrl != null)
             {
-                await _imageService.DeleteImageAsync(product.ImageUrl);
+                var folder = _configuration["ImageUploadSettings:Product"]!;
+                var path = $"{folder}/{product.ImageUrl}";
+                await _imageService.DeleteImageAsync(path);
             }
         }
     }

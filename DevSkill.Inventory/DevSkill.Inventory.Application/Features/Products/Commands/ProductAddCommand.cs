@@ -16,19 +16,19 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
         public string Name { get; set; }
         [Required(ErrorMessage = "Product Purchase Price is Required"),
             Range(1,int.MaxValue,ErrorMessage ="Product Purchase Pirce Must Be Greater Than 0")]
-        public decimal PurchasePrice { get; set; }
+        public decimal? PurchasePrice { get; set; }
         [Required(ErrorMessage = "Product MRP is Required"),
             Range(1,int.MaxValue, ErrorMessage = "MRP Must Be Greater Than 0")]
-        public decimal MRP { get; set; }
+        public decimal? MRP { get; set; }
         [Required(ErrorMessage = "Product Wholesale Price is Required"),
             Range(1,int.MaxValue,ErrorMessage ="Wholesale Price Must Be Greater Than 0")]
-        public decimal WholesalePrice { get; set; }
+        public decimal? WholesalePrice { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Stock cannot be negative.")]
-        public int Stock { get; set; }
+        public int? Stock { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Low Stock cannot be negative.")]
-        public int LowStock { get; set; }
+        public int? LowStock { get; set; }
         [Range(0, int.MaxValue, ErrorMessage = "Damage Stock cannot be negative.")]
-        public int DamageStock { get; set; }
+        public int? DamageStock { get; set; }
         public IFormFile? ImageFile { get; set; }
         public string? ImageUrl { get; set; }
         [Required(ErrorMessage = "Unit is Required")]

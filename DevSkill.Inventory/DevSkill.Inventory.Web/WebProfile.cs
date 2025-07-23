@@ -26,6 +26,7 @@ namespace DevSkill.Inventory.Web
         {
             CreateMap<ProductAddCommand, Product>().ReverseMap();
             CreateMap<ProductUpdateCommand, Product>()
+                .ForMember(d => d.ImageUrl, o => o.Ignore())
                 .ReverseMap()
                 .ForMember(d=>d.CategoryName,o=>o.MapFrom(s=>s.Category.Name))
                 .ForMember(d=>d.UnitName,o=>o.MapFrom(s=>s.Unit.Name));

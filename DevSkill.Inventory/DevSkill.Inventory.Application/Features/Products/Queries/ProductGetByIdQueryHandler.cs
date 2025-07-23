@@ -27,10 +27,6 @@ namespace DevSkill.Inventory.Application.Features.Products.Queries
                 var path = $"{folder}/{product.ImageUrl}";
                 product.ImageUrl = _imageService.GetPreSignedURL(path);
             }
-            else
-            {
-                throw new KeyNotFoundException($"Product with ID {request.Id} not found.");
-            }
             return product;
         }
     }

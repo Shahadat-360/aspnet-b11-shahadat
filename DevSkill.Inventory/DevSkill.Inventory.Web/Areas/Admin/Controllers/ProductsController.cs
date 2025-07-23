@@ -240,7 +240,6 @@ namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
                 else
                 {
                     var model = _mapper.Map<ProductUpdateCommand>(product);
-                    model.ImageBackup = model.ImageUrl;
                     return PartialView("_ProductUpdateModalPartial", model);
                 }
             }

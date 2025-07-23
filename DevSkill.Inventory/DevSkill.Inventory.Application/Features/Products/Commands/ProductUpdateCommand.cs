@@ -38,6 +38,5 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
         [Required(ErrorMessage = "Category is Required")]
         public Guid CategoryId { get; set; }
         public string? CategoryName { get; set; }
-        public string? ImageBackup { get; set; } 
     }
 }

@@ -24,33 +24,23 @@ namespace DevSkill.Inventory.Application.Features.Products.Commands
         private readonly ISqsService _sqsService = sqsService;
         public async Task Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
         {
-            if (request.ImageFile != null && request.ImageFile.Length > 0)
-            {
-                    var UploadsFolder = _configuration["ImageUploadSettings:Product"];
-                    if (string.IsNullOrEmpty(UploadsFolder))
-                    {
-                        throw new InvalidOperationException("Uploads folder path is not configured.");
-                    }
-                    if (!string.IsNullOrEmpty(request.ImageUrl))
-                        await _imageService.DeleteImageAsync(request.ImageUrl);
-                    request.ImageUrl = await _imageService.SaveImageAsync(request.ImageFile, UploadsFolder);
-            }
+            var existingProduct = await _applicationUnitOfWork.ProductRepository.GetByIdAsync(request.Id);
             if (request.ImageFile != null)
             {
                 var folder = _configuration["ImageUploadSettings:Product"]!;
-                if (!string.IsNullOrEmpty(request.ImageUrl))
-                    await _imageService.DeleteImageAsync(request.ImageUrl);
+                if (!string.IsNullOrEmpty(existingProduct.ImageUrl))
+                {
+                    var existingImagePath = $"{folder}/{existingProduct.ImageUrl}";
+                    await _imageService.DeleteImageAsync(existingImagePath);
+                }
 
                 var key = await _imageService.SaveImageAsync(request.ImageFile, folder);
-                request.ImageUrl = key;
+                existingProduct.ImageUrl = key;
+
                 await _sqsService.SendKeyAsync(key);
             }
-            if (request.ImageBackup!= null && request.ImageBackup != request.ImageUrl)
-            {
-                await _imageService.DeleteImageAsync(request.ImageBackup);
-            }
-            var updatedProduct = _mapper.Map<Product>(request);
-            await _applicationUnitOfWork.ProductRepository.UpdateAsync(updatedProduct);
+            _mapper.Map(request, existingProduct);
+            await _applicationUnitOfWork.ProductRepository.UpdateAsync(existingProduct);
             await _applicationUnitOfWork.SaveAsync();
         }
     }
