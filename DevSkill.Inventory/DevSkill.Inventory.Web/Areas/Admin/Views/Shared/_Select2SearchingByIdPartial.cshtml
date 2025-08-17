@@ -1,0 +1,68 @@
+﻿<style>
+    .select2-container--bootstrap-5 .select2-dropdown .select2-results__options
+    .select2-results__option.select2-results__option--selected,
+    .select2-container--bootstrap-5 .select2-dropdown
+    .select2-results__options .select2-results__option[aria-selected=true]:not(.select2-results__option--highlighted) {
+        background-color: gray !important
+    }
+
+    .select2-container--bootstrap-5 .select2-dropdown .select2-results__options
+    .select2-results__option.select2-results__option--highlighted {
+        color: #fff !important;
+        background-color: #0d6efd !important;
+    }
+</style>
+<script>
+    function initializeSearchOnlySelect2({ selectorId, searchUrl, dropdownParentId = 'body' }) {
+        const $select = $(selectorId);
+
+        $select.select2({
+            theme: "bootstrap-5",
+            width: $select.data('width') ? $select.data('width') : $select.hasClass('w-100') ? '100%' : 'style',
+            placeholder: $select.data('placeholder'),
+            dropdownParent: $(dropdownParentId),
+            ajax: {
+                url: searchUrl,
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        term: params.term || '',
+                        page: params.page || 1,
+                        pageSize: 5
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.results,
+                        pagination: {
+                            more: data.pagination && data.pagination.more
+                        }
+                    };
+                },
+                cache: true
+            },
+            templateResult: function (option) {
+                if (option.loading) {
+                    return option.text;
+                }
+                if(selectorId.includes('CustomerId'))
+                {
+                    return  $('<span>').html(`${option.text}<br>Mobile: ${option.mobile}`);
+                }
+                else if(selectorId.includes('AccountId') || selectorId.includes('DepartmentId')
+                    || selectorId.includes('RoleId'))
+                {
+                    return  $('<span>').html(`${option.text}`);
+                }
+                else{
+                     return  $('<span>').html(`ID: ${option.id}<br>Name: ${option.text}`);
+                }
+            },
+            templateSelection: function (option) {
+                return option.text;
+            }
+        });
+    }
+</script>

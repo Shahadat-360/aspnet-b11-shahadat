@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain;
 using DevSkill.Inventory.Domain.Entities;
 using MediatR;
 using MediatR.Pipeline;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +13,34 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.Products.Commands
 {
-    public class ProductUpdateCommandHandler(IApplicationUnitOfWork applicationUnitOfWork,IMapper mapper) : IRequestHandler<ProductUpdateCommand>
+    public class ProductUpdateCommandHandler(IApplicationUnitOfWork applicationUnitOfWork,IMapper mapper,
+        IConfiguration configuration,IImageService imageService,ISqsService sqsService) 
+        : IRequestHandler<ProductUpdateCommand>
     {
-        private readonly IApplicationUnitOfWork _applicationUnitOfWork=applicationUnitOfWork;
-        private readonly IMapper _mapper=mapper;
+        private readonly IApplicationUnitOfWork _applicationUnitOfWork = applicationUnitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IConfiguration _configuration = configuration;
+        private readonly IImageService _imageService = imageService;
+        private readonly ISqsService _sqsService = sqsService;
         public async Task Handle(ProductUpdateCommand request, CancellationToken cancellationToken)
         {
-            var updatedProduct = _mapper.Map<Product>(request);
-            updatedProduct.UpdatedAt = DateTime.UtcNow;
-            await _applicationUnitOfWork.ProductRepository.UpdateAsync(updatedProduct);
+            var existingProduct = await _applicationUnitOfWork.ProductRepository.GetByIdAsync(request.Id);
+            if (request.ImageFile != null)
+            {
+                var folder = _configuration["ImageUploadSettings:Product"]!;
+                if (!string.IsNullOrEmpty(existingProduct.ImageUrl))
+                {
+                    var existingImagePath = $"{folder}/{existingProduct.ImageUrl}";
+                    await _imageService.DeleteImageAsync(existingImagePath);
+                }
+
+                var key = await _imageService.SaveImageAsync(request.ImageFile, folder);
+                existingProduct.ImageUrl = key;
+
+                await _sqsService.SendKeyAsync(key);
+            }
+            _mapper.Map(request, existingProduct);
+            await _applicationUnitOfWork.ProductRepository.UpdateAsync(existingProduct);
             await _applicationUnitOfWork.SaveAsync();
         }
     }

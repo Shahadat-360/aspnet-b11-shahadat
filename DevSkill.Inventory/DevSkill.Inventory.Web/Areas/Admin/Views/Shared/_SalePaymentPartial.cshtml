@@ -1,0 +1,144 @@
+﻿@using DevSkill.Inventory.Application.Features.Sales.Commands
+@using DevSkill.Inventory.Domain.Enums
+@model SalePaymentUpdateCommand
+
+SalePaymentUpdate
+<!-- Modal -->
+<div class="modal fade" id="SalePaymentUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="SalePaymentUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SalePaymentUpdateLabel">Product Stock Update</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Payment" asp-controller="Sales" asp-area="Admin"
+                  method="post" asp-antiforgery="true">
+                <input asp-for="Id" type="hidden" />
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Due" class="form-label d-block">Due Amount</label>
+                            <input asp-for="Due" class="form-control" type="number" readonly />
+                            <span asp-validation-for="Due" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Paid" class="form-label d-block">Paid Amount</label>
+                            <input asp-for="Paid" class="form-control" type="number" />
+                            <span asp-validation-for="Paid" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="AccountType" class="form-label required-field">Account Type</label>
+                            <select asp-for="AccountType" asp-items="Html.GetEnumSelectList<AccountType>()" class="form-select">
+                                <option value="">-- Select Account Type --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="AccountId" class="form-label required-field">Account</label>
+                            <select asp-for="AccountId" class="form-select" data-placeholder="Select an Account">
+                                @if (Model.AccountId > 0)
+                                {
+                                    <option value="@Model.AccountId" selected>@Model.AccountName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="AccountId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Note" class="form-label">Note</label>
+                            <input asp-for="Note" class="form-control" placeholder="If Any" />
+                            <span asp-validation-for="Note" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Pay</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_Select2SearchingByIdPartial" />
+<script>
+    $(document).ready(function () {
+        if ($('#AccountType').val()) {
+                updateAccountDropdown($('#AccountType').val());
+        }
+        initializeSearchOnlySelect2({
+            selectorId: '#AccountId',
+            searchUrl: '/Admin/CashAccounts/SearchAccounts',
+            dropdownParentId: '#SalePaymentUpdate'
+        });
+
+         $('#AccountType').on('change', function () {
+            const accountType = $(this).val();
+            updateAccountDropdown(accountType);
+        });
+
+        function updateAccountDropdown(accountType) {
+            const $accountSelect = $('#AccountId');
+            const currentAccountId = $accountSelect.val();
+
+            if (accountType) {
+                let searchUrl = '';
+                switch (accountType) {
+                    case '0':
+                        searchUrl = '/Admin/CashAccounts/SearchAccounts';
+                        break;
+                    case '1':
+                        searchUrl = '/Admin/BankAccounts/SearchAccounts';
+                        break;
+                    case '2':
+                        searchUrl = '/Admin/MobileAccounts/SearchAccounts';
+                        break;
+                }
+
+                if (searchUrl) {
+                    if ($accountSelect.hasClass('select2-hidden-accessible')) {
+                        $accountSelect.select2('destroy');
+                    }
+
+                    // Clear options but keep the selected one if it exists
+                    if (currentAccountId) {
+                        $accountSelect.html(`<option value="${currentAccountId}" selected>@Model.AccountName</option>`);
+                    } else {
+                        $accountSelect.html('<option value="">-- Select Account --</option>');
+                    }
+
+                    initializeSearchOnlySelect2({
+                        selectorId: '#AccountId',
+                        searchUrl: searchUrl,
+                        dropdownParentId: '#SalePaymentUpdate'
+                    });
+                }
+            }
+        }
+    });
+</script>
+<script>
+        // Validate Paid ≤ Due
+    $('#Paid').on('input', function () {
+        const due = parseFloat($('#Due').val()) || 0;
+        let paid = parseFloat($(this).val()) || 0;
+
+        if (paid > due) {
+            $(this).val(due); // auto-correct
+            showError("Paid amount cannot be greater than due.");
+        } else if (paid < 1) {
+            showError("Paid amount must be at least 1.");
+        } else {
+            clearError();
+        }
+    });
+
+    function showError(message) {
+        let $errorSpan = $('[data-valmsg-for="Paid"]');
+        $errorSpan.text(message).removeClass('field-validation-valid').addClass('field-validation-error');
+    }
+
+    function clearError() {
+        let $errorSpan = $('[data-valmsg-for="Paid"]');
+        $errorSpan.text('').removeClass('field-validation-error').addClass('field-validation-valid');
+    }
+
+</script>
+<partial name="_ValidationScriptsPartial" />

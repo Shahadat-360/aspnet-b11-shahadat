@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Domain.Entities
 {
-    public class Product:IEntity<Guid>
+    public class Product:IEntity<string>
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; } 
-        public string Description { get; set; }
-        public decimal Price { get; set; }
-        public int Quantity { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public decimal PurchasePrice { get; set; }
+        public decimal MRP { get; set; }
+        public decimal WholesalePrice { get; set; }
+        public int Stock { get; set; }
+        public int LowStock { get; set; }
+        public int DamageStock { get; set; }
+        public string ImageUrl { get; set; }
+        public Guid UnitId { get; set; }
+        public Unit Unit { get; set; }
         public Guid CategoryId { get; set; }
         public Category Category { get; set; }
+        public IList<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
     }
 }

@@ -22,22 +22,233 @@ namespace DevSkill.Inventory.Web.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.BalanceTransfer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("ReceivingAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReceivingAccountType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SendingAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SendingAccountType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TransferAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("TransferDate")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BalanceTransfers");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.BankAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("BankName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("BranchName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpeningBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BankAccounts");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.CashAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpeningBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CashAccounts");
+                });
+
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Customer", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<int>("OpeningBalance")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Employee", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("JoiningDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Mobile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NationalId")
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.IdTracker", b =>
+                {
+                    b.Property<string>("Prefix")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("LastUsedNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Prefix");
+
+                    b.ToTable("IdTrackers");
                 });
 
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Log", b =>
@@ -68,46 +279,201 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.ToTable("Logs");
                 });
 
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.MobileAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AccountName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("AccountOwner")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OpeningBalance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MobileAccounts");
+                });
+
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Product", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("DamageStock")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("LowStock")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("MRP")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("PurchasePrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("Stock")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("UnitId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("WholesalePrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("UnitId");
+
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Sale", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AccountType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CustomerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Due")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("NetAmmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("Paid")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("PaymentStatus")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("SaleDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("SaleTime")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("SalesType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TermsAndConditions")
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VatPercentage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Sales");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.SaleItem", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SaleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("SubTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SaleId");
+
+                    b.ToTable("SaleItems");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Unit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Units");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Company")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -121,6 +487,9 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
@@ -129,9 +498,20 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf"),
+                            Company = "DevSkill",
+                            ConcurrencyStamp = "10/07/2025 01:01:01 AM",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN",
+                            Status = 0
+                        });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationRoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,21 +525,408 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "Customer",
+                            ClaimValue = "CustomerAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClaimType = "Customer",
+                            ClaimValue = "CustomerUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClaimType = "Customer",
+                            ClaimValue = "CustomerDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClaimType = "Customer",
+                            ClaimValue = "CustomerPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClaimType = "Product",
+                            ClaimValue = "ProductAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClaimType = "Product",
+                            ClaimValue = "ProductUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ClaimType = "Product",
+                            ClaimValue = "ProductDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ClaimType = "Product",
+                            ClaimValue = "ProductPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ClaimType = "Sale",
+                            ClaimValue = "SaleAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ClaimType = "Sale",
+                            ClaimValue = "SaleUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ClaimType = "Sale",
+                            ClaimValue = "SaleDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ClaimType = "Sale",
+                            ClaimValue = "SalePage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ClaimType = "BalanceTransfer",
+                            ClaimValue = "BalanceTransferAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ClaimType = "BalanceTransfer",
+                            ClaimValue = "BalanceTransferDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ClaimType = "BalanceTransfer",
+                            ClaimValue = "BalanceTransferPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ClaimType = "Employee",
+                            ClaimValue = "EmployeeAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ClaimType = "Employee",
+                            ClaimValue = "EmployeeUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ClaimType = "Employee",
+                            ClaimValue = "EmployeeDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ClaimType = "Employee",
+                            ClaimValue = "EmployeePage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ClaimType = "User",
+                            ClaimValue = "UserAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ClaimType = "User",
+                            ClaimValue = "UserUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ClaimType = "User",
+                            ClaimValue = "UserDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ClaimType = "User",
+                            ClaimValue = "UserPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ClaimType = "Category",
+                            ClaimValue = "CategoryAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ClaimType = "Category",
+                            ClaimValue = "CategoryUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 26,
+                            ClaimType = "Category",
+                            ClaimValue = "CategoryDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 27,
+                            ClaimType = "Category",
+                            ClaimValue = "CategoryPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 28,
+                            ClaimType = "Unit",
+                            ClaimValue = "UnitAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 29,
+                            ClaimType = "Unit",
+                            ClaimValue = "UnitUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 30,
+                            ClaimType = "Unit",
+                            ClaimValue = "UnitDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 31,
+                            ClaimType = "Unit",
+                            ClaimValue = "UnitPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 32,
+                            ClaimType = "Department",
+                            ClaimValue = "DepartmentAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 33,
+                            ClaimType = "Department",
+                            ClaimValue = "DepartmentUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 34,
+                            ClaimType = "Department",
+                            ClaimValue = "DepartmentDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 35,
+                            ClaimType = "Department",
+                            ClaimValue = "DepartmentPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 36,
+                            ClaimType = "CashAccount",
+                            ClaimValue = "CashAccountAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 37,
+                            ClaimType = "CashAccount",
+                            ClaimValue = "CashAccountUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 38,
+                            ClaimType = "CashAccount",
+                            ClaimValue = "CashAccountDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 39,
+                            ClaimType = "CashAccount",
+                            ClaimValue = "CashAccountPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 40,
+                            ClaimType = "BankAccount",
+                            ClaimValue = "BankAccountAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 41,
+                            ClaimType = "BankAccount",
+                            ClaimValue = "BankAccountUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 42,
+                            ClaimType = "BankAccount",
+                            ClaimValue = "BankAccountDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 43,
+                            ClaimType = "BankAccount",
+                            ClaimValue = "BankAccountPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 44,
+                            ClaimType = "MobileAccount",
+                            ClaimValue = "MobileAccountAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 45,
+                            ClaimType = "MobileAccount",
+                            ClaimValue = "MobileAccountUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 46,
+                            ClaimType = "MobileAccount",
+                            ClaimValue = "MobileAccountDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 47,
+                            ClaimType = "MobileAccount",
+                            ClaimValue = "MobileAccountPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 48,
+                            ClaimType = "UserRole",
+                            ClaimValue = "UserRoleAdd",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 49,
+                            ClaimType = "UserRole",
+                            ClaimValue = "UserRoleUpdate",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 50,
+                            ClaimType = "UserRole",
+                            ClaimValue = "UserRoleDelete",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 51,
+                            ClaimType = "UserRole",
+                            ClaimValue = "UserRolePage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 52,
+                            ClaimType = "UserRole",
+                            ClaimValue = "UserRoleAssign",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 53,
+                            ClaimType = "UserRole",
+                            ClaimValue = "UserRoleRemove",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 54,
+                            ClaimType = "Settings",
+                            ClaimValue = "SettingsPage",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        },
+                        new
+                        {
+                            Id = 55,
+                            ClaimType = "AccessSetup",
+                            ClaimValue = "Allowed",
+                            RoleId = new Guid("79149158-e28b-4ec3-b110-98cd62cb58bf")
+                        });
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -173,6 +940,12 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsOwner")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -201,6 +974,9 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -209,6 +985,10 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId")
+                        .IsUnique()
+                        .HasFilter("[EmployeeId] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -221,7 +1001,7 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,9 +1015,8 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -246,7 +1025,7 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -257,9 +1036,8 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -268,13 +1046,13 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUserRole", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -283,10 +1061,10 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUserToken", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
@@ -302,62 +1080,121 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Employee", b =>
+                {
+                    b.HasOne("DevSkill.Inventory.Domain.Entities.Department", "Department")
+                        .WithMany("Employees")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Product", b =>
                 {
                     b.HasOne("DevSkill.Inventory.Domain.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DevSkill.Inventory.Domain.Entities.Unit", "Unit")
+                        .WithMany("Products")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Unit");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Sale", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("DevSkill.Inventory.Domain.Entities.Customer", "Customer")
+                        .WithMany("Sales")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.SaleItem", b =>
+                {
+                    b.HasOne("DevSkill.Inventory.Domain.Entities.Product", "Product")
+                        .WithMany("SaleItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DevSkill.Inventory.Domain.Entities.Sale", "Sale")
+                        .WithMany("SaleItems")
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Sale");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationRoleClaim", b =>
+                {
+                    b.HasOne("DevSkill.Inventory.Infrastructure.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUser", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("DevSkill.Inventory.Domain.Entities.Employee", "Employee")
+                        .WithOne()
+                        .HasForeignKey("DevSkill.Inventory.Infrastructure.Identity.ApplicationUser", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUserClaim", b =>
+                {
+                    b.HasOne("DevSkill.Inventory.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUserLogin", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("DevSkill.Inventory.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUserRole", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("DevSkill.Inventory.Infrastructure.Identity.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("DevSkill.Inventory.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("DevSkill.Inventory.Infrastructure.Identity.ApplicationUserToken", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("DevSkill.Inventory.Infrastructure.Identity.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -365,6 +1202,31 @@ namespace DevSkill.Inventory.Web.Data.Migrations
                 });
 
             modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Sales");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Department", b =>
+                {
+                    b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("SaleItems");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Sale", b =>
+                {
+                    b.Navigation("SaleItems");
+                });
+
+            modelBuilder.Entity("DevSkill.Inventory.Domain.Entities.Unit", b =>
                 {
                     b.Navigation("Products");
                 });

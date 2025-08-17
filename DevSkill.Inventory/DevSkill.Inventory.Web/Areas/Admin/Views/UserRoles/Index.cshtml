@@ -1,0 +1,151 @@
+﻿@using DevSkill.Inventory.Domain
+@using DevSkill.Inventory.Domain.Dtos
+@using DevSkill.Inventory.Domain.Enums
+@model IEnumerable<UserRoleIndexDto>
+@{
+    ViewData["Title"] = "User Role";
+    var idx = 1;
+}
+
+<!--begin::App Content Header-->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Available User Roles</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a asp-controller="Settings" asp-action="Index" asp-area="Admin">Settings</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">User Roles</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div id="UserRoleModalContainer"></div>
+<div class="app-content">
+    <div class="container-fluid">
+        <partial name="_ResponsePartial" />
+        <!-- Space between cards -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex">
+                        <h3 class="card-title">User Roles</h3>
+                        @if (User.HasClaim(PermissionTypes.UserRole, Permissions.UserRoleAdd))
+                        {
+                            <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
+                                <i class="bi bi-plus-lg"></i>
+                                New User Role
+                            </button>
+                        }
+                    </div>
+                    <div class="card-body">
+                        <partial name="_ModalPartial" />
+                        <table id="UserRoles" class="table table-bordered">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#SN</th>
+                                    <th>User Role</th>
+                                    <th>Company</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var userRole in Model.ToList())
+                                {
+                                    <tr class="text-center">
+                                        <td>@(idx++)</td>
+                                        <td>@userRole.Name</td>
+                                        <td>@userRole.Company</td>
+                                        <td>@userRole.Status.ToString()</td>
+                                        <td>
+                                            @if (User.HasClaim(PermissionTypes.UserRole, Permissions.UserRoleUpdate)
+                                                                                    || User.HasClaim(PermissionTypes.UserRole, Permissions.UserRoleDelete))
+                                            {
+                                                <div class="dropdown">
+                                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        @if (User.HasClaim(PermissionTypes.UserRole, Permissions.UserRoleUpdate))
+                                                        {
+                                                            <li>
+                                                                <button class="dropdown-item text-info" onclick="Update('@userRole.Id')">
+                                                                    <i class="bi bi-pencil-square"></i> Edit
+                                                                </button>
+                                                            </li>
+                                                        }
+                                                        @if (User.HasClaim(PermissionTypes.UserRole, Permissions.UserRoleDelete))
+                                                        {
+                                                            <li>
+                                                                <button class="dropdown-item text-danger show-bs-modal" data-id="@userRole.Id">
+                                                                    <i class="bi bi-trash"></i> Delete
+                                                                </button>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <p class="text-danger">Unavailable</p>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot class="text-center">
+                                <tr>
+                                    <th>#SN</th>
+                                    <th>User Role</th>
+                                    <th>Company</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>
+<!--end::App Content-->
+@section Scripts {
+    <script>
+        function Add() {
+            $.get("/Admin/UserRoles/Add", function (response) {
+                $("#UserRoleModalContainer").html(response);
+                $("#UserRoleModal").modal("show");
+            });
+        }
+        function Update(Id)
+        {
+            $.get("/Admin/UserRoles/Update/"+Id, function (response) {
+                if (response.success === false) {
+                    window.location.href = response.redirectUrl;
+                }
+                $("#UserRoleModalContainer").html(response);
+                $("#UserRoleModal").modal("show");
+            });
+        }
+    </script>
+    <script>
+        $('#UserRoles').on('click', '.show-bs-modal', function() {
+            let id = $(this).data('id');
+            let DeleteModal = $('#delete-modal');
+            DeleteModal.find('.modal-body p').html('Are you sure you want to delete this User Role?');
+            $('#delete-id').val(id);
+            $('#delete-form').attr('action', '/Admin/UserRoles/Delete');
+            DeleteModal.modal('show');
+        });
+
+        $('#delete-btn').on('click', function() {
+            $('#delete-form').submit();
+        });
+    </script>
+}

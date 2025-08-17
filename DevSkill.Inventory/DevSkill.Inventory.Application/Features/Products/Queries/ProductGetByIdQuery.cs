@@ -10,6 +10,6 @@ namespace DevSkill.Inventory.Application.Features.Products.Queries
 {
     public class ProductGetByIdQuery:IRequest<Product>
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
     }
 }

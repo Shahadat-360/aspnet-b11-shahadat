@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DevSkill.Inventory.Application.Features.Products.Queries
 {
-    public class ProductsByQuery:DataTables,IRequest<(IList<Product>data,int total,int totalDisplay)>
+    public class ProductsByQuery:DataTables,IRequest<(IList<ProductWithCategoryDto>data,int total,int totalDisplay)>
     {
         public ProductSearchDto? SearchItem { get; set; }
     }

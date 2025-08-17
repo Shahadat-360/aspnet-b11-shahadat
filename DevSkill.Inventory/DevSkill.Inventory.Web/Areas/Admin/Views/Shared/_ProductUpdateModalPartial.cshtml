@@ -1,0 +1,152 @@
+﻿@using DevSkill.Inventory.Application.Features.Products.Commands;
+@model ProductUpdateCommand
+
+<div class="modal fade" id="ProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Product Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Update" asp-controller="Products" asp-area="Admin"
+                  method="post" enctype="multipart/form-data" asp-antiforgery="true">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="form-label">Name</label>
+                            <input type="text" asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="CategoryId" class="form-label d-block">Category</label>
+                            <select asp-for="CategoryId" class="form-select" data-placeholder="Select or Create a Category">
+                                <option value="@Model.CategoryId" selected>@Model.CategoryName</option>
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="UnitId" class="form-label">Unit</label>
+                            <select asp-for="UnitId" class="form-select" data-placeholder="Select or Create a Unit">
+                                <option value="@Model.UnitId" selected>@Model.UnitName</option>
+                            </select>
+                            <span asp-validation-for="UnitId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="PurchasePrice" class="form-label">Purchase Price</label>
+                            <input type="number" asp-for="PurchasePrice" step="0.01" class="form-control" />
+                            <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="MRP" class="form-label">MRP</label>
+                            <input type="number" asp-for="MRP" step="0.01" class="form-control" />
+                            <span asp-validation-for="MRP" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="WholesalePrice" class="form-label">Wholesale Price</label>
+                            <input type="number" asp-for="WholesalePrice" step="0.01" class="form-control" />
+                            <span asp-validation-for="WholesalePrice" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="Stock" class="form-label">Stock</label>
+                            <input type="number" asp-for="Stock" class="form-control" />
+                            <span asp-validation-for="Stock" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="LowStock" class="form-label">Low Stock</label>
+                            <input type="number" asp-for="LowStock" class="form-control" />
+                            <span asp-validation-for="LowStock" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="DamageStock" class="form-label">Damage Stock</label>
+                            <input type="number" asp-for="DamageStock" class="form-control" />
+                            <span asp-validation-for="DamageStock" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="ImageFile" class="form-label">Image</label>
+                            <input type="file" asp-for="ImageFile" accept="image/png, image/jpeg" class="form-control" id="ImageFile" />
+                            <small class="form-text text-muted">
+                                Select a file to replace the current image.
+                            </small><br />
+                            <div class="row">
+                                <div id="PreviewDisplay" class="col-md-6" style="display:none;">
+                                    <div class="card mt-2" style=" width:300px;">
+                                        <img id="previewImg" src="#" class="img-thumbnail" style="max-height: 150px;" alt="New image preview" />
+                                        <div class="card-body text-center">
+                                            <button type="button" id="PreviewImageRemoveBtn" class="btn btn-danger btn-sm">Remove Image</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                                {
+                                    <div id="ExistingImageDisplay" class="col-md-6">
+                                        <div class="card mt-2" style="width: 300px;">
+                                            <img src="@Model.ImageUrl" id="ExistingImage" class="card-img-top" style="max-height: 150px;" />
+                                            <div class="card-body text-center">
+                                                <button type="button" id="RemoveImageBtn" class="btn btn-danger btn-sm">Remove Image</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<partial name="_CategoryAndUnitSupportPartial" />
+<partial name="_ValidationScriptsPartial" />
+
+@* Image Preview Handle *@
+<script>
+    $(document).ready(function () {
+        $('#ImageFile').on('change', function () {
+            var input = this;
+            var previewImg = $('#previewImg');
+            var display = $('#PreviewDisplay');
+    
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    previewImg.attr('src', e.target.result);
+                    display.show();
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                previewImg.attr('src', '');
+                display.hide();
+            }
+        });
+    
+        $('#PreviewImageRemoveBtn').on('click',function(){
+                $('#previewImg').attr('src', '');
+                $('#ImageFile').val(null);
+                $('#PreviewDisplay').hide();
+        });
+    
+        $('#RemoveImageBtn').on('click', function () {
+            $('#ExistingImageDisplay').hide();
+            $('#ExistingImage').attr('src','');
+        });
+    });
+</script>
+

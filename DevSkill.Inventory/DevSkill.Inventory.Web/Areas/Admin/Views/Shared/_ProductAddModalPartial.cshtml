@@ -1,0 +1,78 @@
+﻿@using DevSkill.Inventory.Application.Features.Products.Commands;
+@model ProductAddCommand
+
+<div class="modal fade" id="ProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Product Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Add" asp-controller="Products" asp-area="Admin"
+                  method="post" enctype="multipart/form-data" asp-antiforgery="true">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="form-label">Name</label>
+                            <input type="text" asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="CategoryId" class="form-label d-block">Category</label>
+                            <select asp-for="CategoryId" class="form-select" data-placeholder="Select or Create a Category">
+                            </select>
+                            <span asp-validation-for="CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="UnitId" class="form-label">Unit</label>
+                            <select asp-for="UnitId" class="form-select" data-placeholder="Select or Create a Unit">
+                            </select>
+                            <span asp-validation-for="UnitId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="PurchasePrice" class="form-label">Purchase Price</label>
+                            <input type="number" asp-for="PurchasePrice" step="0.01" class="form-control" />
+                            <span asp-validation-for="PurchasePrice" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="MRP" class="form-label">MRP</label>
+                            <input type="number" asp-for="MRP" step="0.01" class="form-control" />
+                            <span asp-validation-for="MRP" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="WholesalePrice" class="form-label">Wholesale Price</label>
+                            <input type="number" asp-for="WholesalePrice" step="0.01" class="form-control" />
+                            <span asp-validation-for="WholesalePrice" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Stock" class="form-label">Stock</label>
+                            <input type="number" asp-for="Stock" class="form-control" />
+                            <span asp-validation-for="Stock" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="LowStock" class="form-label">Low Stock</label>
+                            <input type="number" asp-for="LowStock" name="LowStock" class="form-control" />
+                            <span asp-validation-for="LowStock" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="DamageStock" class="form-label">Damage Stock</label>
+                            <input type="number" asp-for="DamageStock" class="form-control" />
+                            <span asp-validation-for="DamageStock" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="ImageFile" class="form-label">Image</label>
+                            <input type="file" asp-for="ImageFile" accept="image/png, image/jpeg" class="form-control" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_CategoryAndUnitSupportPartial" />
+<partial name="_ValidationScriptsPartial" />

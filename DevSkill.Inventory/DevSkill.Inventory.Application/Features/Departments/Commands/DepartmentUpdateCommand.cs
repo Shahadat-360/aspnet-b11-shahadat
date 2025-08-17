@@ -1,0 +1,18 @@
+﻿using DevSkill.Inventory.Domain.Enums;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DevSkill.Inventory.Application.Features.Departments.Commands
+{
+    public class DepartmentUpdateCommand:IRequest
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Status Status { get; set; }
+        public DateTime CreatedAt { get; set; }
+    }
+}

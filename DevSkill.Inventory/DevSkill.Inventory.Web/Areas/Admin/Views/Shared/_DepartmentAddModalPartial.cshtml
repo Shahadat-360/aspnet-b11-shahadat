@@ -1,0 +1,42 @@
+﻿@using DevSkill.Inventory.Application.Features.Departments.Commands
+@using DevSkill.Inventory.Domain.Enums
+@model DepartmentAddCommand
+@{
+    ViewData["Title"] = "Department Add";
+}
+
+<div class="modal fade" id="DepartmentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="DepartmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Department</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Add" asp-controller="Departments" asp-area="Admin"
+                  method="post" asp-antiforgery="true">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Name" class="form-label">Department Name</label>
+                            <input type="text" asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Status" class="form-label">Status</label>
+                            <div class="position-relative">
+                                <select asp-for="Status" class="form-select pe-5" asp-items="Html.GetEnumSelectList<Status>()">
+                                    <option value="">-- Select Status --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<partial name="_ValidationScriptsPartial" />

@@ -8,10 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Identity\**" />
+    <Compile Remove="Views\Home\**" />
+    <Content Remove="Areas\Identity\**" />
+    <Content Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Areas\Identity\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
+    <None Remove="Areas\Identity\**" />
+    <None Remove="Views\Home\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\HomeController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.2" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.6" />
+    <PackageReference Include="AWSSDK.SQS" Version="4.0.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="9.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -24,12 +44,14 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="wwwroot\Uploads\Products\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DevSkill.Inventory.Application\DevSkill.Inventory.Application.csproj" />
     <ProjectReference Include="..\DevSkill.Inventory.Domain\DevSkill.Inventory.Domain.csproj" />
     <ProjectReference Include="..\DevSkill.Inventory.Infrastructure\DevSkill.Inventory.Infrastructure.csproj" />
+    <ProjectReference Include="..\DevSkill.Inventory.Worker\DevSkill.Inventory.Worker.csproj" />
   </ItemGroup>
 
 </Project>

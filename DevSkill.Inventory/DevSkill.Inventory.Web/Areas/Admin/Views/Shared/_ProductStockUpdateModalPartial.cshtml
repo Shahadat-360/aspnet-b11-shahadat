@@ -1,0 +1,48 @@
+﻿@using DevSkill.Inventory.Application.Features.Products.Commands
+@model ProductStockUpdateCommand
+
+<!-- Modal -->
+<div class="modal fade" id="ProductStockUpdate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="ProductStockUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ProductStockUpdateLabel">Product Stock Update</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="StockUpdate" asp-controller="Products" asp-area="Admin"
+                  method="post" asp-antiforgery="true">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Id" class="form-label d-block">Product</label>
+                            <select asp-for="Id" class="form-select" data-placeholder="Select Once">
+                            </select>
+                            <span asp-validation-for="Id" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Stock" class="form-label">Stock Quantity</label>
+                            <input type="number" asp-for="Stock" class="form-control" />
+                            <span asp-validation-for="Stock" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<partial name="_Select2SearchingByIdPartial" />
+<script>
+    $(document).ready(function () {
+        initializeSearchOnlySelect2({
+            selectorId: '#Id',
+            searchUrl: '/Admin/Products/SearchProducts',
+            dropdownParentId: '#ProductStockUpdate'
+        });
+    });
+</script>
+<partial name="_ValidationScriptsPartial" />

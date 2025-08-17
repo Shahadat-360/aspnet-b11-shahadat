@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-DevSkill.Inventory.Worker-fe7c5563-1f7a-4130-a58c-b667b7b8278c</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="4.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.7" />
+	  <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="9.0.4" />
+	  <PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0" />
+	  <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
+	  <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+	  <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevSkill.Inventory.Application\DevSkill.Inventory.Application.csproj" />
+    <ProjectReference Include="..\DevSkill.Inventory.Infrastructure\DevSkill.Inventory.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

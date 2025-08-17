@@ -1,0 +1,17 @@
+﻿using DevSkill.Inventory.Domain.Enums;
+using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DevSkill.Inventory.Application.Features.Categories.Commands
+{
+    public class CategoryUpdateCommand:IRequest
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public Status Status { get; set; }
+    }
+}

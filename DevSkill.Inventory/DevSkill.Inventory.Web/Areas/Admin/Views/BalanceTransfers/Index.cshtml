@@ -1,0 +1,278 @@
+﻿
+@using DevSkill.Inventory.Application.Features.BalanceTransfers.Queries
+@using DevSkill.Inventory.Domain
+@using DevSkill.Inventory.Domain.Enums
+@model BalanceTransfersByQuery
+@{
+    ViewData["Title"] = "Balance Transfers";
+}
+
+<!--begin::App Content Header-->
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Available Balance Transfers</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index" asp-area="Admin">Dashboard</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Balance Transfers</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div id="BalanceTransferModalContainer"></div>
+<div class="app-content">
+    <div class="container-fluid">
+        <partial name="_ResponsePartial" />
+        <!--begin::Row-->
+        <!-- Search Customer Card -->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"><i class="fas fa-search mr-1"></i>Search Balance Transfer Record</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.TransferDateFrom">Transfer Date From</label>
+                                <input type="date" asp-for="SearchItem.TransferDateFrom" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.TransferDateTo">Transfer Date To</label>
+                                <input type="date" asp-for="SearchItem.TransferDateTo" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                            <label asp-for="SearchItem.SendingAccountType">Sending Account Type</label>
+                            <div class="position-relative">
+                                <select asp-for="SearchItem.SendingAccountType" class="form-select pe-5" asp-items="Html.GetEnumSelectList<AccountType>()">
+                                    <option value="">-- Select Status --</option>
+                                </select>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.SendingAccount">Sending Account</label>
+                                <input type="text" asp-for="SearchItem.SendingAccount" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.ReceivingAccountType">Receiving Account Type</label>
+                                <div class="position-relative">
+                                    <select asp-for="SearchItem.ReceivingAccountType" class="form-select pe-5" asp-items="Html.GetEnumSelectList<AccountType>()">
+                                        <option value="">-- Select Status --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.ReceivingAccount">Receiving Account</label>
+                                <input type="text" asp-for="SearchItem.ReceivingAccount" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.MinTransferAmount">Minimum Transfer Amount</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MinTransferAmount" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.MaxTransferAmount">Maximum Transfer Amount</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MaxTransferAmount" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="SearchItem.Note">Note</label>
+                                <input type="text" asp-for="SearchItem.Note" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="BalanceTransferSearchButton" type="submit" class="btn btn-primary float-right">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Space between cards -->
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex">
+                        <h3 class="card-title">Available Balance Transfers</h3>
+                        @if(User.HasClaim(PermissionTypes.BalanceTransfer,Permissions.BalanceTransferAdd))
+                        {
+                            <button type="button" class="btn btn-primary ms-auto" onclick="Add()">
+                                <i class="bi bi-plus-lg"></i>
+                                Transfer Balance
+                            </button>
+                        }
+                    </div>
+                    <div class="card-body">
+                        <partial name="_ModalPartial" />
+                        <table id="BalanceTransfers" class="table table-bordered">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>#SN</th>
+                                    <th>Date</th>
+                                    <th>Sending Ac. Type</th>
+                                    <th>Sending Ac.</th>
+                                    <th>Receiving Ac. Type</th>
+                                    <th>Receiving Ac.</th>
+                                    <th>Transfered Amount</th>
+                                    <th>Note</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot class="text-center">
+                                <tr>
+                                    <th>#SN</th>
+                                    <th>Date</th>
+                                    <th>Sending Ac. Type</th>
+                                    <th>Sending Ac.</th>
+                                    <th>Receiving Ac. Type</th>
+                                    <th>Receiving Ac.</th>
+                                    <th>Transfered Amount</th>
+                                    <th>Note</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>
+<!--end::App Content-->
+@section Scripts {
+    <partial name="_DataTablesHelperPartial" />
+    <partial name="_Select2LibraryPartial" />
+    <script>
+        function Add() {
+            $.get("/Admin/BalanceTransfers/Add", function (response) {
+                $("#BalanceTransferModalContainer").html(response);
+                $("#BalanceTransferModal").modal("show");
+            });
+        }
+    </script>
+    <script>
+        $(function () {
+            $("#BalanceTransfers").DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                lengthChange: true,
+                autoWidth: false,
+                searching: false,
+                lengthMenu: [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, 'All']
+                ],
+
+                // there is various Option present such as
+                // buttonStart,buttonEnd,topStart,topEnd,
+                // top2Start,top2Start so on.
+                layout: {
+                    top: {
+                        // buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
+                        // for customizing column
+                        buttons:[
+                            // specific index based
+                            // { extend: 'copy',  exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'csv',   exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'excel', exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'pdf',   exportOptions: { columns: [0,1,2] } },
+                            // { extend: 'print', exportOptions: { columns: [0,1,2] } }
+                            // to exclude last child of the columns
+                            { extend: 'copy',  exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'csv',   exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'excel', exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'pdf',   exportOptions: { columns: ':not(:last-child)' } },
+                            { extend: 'print', exportOptions: { columns: ':not(:last-child)' } }
+                        ]
+                    },
+                    topEnd:'search'
+                },
+                ajax: {
+                    url: "/Admin/BalanceTransfers/GetBankTransferJsonData",
+                    type: "POST",
+                     contentType: "application/json", //must be added
+                     dataType: "json", //better to add, not mandatory
+                     data: function (d) {
+                         d.SearchItem = {
+                            TransferDateFrom: $("#SearchItem_TransferDateFrom").val()===""?null:$("#SearchItem_TransferDateFrom").val(),
+                            TransferDateTo: $("#SearchItem_TransferDateTo").val()===""?null:$("#SearchItem_TransferDateTo").val(),
+                            SendingAccountType: $("#SearchItem_SendingAccountType").val()===""?null:parseInt($("#SearchItem_SendingAccountType").val()),
+                            SendingAccount: $("#SearchItem_SendingAccount").val(),
+                            ReceivingAccountType: $('#SearchItem_ReceivingAccountType').val()===""?null:parseInt($('#SearchItem_ReceivingAccountType').val()),
+                            ReceivingAccount: $('#SearchItem_ReceivingAccount').val(),
+                            MinTransferAmount: $('#SearchItem_MinTransferAmount').val()===""?null:$('#SearchItem_MinTransferAmount').val(),
+                            MaxTransferAmount: $('#SearchItem_MaxTransferAmount').val()===""?null:$('#SearchItem_MaxTransferAmount').val(),
+                            Note: $('#SearchItem_Note').val()
+                         };
+                         return JSON.stringify(d);
+                     },
+                },
+                order: [[1, 'desc']],
+                columnDefs: [
+                    {
+                        orderable: false,
+                        targets: [0,2,4]
+                    },
+                    {
+                        orderable: false,
+                        targets: 8,
+                        render: function (data, type, row) {
+                            console.log(data,row);
+                                    return `
+                                    @if(User.HasClaim(PermissionTypes.BalanceTransfer,Permissions.BalanceTransferDelete))
+                                    {
+                                        <button class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    }
+                                    else {
+                                        <p>Unavailable</p>
+                                    }
+                                    `;
+
+                        }
+                    }
+                ],
+            });
+            $('#BalanceTransfers').on('click','.show-bs-modal',function()
+            {
+                let id = $(this).data('id');
+                let DeleteModal = $('#delete-modal');
+                DeleteModal.find('.modal-body p').html('Are you sure you want to delete this BalanceTransfers?');
+                $('#delete-id').val(id);
+                $('#delete-form').attr('action', '/Admin/BalanceTransfers/Delete');
+                DeleteModal.modal('show');
+            });
+
+            $('#delete-btn').on('click', function () {
+                $('#delete-form').submit();
+            });
+
+            $('#BalanceTransferSearchButton').on('click', function () {
+                $("#BalanceTransfers").DataTable().ajax.reload(null,false);
+            });
+        });
+    </script>
+}
+

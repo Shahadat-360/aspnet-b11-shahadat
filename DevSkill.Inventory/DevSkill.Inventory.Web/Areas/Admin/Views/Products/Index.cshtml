@@ -1,14 +1,10 @@
 ﻿@using DevSkill.Inventory.Application.Features.Products.Queries
+@using DevSkill.Inventory.Domain
+@using DevSkill.Inventory.Domain.Enums
 @model ProductsByQuery
 @{
     ViewData["Title"] = "Products";
 }
-
-@section Styles {
-    <link href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.min.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.dataTables.min.css" rel="stylesheet" />
-}
-
 <!--begin::App Content Header-->
 <div class="app-content-header">
     <div class="container-fluid">
@@ -25,11 +21,11 @@
 </div>
 <!--end::App Content Header-->
 <!--begin::App Content-->
+<div id="ProductModalContainer"></div>
 <div class="app-content">
     <div class="container-fluid">
-        <!--begin::Row-->
         <partial name="_ResponsePartial" />
-
+        <!--begin::Row-->
         <!-- Search Product Card -->
         <div class="col-12">
             <div class="card">
@@ -45,32 +41,62 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
+                                <label>Product Code</label>
+                                <input type="text" asp-for="SearchItem.Id" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
                                 <label>Name</label>
                                 <input type="text" asp-for="SearchItem.Name" class="form-control" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>CategoryId(Dropdown to be added)</label>
-                                <input type="text" asp-for="SearchItem.CategoryId" class="form-control" />
+                                <label>Category</label>
+                                <input type="text" asp-for="SearchItem.Category" class="form-control" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Minimum Price</label>
-                                <input type="number" asp-for="SearchItem.MinPrice" class="form-control" />
+                                <label>Minimum Purchase Price</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MinPurchasePrice" class="form-control" />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>Maximum Price</label>
-                                <input type="number" asp-for="SearchItem.MaxPrice" class="form-control" />
+                                <label>Maximum Purchase Price</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MaxPurchasePrice" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Minimum MRP Price</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MinMRP" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Maximum MRP Price</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MaxMRP" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Minimum Wholesale Price</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MinWholesalePrice" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Maximum Wholesale Price</label>
+                                <input type="number" step="0.01" asp-for="SearchItem.MaxWholesalePrice" class="form-control" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button id="searchButton" type="submit" class="btn btn-primary float-right">Search</button>
+                    <button id="ProductSearchButton" type="submit" class="btn btn-primary float-right">Search</button>
                 </div>
             </div>
         </div>
@@ -80,25 +106,58 @@
             <div class="col-md-12">
                 <div class="card mb-4">
                     <div class="card-header">
-                        <h3 class="card-title">Available Products</h3>
+                        <h3 class="card-title d-flex justify-content-start">Available Products</h3>
+                        <div class="d-flex justify-content-end">
+                            @if(User.HasClaim(PermissionTypes.Product,Permissions.ProductUpdate))
+                            {
+                                <button type="button" class="btn btn-warning me-md-2" onclick="DamageUpdate()">
+                                    <i class="bi bi-plus-lg"></i> Damage Product
+                                </button>
+                                <button type="button" class="btn btn-success me-md-2" onclick="StockUpdate()">
+                                    <i class="bi bi-plus-lg"></i> Store Product
+                                </button>
+                            }
+                            @if(User.HasClaim(PermissionTypes.Product,Permissions.ProductAdd))
+                            {
+                                <button type="button" class="btn btn-primary" onclick="Add()">
+                                    <i class="bi bi-plus-lg"></i> New Product
+                                </button>
+                            }
+                        </div>
                     </div>
                     <div class="card-body">
                         <partial name="_ModalPartial" />
                         <table id="products" class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>#SN</th>
+                                    <th>Image</th>
+                                    <th>Code</th>
                                     <th>Name</th>
-                                    <th>CategoryId</th>
-                                    <th>Price</th>
+                                    <th>Category</th>
+                                    <th>Purchase</th>
+                                    <th>MRP</th>
+                                    <th>Wholesale</th>
+                                    <th>Stock</th>
+                                    <th>Low Stock</th>
+                                    <th>Damage Stock</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
                             <tfoot>
                                 <tr>
+                                    <th>#SN</th>
+                                    <th>Image</th>
+                                    <th>Code</th>
                                     <th>Name</th>
-                                    <th>CategoryId</th>
-                                    <th>Price</th>
+                                    <th>Category</th>
+                                    <th>Purchase</th>
+                                    <th>MRP</th>
+                                    <th>Wholesale</th>
+                                    <th>Stock</th>
+                                    <th>Low Stock</th>
+                                    <th>Damage Stock</th>
                                     <th>Actions</th>
                                 </tr>
                             </tfoot>
@@ -113,24 +172,49 @@
 <!--end::App Content-->
 @section Scripts
 {
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <partial name="_DataTablesHelperPartial" />
+    @* Select2 Support  *@
+    <partial name="_Select2LibraryPartial" />
 
-    <!-- DataTables Buttons extension -->
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.dataTables.js"></script>
-
-    <!-- JSZip for Excel export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
-    <!-- pdfmake for PDF export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-
-    <!-- DataTables export/print plugins -->
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
-
+    @* All Modal Calls Here Start *@
+    <script>
+        // Add Product Modal 
+        function Add() {
+            $.get("/Admin/Products/Add", function (response) {
+                $("#ProductModalContainer").html(response);
+                $("#ProductModal").modal("show");
+            });
+        }
+        // Update Product Modal 
+        function Update(id) {
+            $.get(`/Admin/Products/Update/${id}`, function (response) {
+                if (response.success === false) {
+                    window.location.href = response.redirectUrl;
+                }
+                else{
+                    $("#ProductModalContainer").html(response);
+                    $("#ProductModal").modal("show");
+                }
+            });
+        }
+        // Stock Update Modal
+        function StockUpdate()
+        {
+            $.get("/Admin/Products/StockUpdate", function (response) {
+                $("#ProductModalContainer").html(response);
+                $("#ProductStockUpdate").modal("show");
+            });
+        }
+        // Damage Update Modal
+        function DamageUpdate()
+        {
+            $.get("/Admin/Products/DamageStockUpdate", function (response) {
+                $("#ProductModalContainer").html(response);
+                $("#ProductDamageUpdate").modal("show");
+            });
+        }
+    </script>
+    @* All Modal Calls Here Start *@
     <script>
         $(function () {
             $("#products").DataTable({
@@ -169,29 +253,66 @@
                      dataType: "json", //better to add, not mandatory
                      data: function (d) {
                          d.SearchItem = {
+                            Id: $("#SearchItem_Id").val(),
                             Name: $("#SearchItem_Name").val(),
-                            CategoryId: $("#SearchItem_CategoryId").val() === "" ? null : $("#SearchItem_CategoryId").val(),
-                            MinPrice: $("#SearchItem_MinPrice").val() === ""? null : $("#SearchItem_MinPrice").val(),
-                            MaxPrice: $("#SearchItem_MaxPrice").val() === "" ? null : $("#SearchItem_MaxPrice").val()
+                            Category: $("#SearchItem_Category").val(),
+                            MinPurchasePrice: $("#SearchItem_MinPurchasePrice").val() === ""? null : $("#SearchItem_MinPurchasePrice").val(),
+                            MaxPurchasePrice: $("#SearchItem_MaxPurchasePrice").val() === "" ? null : $("#SearchItem_MaxPurchasePrice").val(),
+                            MinMRP: $("#SearchItem_MinMRP").val() === "" ? null : $("#SearchItem_MinMRP").val(),
+                            MaxMRP: $("#SearchItem_MaxMRP").val() === "" ? null : $("#SearchItem_MaxMRP").val(),
+                            MinWholesalePrice: $("#SearchItem_MinWholesalePrice").val() === "" ? null : $("#SearchItem_MinWholesalePrice").val(),
+                            MaxWholesalePrice: $("#SearchItem_MaxWholesalePrice").val() === "" ? null : $("#SearchItem_MaxWholesalePrice").val()
                          };
                          return JSON.stringify(d);
                      },
                 },
+                order: [[2, 'asc']],
                 columnDefs: [
                     {
                         orderable: false,
-                        targets: 3,
+                        targets: [0,1,11],
+                    },
+                    {
+                        targets: 1,
+                        render: function(data,type,row){
+                            console.log(data,row[3]);
+                            return `
+                                <img src="${row[1]}" alt="No Image" style="Width:60px;height:60px;" />
+                            `;
+                        }
+                    },
+                    {
+                        targets: 11,
                         render: function (data, type, row) {
-                            return `<button type="submit" class="btn btn-info btn-sm" onclick="window.location.href='/admin/products/update/${data}'" value='${data}'>
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                Edit
-                                            </button>
-                                            <button type="submit" class="btn btn-danger btn-sm show-bs-modal" data-id='${data}' value='${data}'>
-                                                <i class="fas fa-trash">
-                                                </i>
-                                                Delete
-                                            </button>`;
+                            return `
+                             <div class="dropdown">
+                               <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 Actions
+                               </button>
+                               <ul class="dropdown-menu">
+                                 <li>
+                                   <a class="dropdown-item text-primary" href="/admin/products/ProductView/${row[2]}">
+                                     <i class="bi bi-eye"></i> View
+                                   </a>
+                                 </li>
+                                 @if(User.HasClaim(PermissionTypes.Product,Permissions.ProductUpdate))
+                                 {
+                                     <li>
+                                       <a class="dropdown-item text-info"" onclick="Update('${row[2]}')">
+                                         <i class="bi bi-pencil-square"></i> Edit
+                                       </a>
+                                     </li>
+                                 }
+                                 @if(User.HasClaim(PermissionTypes.Product,Permissions.ProductDelete))
+                                 {
+                                     <li>
+                                       <button class="dropdown-item text-danger show-bs-modal" data-id="${row[2]}">
+                                         <i class="bi bi-trash"></i> Delete
+                                       </button>
+                                     </li>
+                                 }
+                               </ul>
+                             </div>`;
                         }
                     }
                 ],
@@ -201,7 +322,7 @@
             {
                 let id = $(this).data('id');
                 let DeleteModal = $('#delete-modal');
-                DeleteModal.find('.modal-body p').html('Are you sure you want to delete this Products?');
+                DeleteModal.find('.modal-body p').html('Are you sure you want to delete this Product?');
                 $('#delete-id').val(id);
                 $('#delete-form').attr('action', '/Admin/Products/Delete');
                 DeleteModal.modal('show');
@@ -211,7 +332,7 @@
                 $('#delete-form').submit();
             });
 
-            $('#searchButton').on('click', function () {
+            $('#ProductSearchButton').on('click', function () {
                 $("#products").DataTable().ajax.reload(null,false);
             });
         });

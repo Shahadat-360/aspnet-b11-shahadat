@@ -9,6 +9,13 @@ using Serilog;
 using System.Reflection;
 
 #region Bootstrap Serilog
+using DevSkill.Inventory.Infrastructure.Extensions;
+using DevSkill.Inventory.Infrastructure.Seeds;
+using DevSkill.Inventory.Web.Middlewares;
+using Amazon.S3;
+using Amazon.SQS;
+using DevSkill.Inventory.Worker;
+
 var configuration = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json")
@@ -59,13 +66,34 @@ try
     builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
     #endregion
 
+    #region Identity Configuration
+    builder.Services.AddIdentity();
+    #endregion
+
+    #region Policy Configuration
+    builder.Services.AddPolicy();
+    #endregion
+
+    #region Cookie Authentication Configuration
+    builder.Services.AddCookieAuthentication();
+    #endregion
+
+    #region AWS Configuration
+    var awsOptions = builder.Configuration.GetAWSOptions();
+    builder.Services.AddDefaultAWSOptions(awsOptions);
+    builder.Services.AddAWSService<IAmazonS3>();
+    builder.Services.AddAWSService<IAmazonSQS>();
+    #endregion
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(connectionString,x=>x.MigrationsAssembly(migrationAssembly)));
     builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    builder.Services.AddScoped<AdminSeed>();
+    builder.Services.AddHostedService<ImageResizeWorker>();
+
     builder.Services.AddControllersWithViews();
+    builder.Services.AddRazorPages();
 
     var app = builder.Build();
 
@@ -81,8 +109,20 @@ try
         app.UseHsts();
     }
 
+    #region Admin Seed
+    using (var scope = app.Services.CreateScope())
+    {
+        var seeder = scope.ServiceProvider.GetRequiredService<AdminSeed>();
+        await seeder.SeedAdminAsync();
+    }
+    #endregion
+
     app.UseHttpsRedirection();
     app.UseRouting();
+
+    app.UseAuthentication();
+
+    app.UseUserStatusCheck();
 
     app.UseAuthorization();
 
@@ -99,12 +139,18 @@ try
 
     app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}")
+        pattern: "{controller=Dashboard}/{action=Index}/{id?}",
+        defaults: new { area = "Admin", controller = "Dashboard", action = "Index" })
+        .WithStaticAssets();
+
+    app.MapControllerRoute(
+        name: "account",
+        pattern: "Account/{action=Index}/{id?}",
+        defaults: new { controller = "Account" })
         .WithStaticAssets();
 
     app.MapRazorPages()
        .WithStaticAssets();
-
     app.Run();
 }
 catch (Exception ex)

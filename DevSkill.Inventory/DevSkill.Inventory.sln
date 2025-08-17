@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevSkill.Inventory.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevSkill.Inventory.Infrastructure", "DevSkill.Inventory.Infrastructure\DevSkill.Inventory.Infrastructure.csproj", "{DAF8E894-0665-E909-5829-D7153E0E25C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevSkill.Inventory.Worker", "DevSkill.Inventory.Worker\DevSkill.Inventory.Worker.csproj", "{87E67D3C-775D-4089-B59C-3C30CF5655D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{DAF8E894-0665-E909-5829-D7153E0E25C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAF8E894-0665-E909-5829-D7153E0E25C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAF8E894-0665-E909-5829-D7153E0E25C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87E67D3C-775D-4089-B59C-3C30CF5655D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87E67D3C-775D-4089-B59C-3C30CF5655D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87E67D3C-775D-4089-B59C-3C30CF5655D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87E67D3C-775D-4089-B59C-3C30CF5655D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
